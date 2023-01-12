@@ -74,5 +74,6 @@ public class GameController : MonoBehaviour
         }
 
         godModeText.gameObject.SetActive(true);
+        
     }
 }
