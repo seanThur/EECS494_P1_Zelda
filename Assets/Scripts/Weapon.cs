@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public enum WeaponType { Sword, Bow, Bomb, Boomerang, Empty };
+/*public enum WeaponType { Sword, Bow, Bomb, Boomerang, Empty };
 
-public class Weapon : MonoBehaviour
+public class Weapon
 {
-    public Weapon weapon;
     public WeaponType weaponType;
     public bool equipped = false;
 
@@ -57,3 +55,4 @@ public class Boomerang : Weapon
 {
     WeaponType weaponType = WeaponType.Boomerang;
 }
+*/

@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Inventory : MonoBehaviour
+public class Inventory
 {
-    public float hearts = 3.0f;
-    private Weapon activeWeaponA;
-    private Weapon activeWeaponB;
+    //public float hearts = 3.0f;
+    //private Weapon activeWeaponA;
+    //private Weapon activeWeaponB;
     private int rupeeCount = 0;
     private int bombCount = 0;
     private int keyCount = 0;
 
+    
     public void AddRupees(int num)
     {
         //prevents losing rupees
@@ -99,7 +98,8 @@ public class Inventory : MonoBehaviour
         keyCount = num;
     }
 
-    public Weapon GetActiveWeaponA()
+    
+    /*public Weapon GetActiveWeaponA()
     {
         return activeWeaponA;
     }
@@ -118,24 +118,12 @@ public class Inventory : MonoBehaviour
     {
         activeWeaponB = w;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        SetActiveWeaponA(new Sword());
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    */
 
 
     public void GodMode()
     {
-        hearts = 3;
+        //hearts = 3;
         rupeeCount = 999;
         bombCount = 99;
         keyCount = 99;
