@@ -31,10 +31,10 @@ public class Health : MonoBehaviour
         {
             goCommitDie();
         }
-        if (hearts > maxHearts)
-        {
-            hearts = maxHearts;
-        }
+        //if (hearts > maxHearts)
+        //{
+        //    hearts = maxHearts;
+        //}
     }
 
     public void takeDamage(float amount)

@@ -56,22 +56,25 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\LerpToDesiredUIPosition.cs" />
-    <Compile Include="Assets\Scripts\ScreenShakeEffect.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
-    <Compile Include="Assets\Scripts\Health.cs" />
-    <Compile Include="Assets\Scripts\Displayer.cs" />
-    <Compile Include="Assets\Scripts\InputToAnimator.cs" />
-    <Compile Include="Assets\Scripts\Enemies\RandomConstantMovement.cs" />
-    <Compile Include="Assets\Scripts\EECS494FunBallController.cs" />
-    <Compile Include="Assets\Scripts\Weapon.cs" />
-    <Compile Include="Assets\Scripts\SeanScripts\PlayerControllerLEG.cs" />
-    <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
-    <Compile Include="Assets\Scripts\Enemies\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\MoveOnGrid.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\SeanScripts\PlayerControllerLEG.cs" />
+    <Compile Include="Assets\Scripts\LerpToDesiredUIPosition.cs" />
+    <Compile Include="Assets\Scripts\Health.cs" />
+    <Compile Include="Assets\Scripts\InputToAnimator.cs" />
     <Compile Include="Assets\Scripts\ExplodeTimer.cs" />
+    <Compile Include="Assets\Scripts\ScreenShakeEffect.cs" />
     <Compile Include="Assets\Scripts\EECS494FunBallAesthetics.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\EECS494FunBallController.cs" />
+    <Compile Include="Assets\Scripts\Displayer.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Enemies\RandomConstantMovement.cs" />
+    <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\ArrowController.cs" />
+    <Compile Include="Assets\Scripts\Bow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

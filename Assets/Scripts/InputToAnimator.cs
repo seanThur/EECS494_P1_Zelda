@@ -87,6 +87,7 @@ public class InputToAnimator : MonoBehaviour
         isAttacking = true;
         animator.SetTrigger("Attack");
         animator.SetInteger("Direction",0);
+        StartCoroutine(stopAttack());
         return (true);
     }
 
@@ -101,6 +102,12 @@ public class InputToAnimator : MonoBehaviour
     {
         yield return (new WaitForSeconds(0.1f));
         isHurt = false;
+    }
+
+    IEnumerator stopAttack()
+    {
+        yield return (new WaitForSeconds(0.25f));
+        isAttacking = false;
     }
 
 }

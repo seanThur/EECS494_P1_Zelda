@@ -74,6 +74,10 @@ public class PlayerController : MonoBehaviour
         {
             swordAttack();
         }
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
+        }
     }
 
     void FixedUpdate()
@@ -240,6 +244,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collected heart");
             Destroy(other);
 
+            health.heal(1);
+            displayer.displayHearts(health.hearts);
+
             //heart sound effect
         }
         else if(other.tag.Equals("bomb"))
@@ -394,7 +401,16 @@ public class PlayerController : MonoBehaviour
     {
         isJolted = true;
         isInvinicible = true;
-        rb.velocity = direction * 30.0f;
+        Vector3 fixedDirection;
+        if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            fixedDirection = new Vector3(direction.x,0.0f,0.0f);
+        } 
+        else
+        {
+            fixedDirection = new Vector3(0.0f, direction.y, 0.0f);
+        }
+        rb.velocity = direction.normalized * 30.0f;
         StartCoroutine(stopjolt());
         StartCoroutine(stopInvincibllity());
         //Player is pushed away from enemy and becomes invincible temporarally

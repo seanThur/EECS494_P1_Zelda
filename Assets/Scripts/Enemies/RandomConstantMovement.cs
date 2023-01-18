@@ -2,23 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomConstantMovement : MonoBehaviour
+public class RandomConstantMovement : MoveOnGrid
 {
-    public float speed = 1.0f;
-    private Rigidbody rb;
-
-    // Start is called before the first frame update
-    void Start()
+    public float speed = 5.0f;
+    private int dir;
+    // Start is called before the first frame updat
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         setRandomDirection();
-        rb.velocity = transform.forward*speed;
     }
-
     // Update is called once per frame
     void Update()
     {
-        if(Time.deltaTime >= 5.0f)
+        if(Time.deltaTime >= 5.0f && Random.Range(0,30) == 0)
         {
             setRandomDirection();
         }
@@ -26,20 +23,27 @@ public class RandomConstantMovement : MonoBehaviour
 
     void setRandomDirection()
     {
-        switch(Random.Range(0,3))
+        dir = Random.Range(0, 4);
+        switch (dir)
         {
             case 0:
-                transform.forward = Vector3.up;
+                moveUp(speed);
             break;
             case 1:
-                transform.forward = Vector3.right;
-            break;
+                moveLeft(speed);
+                break;
             case 2:
-                transform.forward = Vector3.down;
-            break;
-            case 3:
-                transform.forward = Vector3.left;
-            break;
+                moveDown(speed);
+                break;
+            default:
+                moveRight(speed);
+                break;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        stopNSnap();
+        setRandomDirection();
     }
 }

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public enum WeaponType { Sword, Bow, Bomb, Boomerang, Empty };
 
-public class Weapon : MonoBehaviour //Why is this a monobeviour?
+public class Weapon : MonoBehaviour
 {
-    public Weapon weapon; //What purpose does this serve?
     public WeaponType weaponType;
     public bool equipped = false;
 
@@ -20,9 +19,9 @@ public class Weapon : MonoBehaviour //Why is this a monobeviour?
         equipped = false;
     }
 
-    void Use()
+    public void Use(int dir)
     {
-
+        Debug.Log("Base weapon Use Called");
     }
 
     // Start is called before the first frame update
@@ -41,11 +40,6 @@ public class Weapon : MonoBehaviour //Why is this a monobeviour?
 public class Sword : Weapon
 {
     
-}
-
-public class Bow : Weapon
-{
-     WeaponType weaponType = WeaponType.Bow;
 }
 
 public class Bomb : Weapon

@@ -10,19 +10,24 @@ public class Displayer : MonoBehaviour
     public Text heartsText;
     public Text leftHand;
     public Text rightHand;
+    public Text rupeeText;
+    public Text keysText;
+    public Text bombText;
 
     // Start is called before the first frame update
     void Start()
     {
-        textComponent = GetComponent<Text>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(inventory != null && textComponent != null)
+        if(inventory != null)
         {
-            textComponent.text = inventory.GetRupees().ToString();
+            displayRupees(inventory.GetRupees());
+            displayKeys(inventory.GetKeys());
+            displayBomb(inventory.GetBombs());
         }
     }
 
@@ -38,6 +43,21 @@ public class Displayer : MonoBehaviour
 
     public void displayRight(string item)
     {
-        leftHand.text = "Right hand: " + item;
+        rightHand.text = "Right hand: " + item;
+    }
+
+    public void displayRupees(int r)
+    {
+        rupeeText.text = "Rupees: " + r;
+    }
+
+    public void displayKeys(int k)
+    {
+        keysText.text = "Keys: " + k;
+    }
+
+    public void displayBomb(int b)
+    {
+        bombText.text = "Bombs: " + b;
     }
 }
