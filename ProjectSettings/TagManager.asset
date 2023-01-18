@@ -18,6 +18,8 @@ TagManager:
   - LeastDoor
   - LsouthDoor
   - LwestDoor
+  - Enemy
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX

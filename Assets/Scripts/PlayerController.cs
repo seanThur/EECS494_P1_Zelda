@@ -7,17 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     //public static PlayerController instance;
     public Inventory inventory;
-    
     public AudioClip rupeeSoundClip;
-
     public Rigidbody rb;
-
     public float movementSpeed = 4.0f;
-
     public Text coords;
-
     public static float gridDist = 0.5f;
-
     public float xCameraDist = 16;
     public float yCameraDist = 8;
     public float xPlayerDist = 4.5f;
@@ -29,34 +23,62 @@ public class PlayerController : MonoBehaviour
     private bool onGridx;
     private bool onGridy;
 
+    public Displayer displayer;
+    public Health health;
+    public InputToAnimator ita;
+    public static PlayerController playerInstance;
+    public GameObject bulletPrefab;
+    private float swordDamage = 1.0f;
+    public bool isJolted = false;
+    public bool isInvinicible = false;
+
     private void Awake()
     {
-        if (GameController.player == null)
+        if (playerInstance == null)
         {
-            GameController.player = this;
+            playerInstance = this;
         }
-        else if (GameController.player != this)
+        else if (playerInstance != this)
         {
             Destroy(gameObject);
         }
     }
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        inventory = new Inventory();
+        //inventory = new Inventory();//Review
+        inventory = GetComponent<Inventory>();
+        displayer = GetComponent<Displayer>();
+        health = GetComponent<Health>();
+        ita = GetComponent<InputToAnimator>();
+        if (inventory == null)
+        {
+            Debug.LogWarning("WARNING: PlayerController has no inventory!");
+        }
+        if (displayer == null)
+        {
+            Debug.LogWarning("WARNING: PlayerController has no displayer!");
+        }
+        displayer.displayHearts(3);
+        displayer.displayLeft("Sword");
+        displayer.displayRight("Bow");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            swordAttack();
+        }
     }
 
     void FixedUpdate()
     {
+        
         //set gridMovement values
         x = rb.transform.position.x;
         y = rb.transform.position.y;
@@ -88,7 +110,16 @@ public class PlayerController : MonoBehaviour
 
         //coords.text = x.ToString() + " " + y.ToString() + "\n" + onGridx.ToString() + " " + onGridy.ToString() + "\n" + currentInput.x.ToString() + " " + currentInput.y.ToString();
 
-        rb.velocity = currentInput * movementSpeed;
+        if (!(ita.isAttacking) && !(isJolted))//I know this is a mess of state, it's a wip
+        {
+            rb.velocity = currentInput * movementSpeed;
+        }
+        else if (ita.isAttacking)
+        {
+            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        }
+
+        
     }
 
     Vector2 GetInput()
@@ -165,6 +196,7 @@ public class PlayerController : MonoBehaviour
         return new Vector2(xOutput, yOutput);
     }
 
+
     private void OnTriggerEnter(Collider coll)
     {
         GameObject other = coll.gameObject;
@@ -181,7 +213,16 @@ public class PlayerController : MonoBehaviour
         Vector3 playerPos = transform.position;
         Vector3 playerDest = transform.position;
 
-        if (other.tag.Equals("rupee"))
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyController ec = other.GetComponent<EnemyController>();
+            if (!(isInvinicible))
+            {
+                TakeDamage(ec.contactDamage);
+                jolt(transform.position - coll.ClosestPoint(transform.position));
+            }
+        }
+        else if (other.tag.Equals("rupee"))
         {
             
             inventory.AddRupees(1);
@@ -216,11 +257,6 @@ public class PlayerController : MonoBehaviour
 
             inventory.AddKeys(1);
             //anything else
-        }
-        else if (other.tag.Equals("enemy"))
-        {
-
-            //enemy trigger logic, if any
         }
         //doorcheck
         else
@@ -290,20 +326,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    public void TakeDamage(float damageMultiplier)
     {
-        GameObject other = collision.gameObject;
-
-        if (other.tag.Equals("enemy"))
+        ita.damaged();
+        if (GameController.godMode || isInvinicible)
         {
-            //TakeDamage(1);
-            Debug.Log("Took damage!");
-         
-
-            //add audio/visual effects of damage here
+            return;
         }
+        health.hearts -= 0.5f * damageMultiplier;
+        if (health.hearts <= 0)
+        {
+            GameController.instance.GameOver();
+        }
+        displayer.displayHearts(health.hearts);
     }
-
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
     public static IEnumerator MoveObjectOverTime(Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
@@ -353,4 +390,93 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void jolt(Vector3 direction)
+    {
+        isJolted = true;
+        isInvinicible = true;
+        rb.velocity = direction * 30.0f;
+        StartCoroutine(stopjolt());
+        StartCoroutine(stopInvincibllity());
+        //Player is pushed away from enemy and becomes invincible temporarally
+    }
+
+    IEnumerator stopjolt()
+    {
+        yield return (new WaitForSeconds(0.1f));
+        isJolted = false;
+        rb.velocity = Vector3.zero;
+    }
+
+    IEnumerator stopInvincibllity()
+    {
+        yield return (new WaitForSeconds(1.0f));
+        isInvinicible = false;
+    }
+
+
+    public void swordAttack()
+    {
+        if (!(ita.attack()))
+        {
+            return;
+        }
+        Vector3 castDir = new Vector3(0.0f, 0.0f, 0.0f);
+        float len = 1.0f;
+        switch (ita.lastDirection)
+        {
+            case 1:
+                castDir.y = 1.0f;
+                break;
+            case 2:
+                castDir.x = 1.0f;
+                break;
+            case 3:
+                castDir.y = -1.0f;//BUGGED - DOES NOT HIT
+                break;
+            case 4:
+                castDir.x = -1.0f;
+                break;
+        }
+        RaycastHit hitData;
+
+        if (Physics.Raycast(gameObject.transform.position, castDir, out hitData, len))
+        {
+            if (hitData.collider.gameObject.CompareTag("Enemy"))
+            {
+                Debug.Log("HIT ENEMY!");
+                if (hitData.collider.gameObject.GetComponent<EnemyController>())
+                {
+                    hitData.collider.gameObject.GetComponent<EnemyController>().takeDamage(swordDamage);
+                }
+            }
+        }
+        if (health.isAtMaxHearts())
+        {
+            fireBullet(ita.lastDirection);
+        }
+    }
+
+    void fireBullet(int dir)
+    {
+        GameObject temp = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        temp.GetComponent<BulletController>().damage = swordDamage;
+        temp.GetComponent<Animator>().SetInteger("dir", dir);
+        float speed = 6.0f;
+        switch (dir)
+        {
+            case 1:
+                temp.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 1.0f, 0.0f) * speed;
+                break;
+            case 2:
+                temp.GetComponent<Rigidbody>().velocity = new Vector3(1.0f, 0.0f, 0.0f) * speed;
+                break;
+            case 3:
+                temp.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, -1.0f, 0.0f) * speed;
+                break;
+            case 4:
+                temp.GetComponent<Rigidbody>().velocity = new Vector3(-1.0f, 0.0f, 0.0f) * speed;
+                break;
+        }
+
+    }
 }
