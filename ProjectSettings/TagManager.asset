@@ -5,19 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - rupee
-  - enemy
-  - heart
-  - door
-  - northDoor
-  - eastDoor
-  - southDoor
-  - westDoor
-  - bomb
-  - key
-  - LnorthDoor
-  - LeastDoor
-  - LsouthDoor
-  - LwestDoor
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -25,7 +13,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -55,9 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Ground
-    uniqueID: 1236549987
-    locked: 0
-  - name: On Ground
-    uniqueID: 2579823163
+  - name: Bullet
+    uniqueID: 3971088701
     locked: 0

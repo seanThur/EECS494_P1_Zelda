@@ -6,72 +6,61 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController instance;
-    public static PlayerController player;
+    public static GameController gameInstance;
+    public static PlayerController playerInstance;
     public static bool godMode = false;
     public GameObject gameOverText;
     public Text godModeText;
     public bool gameOver = false;
-
+    
     //singleton pattern 
     private void Awake()
     {
-        if (instance == null)
+        if (gameInstance == null)
         {
-            instance = this;
+            gameInstance = this;
         }
-        else if (instance != this)
+        else if (gameInstance != this)
         {
             Destroy(gameObject);
         }
-
-        Screen.SetResolution(1024, 960, false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //game startup here
+        playerInstance = PlayerController.playerInstance;
     }
-    void Update()
-    {
-
-        if (gameOver && Input.GetMouseButtonDown(0))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            //UseStandardWeapon/Sword();
-        }
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            //UseAltWeapon();
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //ScrollAltWeapons();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ToggleGodMode();
-        }
-
-    }
-   
 
     public void GameOver()
     {
         gameOver = true;
         gameOverText.SetActive(true);
+        
 
         //stop player movement
-        //playerInstance.movementSpeed = 0;
-
+        playerInstance.enabled = false;
+        playerInstance.ita.enabled = false;
         //set other game over stuff
 
+
     }
+
+    //restart
+    void Update()
+    {
+        if (gameOver && Input.GetMouseButtonDown(0))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            ToggleGodMode();
+        }
+    }
+
 
     void ToggleGodMode()
     {
@@ -79,24 +68,14 @@ public class GameController : MonoBehaviour
         if(godMode)
         {
             godModeText.text = "God mode enabled.";
-            player.inventory.GodMode();
+            playerInstance.inventory.GodMode();
         }
         else
         {
             godModeText.text = "God mode disabled.";
         }
 
-        GameObject g = godModeText.gameObject;
-        StartCoroutine(showForSecs(g, 5));
+        godModeText.gameObject.SetActive(true);
+        
     }
-
-    private IEnumerator showForSecs(GameObject g, float s)
-    {
-        g.SetActive(true);
-        Debug.Log(g.name + " set active");
-        yield return new WaitForSeconds(s);
-        Debug.Log(g.name + " deactivated");
-        g.SetActive(false);
-    }
-
 }
