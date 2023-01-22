@@ -7865,6 +7865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  movementSpeed: 1
   speed: 1
 --- !u!1001 &1051857134
 PrefabInstance:
@@ -12848,6 +12849,20 @@ MonoBehaviour:
   weaponType: 0
   equipped: 0
   arrow: {fileID: 8899288105574617246, guid: d07e071b18bfefb4fa527c21d32fbfb1, type: 3}
+--- !u!114 &1922601680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922601657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07f31ff8782133e499bacc1ba0cfa9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  movementSpeed: 1
 --- !u!1001 &1922856112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14358,13 +14373,13 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.6
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.113008
+  orthographic size: 6.1773973
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

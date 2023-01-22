@@ -9,19 +9,14 @@ public class PlayerController : MonoBehaviour
     public Inventory inventory;
     public AudioClip rupeeSoundClip;
     public Rigidbody rb;
+    public MoveOnGrid mog;
     public float movementSpeed = 4.0f;
     public Text coords;
-    public static float gridDist = 0.5f;
+
     public float xCameraDist = 16;
     public float yCameraDist = 8;
     public float xPlayerDist = 4.5f;
     public float yPlayerDist = 4.5f;
-    private float x;
-    private float y;
-    private float xRem;
-    private float yRem;
-    private bool onGridx;
-    private bool onGridy;
 
     public Displayer displayer;
     public Health health;
@@ -54,6 +49,8 @@ public class PlayerController : MonoBehaviour
         displayer = GetComponent<Displayer>();
         health = GetComponent<Health>();
         ita = GetComponent<InputToAnimator>();
+        mog = GetComponent<MoveOnGrid>();
+        mog.movementSpeed = movementSpeed;
         if (inventory == null)
         {
             Debug.LogWarning("WARNING: PlayerController has no inventory!");
@@ -82,125 +79,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
-        //set gridMovement values
-        x = rb.transform.position.x;
-        y = rb.transform.position.y;
-
-        //with only 1 decimal point
-        xRem = (float) System.Math.Floor((double)(x % gridDist) * 10) / 10;
-        yRem = (float)System.Math.Floor((double)(y % gridDist) * 10) / 10;
-
-        if (xRem == 0.0f)
-        {
-            onGridy = true;
-        }
-        else
-        {
-            onGridy = false;
-        }
-
-        if (yRem == 0.0f)
-        {
-            onGridx = true;
-        }
-        else
-        {
-            onGridx = false;
-        }
-
-        //calls grid movement, checks movement
-        Vector2 currentInput = GetInput();
-
-        //coords.text = x.ToString() + " " + y.ToString() + "\n" + onGridx.ToString() + " " + onGridy.ToString() + "\n" + currentInput.x.ToString() + " " + currentInput.y.ToString();
-
         if (!(ita.isAttacking) && !(isJolted))//I know this is a mess of state, it's a wip
         {
-            rb.velocity = currentInput * movementSpeed;
+            mog.manualSet(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
         else if (ita.isAttacking)
         {
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
-
-        
     }
-
-    Vector2 GetInput()
-    {
-        float xInput = Input.GetAxisRaw("Horizontal");
-        float yInput = Input.GetAxisRaw("Vertical");
-
-        if(xInput == 0.0f && yInput == 0.0f)
-        {
-            return Vector2.zero;
-        }
-
-
-        //prevents diagonal movement, implements grid movement
-        if (Mathf.Abs(xInput) > 0.0f)
-        {
-            yInput = 0.0f;
-        }
-
-        //by this point, only have an x input or a y input
-        Debug.Assert((xInput != 0.0f && yInput == 0.0f) || (xInput == 0.0f && yInput != 0.0f), x.ToString() + " " + y.ToString() + " invalid");
-
-        //should also be on one of the grids
-        Debug.Assert(onGridx || onGridy, "Not on either gridline!");
-
-        return gridMovement(xInput, yInput);
-    }
-
-    private Vector2 gridMovement(float xInput, float yInput)
-    {
-        Debug.Assert(xInput == 0.0f || yInput == 0.0f, "One input must be 0 by this point!");
-        float xOutput = xInput; 
-        float yOutput = yInput;
-
-        //if xInput but not on grid x
-        if (xInput != 0.0f && !onGridx)
-        {
-            //should be on grid y
-            if (!onGridy)
-                Debug.Assert(onGridy, "Not on either gridline! (should be on grid y)");
-
-            xOutput = 0.0f;
-
-            if (y % gridDist < (gridDist / 2.0f))
-            {
-                yOutput = -0.5f;
-            }
-            else
-            {
-                yOutput = 0.5f;
-            }
-        }
-        else if (yInput != 0.0f && !onGridy)
-        {
-            if (!onGridx)
-                Debug.Assert(onGridx, "Not on either gridline! (should be on grid x)");
-
-            yOutput = 0.0f;
-
-            if (x % gridDist < (gridDist / 2.0f))
-            {
-                xOutput = -0.5f;
-            }
-            else
-            {
-                xOutput = 0.5f;
-            }
-        }
-
-
-        //Debug.Log("x: " + x + " " + "y: " + y + " xOutput: " + xOutput + " yOutput: " + yOutput + " onGridx: " + onGridx + " onGridy: " + onGridy
-        //    + " xRem: " + y % xGridDist + " yRem: " + x % yGridDist);
-
-        return new Vector2(xOutput, yOutput);
-    }
-
-
+  
     private void OnTriggerEnter(Collider coll)
     {
         GameObject other = coll.gameObject;
@@ -401,20 +289,12 @@ public class PlayerController : MonoBehaviour
     {
         isJolted = true;
         isInvinicible = true;
-        Vector3 fixedDirection;
-        if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
-            fixedDirection = new Vector3(direction.x,0.0f,0.0f);
-        } 
-        else
-        {
-            fixedDirection = new Vector3(0.0f, direction.y, 0.0f);
-        }
-        rb.velocity = direction.normalized * 30.0f;
+        mog.reverse(movementSpeed*5.0f,0.2f);
         StartCoroutine(stopjolt());
         StartCoroutine(stopInvincibllity());
         //Player is pushed away from enemy and becomes invincible temporarally
     }
+
 
     IEnumerator stopjolt()
     {

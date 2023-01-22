@@ -43,7 +43,7 @@ public class RandomConstantMovement : MoveOnGrid
 
     private void OnTriggerEnter(Collider other)
     {
-        stopNSnap();
+        stop();
         setRandomDirection();
     }
 }
