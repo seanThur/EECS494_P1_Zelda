@@ -20,6 +20,8 @@ TagManager:
   - LwestDoor
   - Enemy
   - PlayerProjectile
+  - wall
+  - NonWallSolid
   layers:
   - Default
   - TransparentFX

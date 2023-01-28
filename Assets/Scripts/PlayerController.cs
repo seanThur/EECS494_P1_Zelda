@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
   
     private void OnTriggerEnter(Collider coll)
     {
+        Debug.Log("Entered: " + coll.name);
         GameObject other = coll.gameObject;
 
         if(other == null)
@@ -107,6 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
+            Debug.Log("HIT");
             EnemyController ec = other.GetComponent<EnemyController>();
             if (!(isInvinicible))
             {
@@ -317,20 +319,24 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Vector3 castDir = new Vector3(0.0f, 0.0f, 0.0f);
-        float len = 1.0f;
+        float len=1.0f;
         switch (ita.lastDirection)
         {
             case 1:
                 castDir.y = 1.0f;
+                len = 1.25f;
                 break;
             case 2:
                 castDir.x = 1.0f;
+                len = 1.15f;
                 break;
             case 3:
-                castDir.y = -1.0f;//BUGGED - DOES NOT HIT
+                castDir.y = -1.0f;
+                len = 1.25f;
                 break;
             case 4:
                 castDir.x = -1.0f;
+                len = 1.15f;
                 break;
         }
         RaycastHit hitData;
