@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         GameObject other = collision.gameObject;
 
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
             }
             StartCoroutine(MoveObjectOverTime(other.transform, other.transform.position, () , 1);
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider coll)
     {
@@ -184,9 +184,7 @@ public class PlayerController : MonoBehaviour
             
             if (other.tag.Equals("LnorthDoor") && inventory.GetKeys() > 0)
             {
-                //other.tag = "northDoor";
                 other.transform.parent.transform.Find("NDoorUnlocked").gameObject.SetActive(true);
-                //other.transform.Find("NDoorUnlocked").gameObject.SetActive(true);
                 other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked north door");
