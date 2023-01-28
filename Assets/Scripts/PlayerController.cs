@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!(ita.isAttacking) && !(isJolted))//I know this is a mess of state, it's a wip
+        if (!(ita.isAttacking) && !(isJolted) && !isTransition)//I know this is a mess of state, it's a wip
         {
             mog.manualSet(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
@@ -89,20 +89,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         GameObject other = collision.gameObject;
 
         if(other.CompareTag("movable"))
         {
-            Vector3 blockDest(other.transform.position.x +1 other.transform.position.y, other.transform.position.z);
+            Vector3 blockDest = other.transform.position;
+
             if (mog.xInput > 0)
             {
-
+                blockDest.x += MoveOnGrid.gridDist;
             }
-            StartCoroutine(MoveObjectOverTime(other.transform, other.transform.position, () , 1);
+            else if(mog.xInput < 0)
+            {
+                blockDest.x -= MoveOnGrid.gridDist;
+            }
+            else if(mog.yInput > 0)
+            {
+                blockDest.y += MoveOnGrid.gridDist;
+            }
+            else if(mog.yInput < 0)
+            {
+                blockDest.y -= MoveOnGrid.gridDist;
+            }
+
+            isTransition = true;
+            StartCoroutine(MoveObjectOverTime(other.transform, other.transform.position, blockDest, 1));
+            isTransition = false;
         }
-    }*/
+    }
 
     private void OnTriggerEnter(Collider coll)
     {
@@ -267,18 +283,8 @@ public class PlayerController : MonoBehaviour
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
     public static IEnumerator MoveObjectOverTime(Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
     {
-        isTransition = true;   
         //dont hit any triggers
-        if (target.GetComponent<Collider>() != null)
-        {
-            target.GetComponent<Collider>().enabled = false;
-        }
-        
-        //player disappear
-        if(target.tag.Equals("Player"))
-        {
-            target.localScale = new Vector3(0, 0, 0);
-        }
+        isTransition = true;   
 
         float initial_time = Time.time;
         // The "progress" variable will go from 0.0f -> 1.0f over the course of "duration_sec" seconds.
@@ -289,6 +295,21 @@ public class PlayerController : MonoBehaviour
             // Recalculate the progress variable every frame. Use it to determine
             // new position on line from "initial_pos" to "dest_pos"
             progress = (Time.time - initial_time) / duration_sec;
+
+            //make player disappear in between rooms
+            if(target.CompareTag("Player"))
+            {
+                if (progress > 0.1f)
+                {
+                    target.localScale = new Vector3(0, 0, 0);
+                }
+
+                //bring player back
+                if(progress > 0.8f)
+                {
+                    target.localScale = new Vector3(1, 1, 1);
+                }
+            }
             Vector3 new_position = Vector3.Lerp(initial_pos, dest_pos, progress);
             target.position = new_position;
             
@@ -299,17 +320,6 @@ public class PlayerController : MonoBehaviour
 
         target.position = dest_pos;
 
-        //hit triggers again
-        if(target.GetComponent<Collider>() != null)
-        {
-            target.GetComponent<Collider>().enabled = true;
-        }
-
-        //player reappear
-        if (target.tag.Equals("Player"))
-        {
-            target.localScale = new Vector3(1, 1, 1);
-        }
         isTransition = false;
     }
 

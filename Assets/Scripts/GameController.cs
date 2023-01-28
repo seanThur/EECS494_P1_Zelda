@@ -40,18 +40,6 @@ public class GameController : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            //UseStandardWeapon/Sword();
-        }
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            //UseAltWeapon();
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //ScrollAltWeapons();
-        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
