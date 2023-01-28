@@ -14,8 +14,9 @@ public class MoveOnGrid : MonoBehaviour
     private float yRem;
     private bool onGridx;
     private bool onGridy;
-    private float xInput = 0.0f;
-    private float yInput = 0.0f;
+    public float xInput = 0.0f;
+    public float yInput = 0.0f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,13 +26,13 @@ public class MoveOnGrid : MonoBehaviour
     public void moveUp()
     {
         xInput = 0.0f;
-        yInput = -1.0f;
+        yInput = 1.0f;
     }
 
     public void moveDown()
     {
         xInput = 0.0f;
-        yInput = 1.0f;
+        yInput = -1.0f;
     }
 
     public void moveLeft()

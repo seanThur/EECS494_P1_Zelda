@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private float swordDamage = 1.0f;
     public bool isJolted = false;
     public bool isInvinicible = false;
+    public static bool isTransition = false;
 
     private void Awake()
     {
@@ -44,7 +45,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //inventory = new Inventory();//Review
         inventory = GetComponent<Inventory>();
         displayer = GetComponent<Displayer>();
         health = GetComponent<Health>();
@@ -67,11 +67,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             swordAttack();
         }
-        if(Input.GetKeyDown(KeyCode.X))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
             GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
         }
@@ -88,7 +88,22 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
-  
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject other = collision.gameObject;
+
+        if(other.CompareTag("movable"))
+        {
+            Vector3 blockDest(other.transform.position.x +1 other.transform.position.y, other.transform.position.z);
+            if (mog.xInput > 0)
+            {
+
+            }
+            StartCoroutine(MoveObjectOverTime(other.transform, other.transform.position, () , 1);
+        }
+    }
+
     private void OnTriggerEnter(Collider coll)
     {
         GameObject other = coll.gameObject;
@@ -97,6 +112,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Null trigger");
 
+            return;
+        }
+        if(isTransition)
+        {
             return;
         }
 
@@ -132,7 +151,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collected heart");
             Destroy(other);
 
-            health.heal(1);
+            if(!health.isAtMaxHearts())
+            {
+                health.heal(1);
+            }
+            
             displayer.displayHearts(health.hearts);
 
             //heart sound effect
@@ -159,7 +182,10 @@ public class PlayerController : MonoBehaviour
             
             if (other.tag.Equals("LnorthDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "northDoor";
+                //other.tag = "northDoor";
+                other.transform.parent.transform.Find("NDoorUnlocked").gameObject.SetActive(true);
+                //other.transform.Find("NDoorUnlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked north door");
             }
@@ -182,25 +208,25 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Unlocked west door");
             }
 
-            if (other.tag.Equals("northDoor"))
+            if (other.tag.Equals("northDoor") && mog.yInput > 0)
             {
                 cameraDest.y += yCameraDist;
                 playerDest.y += yPlayerDist;
                 
             }
-            else if(other.tag.Equals("eastDoor"))
+            else if(other.tag.Equals("eastDoor") && mog.xInput > 0)
             {
                    cameraDest.x += xCameraDist;
                    playerDest.x += xPlayerDist;
 
             }
-            else if(other.tag.Equals("southDoor"))
+            else if(other.tag.Equals("southDoor") && mog.yInput < 0)
             {
                    cameraDest.y -= yCameraDist;
                    playerDest.y -= yPlayerDist;
                 
             }
-            else if(other.tag.Equals("westDoor"))
+            else if(other.tag.Equals("westDoor") && mog.xInput < 0)
             {
                    cameraDest.x -= xCameraDist;
                    playerDest.x -= xPlayerDist;
@@ -216,8 +242,6 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(MoveObjectOverTime(Camera.main.transform, cameraPos, cameraDest, 2));
             
             StartCoroutine(MoveObjectOverTime(transform, playerPos, playerDest, 2));
-
-            
         }
     }
 
@@ -240,9 +264,9 @@ public class PlayerController : MonoBehaviour
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
     public static IEnumerator MoveObjectOverTime(Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
     {
-
+        isTransition = true;   
         //dont hit any triggers
-        if(target.GetComponent<Collider>() != null)
+        if (target.GetComponent<Collider>() != null)
         {
             target.GetComponent<Collider>().enabled = false;
         }
@@ -283,6 +307,7 @@ public class PlayerController : MonoBehaviour
         {
             target.localScale = new Vector3(1, 1, 1);
         }
+        isTransition = false;
     }
 
     public void jolt(Vector3 direction)
@@ -308,7 +333,6 @@ public class PlayerController : MonoBehaviour
         yield return (new WaitForSeconds(1.0f));
         isInvinicible = false;
     }
-
 
     public void swordAttack()
     {

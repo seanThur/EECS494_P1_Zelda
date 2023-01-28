@@ -63,3 +63,6 @@ TagManager:
   - name: On Ground
     uniqueID: 2579823163
     locked: 0
+  - name: Locked Door
+    uniqueID: 1900330867
+    locked: 0
