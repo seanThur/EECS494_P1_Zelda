@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 4.0f;
     public Text coords;
 
-    public float xCameraDist = 16;
-    public float yCameraDist = 8;
-    public float xPlayerDist = 4.5f;
-    public float yPlayerDist = 4.5f;
+    private float xCameraDist = 16f;
+    private float yCameraDist = 11f;
+    private float xPlayerDist = 5f;
+    private float yPlayerDist = 5f;
 
     public Displayer displayer;
     public Health health;
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Entered: " + coll.name);
         GameObject other = coll.gameObject;
-
+        Debug.Log("Num Keys: " + inventory.GetKeys());
         if(other == null)
         {
             Debug.Log("Null trigger");
@@ -184,26 +184,29 @@ public class PlayerController : MonoBehaviour
             
             if (other.tag.Equals("LnorthDoor") && inventory.GetKeys() > 0)
             {
-                other.transform.parent.transform.Find("NDoorUnlocked").gameObject.SetActive(true);
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
                 other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked north door");
             }
             else if (other.tag.Equals("LeastDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "eastDoor";
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked east door");
             }
             else if (other.tag.Equals("LsouthDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "southDoor";
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked south door");
             }
             else if(other.tag.Equals("LwestDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "westDoor";
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked west door");
             }

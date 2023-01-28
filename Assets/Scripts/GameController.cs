@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
 
-       // Screen.SetResolution(1024, 960, false);
+        Screen.SetResolution(1024, 960, false);
     }
 
     // Start is called before the first frame update
