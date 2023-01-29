@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     public Text godModeText;
     public bool gameOver = false;
 
+    
+
     //singleton pattern 
     private void Awake()
     {
@@ -36,8 +38,9 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-        if (gameOver && Input.GetMouseButtonDown(0))
+        if (gameOver)
         {
+            //yield return new WaitForSeconds(3);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }   
 

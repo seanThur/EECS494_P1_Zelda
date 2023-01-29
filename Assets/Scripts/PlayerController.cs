@@ -23,11 +23,14 @@ public class PlayerController : MonoBehaviour
     public InputToAnimator ita;
     public static PlayerController playerInstance;
     public GameObject bulletPrefab;
-    public AudioController audioController;
+    //public AudioController audioController;
+
     private float swordDamage = 1.0f;
     public bool isJolted = false;
     public bool isInvinicible = false;
     public static bool isTransition = false;
+
+    public AudioClip music, rupee, heart, damage, bombBlow, bombDrop, enemyDie, enemyHit, fanfare, die, shield, swordFull, sword;
 
     private void Awake()
     {
@@ -51,19 +54,16 @@ public class PlayerController : MonoBehaviour
         health = GetComponent<Health>();
         ita = GetComponent<InputToAnimator>();
         mog = GetComponent<MoveOnGrid>();
-        audioController = GetComponent<AudioController>();
+        //audioController = GetComponent<AudioController>();
         mog.movementSpeed = movementSpeed;
-        if (inventory == null)
-        {
-            Debug.LogWarning("WARNING: PlayerController has no inventory!");
-        }
-        if (displayer == null)
-        {
-            Debug.LogWarning("WARNING: PlayerController has no displayer!");
-        }
+        
         displayer.displayHearts(3);
-        displayer.displayLeft("Sword");
-        displayer.displayRight("Bow");
+
+        //swapped these since sword is x
+        displayer.displayLeft("Bow");
+        displayer.displayRight("Sword");
+
+        AudioSource.PlayClipAtPoint(music, Camera.main.transform.position);
     }
 
     // Update is called once per frame
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Entered: " + coll.name);
         GameObject other = coll.gameObject;
-        Debug.Log("Num Keys: " + inventory.GetKeys());
+        //Debug.Log("Num Keys: " + inventory.GetKeys());
         if(other == null)
         {
             Debug.Log("Null trigger");
@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
             {
                 TakeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
-                AudioSource.PlayClipAtPoint(audioController.enemyHit, Camera.main.transform.position);
+                AudioSource.PlayClipAtPoint(enemyHit, transform.position);
             }
         }
         else if (other.tag.Equals("rupee"))
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
             inventory.AddRupees(1);
             
             Debug.Log("Collected rupee!");
-            AudioSource.PlayClipAtPoint(audioController.rupee, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(rupee, other.transform.position);
 
             Destroy(other);
 
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         else if (other.tag.Equals("heart"))
         {
             Debug.Log("Collected heart");
-            AudioSource.PlayClipAtPoint(audioController.heart, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(heart, other.transform.position);
             Destroy(other);
 
             if(!health.isAtMaxHearts())
@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
         else if(other.tag.Equals("key"))
         {
             Debug.Log("Collected key");
-            AudioSource.PlayClipAtPoint(audioController.heart, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(heart, other.transform.position);
             Destroy(other);
 
             inventory.AddKeys(1);
@@ -250,12 +250,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
         health.hearts -= 0.5f * damageMultiplier;
+        AudioSource.PlayClipAtPoint(damage, transform.position);
         if (health.hearts <= 0)
         {
             GameController.instance.GameOver();
         }
         displayer.displayHearts(health.hearts);
-        AudioSource.PlayClipAtPoint(audioController.damage, Camera.main.transform.position);
+        
     }
 
     private void OnCollisionStay(Collision collision)
@@ -431,11 +432,11 @@ public class PlayerController : MonoBehaviour
         if (health.isAtMaxHearts())
         {
             fireBullet(ita.lastDirection);
-            AudioSource.PlayClipAtPoint(audioController.swordFull, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(swordFull, transform.position);
         }
         else
         {
-            AudioSource.PlayClipAtPoint(audioController.sword, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(sword, transform.position);
         }
     }
 
