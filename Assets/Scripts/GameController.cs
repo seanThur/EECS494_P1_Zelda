@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         if (gameOver && Input.GetMouseButtonDown(0))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        }   
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

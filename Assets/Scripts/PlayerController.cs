@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     //public static PlayerController instance;
     public Inventory inventory;
-    public AudioClip rupeeSoundClip;
+    
     public Rigidbody rb;
     public MoveOnGrid mog;
     public float movementSpeed = 4.0f;
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public InputToAnimator ita;
     public static PlayerController playerInstance;
     public GameObject bulletPrefab;
+    public AudioController audioController;
     private float swordDamage = 1.0f;
     public bool isJolted = false;
     public bool isInvinicible = false;
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
         health = GetComponent<Health>();
         ita = GetComponent<InputToAnimator>();
         mog = GetComponent<MoveOnGrid>();
+        audioController = GetComponent<AudioController>();
         mog.movementSpeed = movementSpeed;
         if (inventory == null)
         {
@@ -83,42 +85,12 @@ public class PlayerController : MonoBehaviour
         {
             mog.manualSet(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
-        else if (ita.isAttacking)
+        else if (ita.isAttacking || isTransition)
         {
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        GameObject other = collision.gameObject;
-
-        if(other.CompareTag("movable"))
-        {
-            Vector3 blockDest = other.transform.position;
-
-            if (mog.xInput > 0)
-            {
-                blockDest.x += MoveOnGrid.gridDist;
-            }
-            else if(mog.xInput < 0)
-            {
-                blockDest.x -= MoveOnGrid.gridDist;
-            }
-            else if(mog.yInput > 0)
-            {
-                blockDest.y += MoveOnGrid.gridDist;
-            }
-            else if(mog.yInput < 0)
-            {
-                blockDest.y -= MoveOnGrid.gridDist;
-            }
-
-            isTransition = true;
-            StartCoroutine(MoveObjectOverTime(other.transform, other.transform.position, blockDest, 1));
-            isTransition = false;
-        }
-    }
+    
 
     private void OnTriggerEnter(Collider coll)
     {
@@ -149,6 +121,7 @@ public class PlayerController : MonoBehaviour
             {
                 TakeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
+                AudioSource.PlayClipAtPoint(audioController.enemyHit, Camera.main.transform.position);
             }
         }
         else if (other.tag.Equals("rupee"))
@@ -157,16 +130,15 @@ public class PlayerController : MonoBehaviour
             inventory.AddRupees(1);
             
             Debug.Log("Collected rupee!");
-            
+            AudioSource.PlayClipAtPoint(audioController.rupee, Camera.main.transform.position);
 
             Destroy(other);
-
-            AudioSource.PlayClipAtPoint(rupeeSoundClip, cameraPos);
 
         }
         else if (other.tag.Equals("heart"))
         {
             Debug.Log("Collected heart");
+            AudioSource.PlayClipAtPoint(audioController.heart, Camera.main.transform.position);
             Destroy(other);
 
             if(!health.isAtMaxHearts())
@@ -189,11 +161,14 @@ public class PlayerController : MonoBehaviour
         else if(other.tag.Equals("key"))
         {
             Debug.Log("Collected key");
+            AudioSource.PlayClipAtPoint(audioController.heart, Camera.main.transform.position);
             Destroy(other);
 
             inventory.AddKeys(1);
             //anything else
         }
+        
+
         //doorcheck
         else
         {
@@ -258,9 +233,11 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("hit " + other.name);
 
+            
             StartCoroutine(MoveObjectOverTime(Camera.main.transform, cameraPos, cameraDest, 2));
             
             StartCoroutine(MoveObjectOverTime(transform, playerPos, playerDest, 2));
+            
         }
     }
 
@@ -278,14 +255,78 @@ public class PlayerController : MonoBehaviour
             GameController.instance.GameOver();
         }
         displayer.displayHearts(health.hearts);
+        AudioSource.PlayClipAtPoint(audioController.damage, Camera.main.transform.position);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        GameObject other = collision.gameObject;
+
+        if (other.CompareTag("movable"))
+        {
+            int dir = 0;
+            if (mog.xInput > 0)
+            {
+                dir = 1;
+            }
+            else if (mog.yInput < 0)
+            {
+                dir = 2;
+            }
+            else if (mog.xInput < 0)
+            {
+                dir = 3;
+            }
+
+
+            isTransition = true;
+
+            StartCoroutine(MoveBlock(other.transform, dir));
+
+            isTransition = false;
+        }
+    }
+
+    //dir: 0 = N, 1 = E, 2 = S, 3 = W
+    public IEnumerator MoveBlock(Transform block, int dir)
+    {
+        
+
+        //isTransition = true;
+        float x = block.position.x;
+        float y = block.position.y;
+        float z = block.position.z;
+        
+        if(dir == 0)
+        {
+            y++;
+        }
+        else if(dir == 1)
+        {
+            x++;
+        }
+        else if(dir == 2)
+        {
+            y--;
+        }
+        else
+        {
+            x--;
+        }
+
+        Vector3 blockDest = new Vector3(x, y, z);
+        Debug.Log("Moving block " + dir);
+        StartCoroutine(MoveObjectOverTime(block, block.position, blockDest, 1));
+        mog.manualSet(0, 0);
+        yield return new WaitForSeconds(3f);
+        
+        //isTransition = false;
     }
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
     public static IEnumerator MoveObjectOverTime(Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
     {
-        //dont hit any triggers
-        isTransition = true;   
-
+        isTransition = true;
         float initial_time = Time.time;
         // The "progress" variable will go from 0.0f -> 1.0f over the course of "duration_sec" seconds.
         float progress = (Time.time - initial_time) / duration_sec;
@@ -319,7 +360,6 @@ public class PlayerController : MonoBehaviour
         }
 
         target.position = dest_pos;
-
         isTransition = false;
     }
 
@@ -353,6 +393,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         Vector3 castDir = new Vector3(0.0f, 0.0f, 0.0f);
         float len=1.0f;
         switch (ita.lastDirection)
@@ -390,6 +431,11 @@ public class PlayerController : MonoBehaviour
         if (health.isAtMaxHearts())
         {
             fireBullet(ita.lastDirection);
+            AudioSource.PlayClipAtPoint(audioController.swordFull, Camera.main.transform.position);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(audioController.sword, Camera.main.transform.position);
         }
     }
 

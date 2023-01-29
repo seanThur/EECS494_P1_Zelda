@@ -23,6 +23,10 @@ TagManager:
   - wall
   - NonWallSolid
   - movable
+  - moveLeft
+  - moveUp
+  - moveRight
+  - moveDown
   layers:
   - Default
   - TransparentFX
