@@ -20,6 +20,14 @@ public class Displayer : MonoBehaviour
     public Image oneAndHalf;
     public Image one;
     public Image half;
+
+    public Image altWeaponImage;
+    public Image bow;
+    public Image boomerang;
+    public Image bomb;
+    public Image empty;
+
+    public WeaponType currentAltWeapon = WeaponType.Empty;
     
     // Start is called before the first frame update
     void Start()
@@ -71,14 +79,40 @@ public class Displayer : MonoBehaviour
         heartImageFlip(f, true);
     }
 
-    public void displayLeft(string item)
+    private void altWeaponFlip(WeaponType w, bool write)
     {
-        leftHand.text = "Left hand: " + item;
+        switch (w)
+        {
+            case WeaponType.Empty:
+                empty.enabled = write;
+                break;
+            case WeaponType.Bow:
+                bow.enabled = write;
+                break;
+            case WeaponType.Boomerang:
+                boomerang.enabled = write;
+                break;
+            case WeaponType.Bomb:
+                bomb.enabled = write;
+                break;
+        }
     }
 
-    public void displayRight(string item)
+    public void displayRight(string s)
     {
-        //rightHand.text = "Right hand: " + item;
+
+    }
+
+    public void displayLeft(string s)
+    {
+
+    }
+
+    public void displayAltWeapon(WeaponType w)
+    {
+        altWeaponFlip(currentAltWeapon, false);
+        currentAltWeapon = w;
+        altWeaponFlip(w, true);
     }
 
     public void displayRupees(int r)

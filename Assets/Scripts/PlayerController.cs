@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public MoveOnGrid mog;
     public float movementSpeed = 4.0f;
-    public Text coords;
 
     private float xCameraDist = 16f;
     private float yCameraDist = 11f;
@@ -62,10 +61,6 @@ public class PlayerController : MonoBehaviour
         
         displayer.displayHearts(3);
 
-        //swapped these since sword is x
-        displayer.displayLeft("Bow");
-        displayer.displayRight("Sword");
-
         AudioSource.PlayClipAtPoint(music, Camera.main.transform.position);
     }
 
@@ -78,9 +73,12 @@ public class PlayerController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Z))
         {
+            displayer.displayAltWeapon(WeaponType.Bow);
             GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
             //GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
+            //displayer.displayAltWeapon(WeaponType.Boomerang);
             //GetComponent<Boomarang>().Use(ita.lastDirection);//Hardcoded for milestone
+            displayer.displayAltWeapon(WeaponType.Bomb);
             GetComponent<BombDropper>().Use(ita.lastDirection);//Hardcoded for milestone
         }
     }
