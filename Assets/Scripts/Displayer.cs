@@ -12,6 +12,7 @@ public class Displayer : MonoBehaviour
     public Text rupeeText;
     public Text keysText;
     public Text bombText;
+    private float heartsTrack = 3.0f;
     public Image heartsImage;
     public Image three;
     public Image twoAndHalf;
@@ -23,7 +24,7 @@ public class Displayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        heartsImage = three;
     }
 
     // Update is called once per frame
@@ -36,30 +37,38 @@ public class Displayer : MonoBehaviour
             displayBomb(inventory.GetBombs());
         }
     }
+    private void heartImageFlip(float f, bool write)
+    {
+        switch(f)
+        {
+            case 0.5f:
+                half.enabled = write;
+                break;
+            case 1.0f:
+                one.enabled = write;
+                break;
+            case 1.5f:
+                oneAndHalf.enabled = write;
+                break;
+            case 2.0f:
+                two.enabled = write;
+                break;
+            case 2.5f:
+                twoAndHalf.enabled = write;
+                break;
+            case 3.0f:
+                Debug.Log("Name = " + gameObject.name);
+                Debug.Log("Three = "+three);
+                three.enabled = write;
+                break;
+        }
+    }
     public void displayHearts(float f)
     {
-        heartsImage = three;
-
-        if(f == 2.5f)
-        {
-            heartsImage = twoAndHalf;
-        }
-        else if (f == 2.0f)
-        {
-            heartsImage = two;
-        }
-        else if (f == 1.5f)
-        {
-            heartsImage = oneAndHalf;
-        }
-        else if (f == 1.0f)
-        {
-            heartsImage = one;
-        }
-        else if (f == 0.5f)
-        {
-            heartsImage = half;
-        }
+        f = Mathf.Round(f * 2) / 2.0f;
+        heartImageFlip(heartsTrack,false);
+        heartsTrack = f;
+        heartImageFlip(f, true);
     }
 
     public void displayLeft(string item)

@@ -7,9 +7,9 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 {
     private Weapon activeWeaponA;
     private Weapon activeWeaponB;
-    private int rupeeCount = 0;
-    private int bombCount = 0;
-    private int keyCount = 0;
+    public int rupeeCount = 0;
+    public int bombCount = 0;
+    public int keyCount = 0;
 
     public void AddRupees(int num)
     {

@@ -80,7 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1715144133
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 45afd34443b96473598b76e2b1778b4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -205,12 +205,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
-  heartsText: {fileID: 0}
+  health: {fileID: 0}
   leftHand: {fileID: 0}
-  rightHand: {fileID: 0}
   rupeeText: {fileID: 0}
   keysText: {fileID: 0}
   bombText: {fileID: 0}
+  heartsImage: {fileID: 0}
+  three: {fileID: 0}
+  twoAndHalf: {fileID: 0}
+  two: {fileID: 0}
+  oneAndHalf: {fileID: 0}
+  one: {fileID: 0}
+  half: {fileID: 0}
 --- !u!114 &2108887001043775145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +253,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108887001043775198}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.9375, y: 1, z: 0.2}

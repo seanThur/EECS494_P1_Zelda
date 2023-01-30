@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         Vector3 playerPos = transform.position;
         Vector3 playerDest = transform.position;
 
-        if (other.CompareTag("enemy"))
+        if (other.CompareTag("Enemy"))
         {
             Debug.Log("HIT");
             EnemyController ec = other.GetComponent<EnemyController>();
