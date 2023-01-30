@@ -14,6 +14,7 @@ public class MoveOnGrid : MonoBehaviour
     private float yRem;
     private bool onGridx;
     private bool onGridy;
+<<<<<<< HEAD
     private float xInput = 0.0f;
     private float yInput = 0.0f;
 
@@ -29,6 +30,10 @@ public class MoveOnGrid : MonoBehaviour
         float yPos = Mathf.Round(rb.transform.position.y*gridlineConstant)/gridlineConstant;
         rb.transform.position = new Vector3(xPos,yPos,0.0f);
     }
+=======
+    public float xInput = 0.0f;
+    public float yInput = 0.0f;
+>>>>>>> SeanGivesUp
 
     private void Start()
     {
@@ -40,13 +45,13 @@ public class MoveOnGrid : MonoBehaviour
     public void moveUp()
     {
         xInput = 0.0f;
-        yInput = -1.0f;
+        yInput = 1.0f;
     }
 
     public void moveDown()
     {
         xInput = 0.0f;
-        yInput = 1.0f;
+        yInput = -1.0f;
     }
 
     public void moveLeft()

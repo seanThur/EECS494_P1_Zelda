@@ -7,25 +7,30 @@ public class PlayerController : MonoBehaviour
 {
     //public static PlayerController instance;
     public Inventory inventory;
-    public AudioClip rupeeSoundClip;
+    
     public Rigidbody rb;
     public MoveOnGrid mog;
     public float movementSpeed = 4.0f;
     public Text coords;
 
-    public float xCameraDist = 16;
-    public float yCameraDist = 8;
-    public float xPlayerDist = 4.5f;
-    public float yPlayerDist = 4.5f;
+    private float xCameraDist = 16f;
+    private float yCameraDist = 11f;
+    private float xPlayerDist = 5f;
+    private float yPlayerDist = 5f;
 
     public Displayer displayer;
     public Health health;
     public InputToAnimator ita;
     public static PlayerController playerInstance;
     public GameObject bulletPrefab;
+    //public AudioController audioController;
+
     private float swordDamage = 1.0f;
     public bool isJolted = false;
     public bool isInvinicible = false;
+    public static bool isTransition = false;
+
+    public AudioClip music, rupee, heart, damage, bombBlow, bombDrop, enemyDie, enemyHit, fanfare, die, shield, swordFull, sword;
 
     private void Awake()
     {
@@ -44,34 +49,31 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //inventory = new Inventory();//Review
         inventory = GetComponent<Inventory>();
         displayer = GetComponent<Displayer>();
         health = GetComponent<Health>();
         ita = GetComponent<InputToAnimator>();
         mog = GetComponent<MoveOnGrid>();
+        //audioController = GetComponent<AudioController>();
         mog.movementSpeed = movementSpeed;
-        if (inventory == null)
-        {
-            Debug.LogWarning("WARNING: PlayerController has no inventory!");
-        }
-        if (displayer == null)
-        {
-            Debug.LogWarning("WARNING: PlayerController has no displayer!");
-        }
+        
         displayer.displayHearts(3);
-        displayer.displayLeft("Sword");
-        displayer.displayRight("Bow");
+
+        //swapped these since sword is x
+        displayer.displayLeft("Bow");
+        displayer.displayRight("Sword");
+
+        AudioSource.PlayClipAtPoint(music, Camera.main.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             swordAttack();
         }
-        if(Input.GetKeyDown(KeyCode.X))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
             GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
         }
@@ -79,26 +81,35 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!(ita.isAttacking) && !(isJolted))//I know this is a mess of state, it's a wip
+        if (!(ita.isAttacking) && !(isJolted) && !isTransition)//I know this is a mess of state, it's a wip
         {
             mog.manualSet(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
-        else if (ita.isAttacking)
+        else if (ita.isAttacking || isTransition)
         {
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
+<<<<<<< HEAD
 
   
+=======
+    
+
+>>>>>>> SeanGivesUp
     private void OnTriggerEnter(Collider coll)
     {
         Debug.Log("Entered: " + coll.name);
         GameObject other = coll.gameObject;
-
+        //Debug.Log("Num Keys: " + inventory.GetKeys());
         if(other == null)
         {
             Debug.Log("Null trigger");
 
+            return;
+        }
+        if(isTransition)
+        {
             return;
         }
 
@@ -115,6 +126,7 @@ public class PlayerController : MonoBehaviour
             {
                 TakeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
+                AudioSource.PlayClipAtPoint(enemyHit, transform.position);
             }
         }
         else if(other.tag.Equals("enemyProg"))
@@ -132,19 +144,22 @@ public class PlayerController : MonoBehaviour
             inventory.AddRupees(1);
             
             Debug.Log("Collected rupee!");
-            
+            AudioSource.PlayClipAtPoint(rupee, other.transform.position);
 
             Destroy(other);
-
-            AudioSource.PlayClipAtPoint(rupeeSoundClip, cameraPos);
 
         }
         else if (other.tag.Equals("heart"))
         {
             Debug.Log("Collected heart");
+            AudioSource.PlayClipAtPoint(heart, other.transform.position);
             Destroy(other);
 
-            health.heal(1);
+            if(!health.isAtMaxHearts())
+            {
+                health.heal(1);
+            }
+            
             displayer.displayHearts(health.hearts);
 
             //heart sound effect
@@ -160,59 +175,66 @@ public class PlayerController : MonoBehaviour
         else if(other.tag.Equals("key"))
         {
             Debug.Log("Collected key");
+            AudioSource.PlayClipAtPoint(heart, other.transform.position);
             Destroy(other);
 
             inventory.AddKeys(1);
             //anything else
         }
+        
+
         //doorcheck
         else
         {
             
             if (other.tag.Equals("LnorthDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "northDoor";
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked north door");
             }
             else if (other.tag.Equals("LeastDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "eastDoor";
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked east door");
             }
             else if (other.tag.Equals("LsouthDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "southDoor";
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked south door");
             }
             else if(other.tag.Equals("LwestDoor") && inventory.GetKeys() > 0)
             {
-                other.tag = "westDoor";
+                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+                other.SetActive(false);
                 inventory.AddKeys(-1);
                 Debug.Log("Unlocked west door");
             }
 
-            if (other.tag.Equals("northDoor"))
+            if (other.tag.Equals("northDoor") && mog.yInput > 0)
             {
                 cameraDest.y += yCameraDist;
                 playerDest.y += yPlayerDist;
                 
             }
-            else if(other.tag.Equals("eastDoor"))
+            else if(other.tag.Equals("eastDoor") && mog.xInput > 0)
             {
                    cameraDest.x += xCameraDist;
                    playerDest.x += xPlayerDist;
 
             }
-            else if(other.tag.Equals("southDoor"))
+            else if(other.tag.Equals("southDoor") && mog.yInput < 0)
             {
                    cameraDest.y -= yCameraDist;
                    playerDest.y -= yPlayerDist;
                 
             }
-            else if(other.tag.Equals("westDoor"))
+            else if(other.tag.Equals("westDoor") && mog.xInput < 0)
             {
                    cameraDest.x -= xCameraDist;
                    playerDest.x -= xPlayerDist;
@@ -225,10 +247,10 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("hit " + other.name);
 
+            
             StartCoroutine(MoveObjectOverTime(Camera.main.transform, cameraPos, cameraDest, 2));
             
             StartCoroutine(MoveObjectOverTime(transform, playerPos, playerDest, 2));
-
             
         }
     }
@@ -242,29 +264,84 @@ public class PlayerController : MonoBehaviour
             return;
         }
         health.hearts -= 0.5f * damageMultiplier;
+        AudioSource.PlayClipAtPoint(damage, transform.position);
         if (health.hearts <= 0)
         {
             GameController.instance.GameOver();
         }
         displayer.displayHearts(health.hearts);
+        
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        GameObject other = collision.gameObject;
+
+        if (other.CompareTag("movable"))
+        {
+            int dir = 0;
+            if (mog.xInput > 0)
+            {
+                dir = 1;
+            }
+            else if (mog.yInput < 0)
+            {
+                dir = 2;
+            }
+            else if (mog.xInput < 0)
+            {
+                dir = 3;
+            }
+
+
+            isTransition = true;
+
+            StartCoroutine(MoveBlock(other.transform, dir));
+
+            isTransition = false;
+        }
+    }
+
+    //dir: 0 = N, 1 = E, 2 = S, 3 = W
+    public IEnumerator MoveBlock(Transform block, int dir)
+    {
+        
+
+        //isTransition = true;
+        float x = block.position.x;
+        float y = block.position.y;
+        float z = block.position.z;
+        
+        if(dir == 0)
+        {
+            y++;
+        }
+        else if(dir == 1)
+        {
+            x++;
+        }
+        else if(dir == 2)
+        {
+            y--;
+        }
+        else
+        {
+            x--;
+        }
+
+        Vector3 blockDest = new Vector3(x, y, z);
+        Debug.Log("Moving block " + dir);
+        StartCoroutine(MoveObjectOverTime(block, block.position, blockDest, 1));
+        mog.manualSet(0, 0);
+        yield return new WaitForSeconds(3f);
+        
+        //isTransition = false;
     }
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
     public static IEnumerator MoveObjectOverTime(Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
     {
-
-        //dont hit any triggers
-        if(target.GetComponent<Collider>() != null)
-        {
-            target.GetComponent<Collider>().enabled = false;
-        }
-        
-        //player disappear
-        if(target.tag.Equals("Player"))
-        {
-            target.localScale = new Vector3(0, 0, 0);
-        }
-
+        isTransition = true;
         float initial_time = Time.time;
         // The "progress" variable will go from 0.0f -> 1.0f over the course of "duration_sec" seconds.
         float progress = (Time.time - initial_time) / duration_sec;
@@ -274,6 +351,21 @@ public class PlayerController : MonoBehaviour
             // Recalculate the progress variable every frame. Use it to determine
             // new position on line from "initial_pos" to "dest_pos"
             progress = (Time.time - initial_time) / duration_sec;
+
+            //make player disappear in between rooms
+            if(target.CompareTag("Player"))
+            {
+                if (progress > 0.1f)
+                {
+                    target.localScale = new Vector3(0, 0, 0);
+                }
+
+                //bring player back
+                if(progress > 0.8f)
+                {
+                    target.localScale = new Vector3(1, 1, 1);
+                }
+            }
             Vector3 new_position = Vector3.Lerp(initial_pos, dest_pos, progress);
             target.position = new_position;
             
@@ -283,18 +375,7 @@ public class PlayerController : MonoBehaviour
         }
 
         target.position = dest_pos;
-
-        //hit triggers again
-        if(target.GetComponent<Collider>() != null)
-        {
-            target.GetComponent<Collider>().enabled = true;
-        }
-
-        //player reappear
-        if (target.tag.Equals("Player"))
-        {
-            target.localScale = new Vector3(1, 1, 1);
-        }
+        isTransition = false;
     }
 
     public void jolt(Vector3 direction)
@@ -321,13 +402,13 @@ public class PlayerController : MonoBehaviour
         isInvinicible = false;
     }
 
-
     public void swordAttack()
     {
         if (!(ita.attack()))
         {
             return;
         }
+
         Vector3 castDir = new Vector3(0.0f, 0.0f, 0.0f);
         float len=1.0f;
         switch (ita.lastDirection)
@@ -365,6 +446,11 @@ public class PlayerController : MonoBehaviour
         if (health.isAtMaxHearts())
         {
             fireBullet(ita.lastDirection);
+            AudioSource.PlayClipAtPoint(swordFull, transform.position);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(sword, transform.position);
         }
     }
 

@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     public Text godModeText;
     public bool gameOver = false;
 
+    
+
     //singleton pattern 
     private void Awake()
     {
@@ -25,7 +27,7 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
 
-       // Screen.SetResolution(1024, 960, false);
+        Screen.SetResolution(1024, 960, false);
     }
 
     // Start is called before the first frame update
@@ -36,22 +38,11 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-        if (gameOver && Input.GetMouseButtonDown(0))
+        if (gameOver)
         {
+            //yield return new WaitForSeconds(3);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            //UseStandardWeapon/Sword();
-        }
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            //UseAltWeapon();
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //ScrollAltWeapons();
-        }
+        }   
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
