@@ -77,6 +77,15 @@
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\Enemies\RandomConstantMovement.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BladeTrapController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\GelMovement.cs" />
+    <Compile Include="Assets\Scripts\Enemies\AquaBallController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\WallMasterController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\GoriyaMovement.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Aquamentis.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
+    <Compile Include="Assets\Scripts\SeanScripts\QMoveOnGrid.cs" />
+    <Compile Include="Assets\Scripts\Enemies\GoriyaBoomerangController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

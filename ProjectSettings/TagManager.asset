@@ -3,8 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - rupee
+  tags: - rupee
   - enemy
   - heart
   - door
@@ -27,6 +26,10 @@ TagManager:
   - moveUp
   - moveRight
   - moveDown
+<<<<<<< HEAD
+=======
+  - enemyProg
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
   layers:
   - Default
   - TransparentFX
@@ -64,6 +67,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+<<<<<<< HEAD
   - name: Ground
     uniqueID: 1236549987
     locked: 0
@@ -73,3 +77,5 @@ TagManager:
   - name: Locked Door
     uniqueID: 1900330867
     locked: 0
+=======
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e

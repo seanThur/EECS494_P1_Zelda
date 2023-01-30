@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Doors/LockedEastDoor1.prefab.meta
 guid: 917cc86778b5efb479c3c851e5b7b47e
+========
+guid: f5e900722483fdd4d89cce619fcf1b3d
+>>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e:Assets/Prefabs/Doors/LockedEastDoor.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

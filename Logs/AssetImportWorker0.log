@@ -8172,3 +8172,9 @@ Received Import Request.
   path: Assets/Prefabs/Doors/LockedEastDoor1.prefab
   artifactKey: Guid(917cc86778b5efb479c3c851e5b7b47e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Prefabs/Doors/LockedEastDoor1.prefab using Guid(917cc86778b5efb479c3c851e5b7b47e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd90dbdfcf231d2679e294ee98b0f96f2') in 0.019883 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 596.756616 seconds.
+  path: Assets/Prefabs/Doors/LockedEastDoor.prefab
+  artifactKey: Guid(56f2a28ecbca5df4fbecaf7d30ffb2ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Doors/LockedEastDoor.prefab using Guid(56f2a28ecbca5df4fbecaf7d30ffb2ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6d5526526d626843d616332e597ac88') in 0.037466 seconds 

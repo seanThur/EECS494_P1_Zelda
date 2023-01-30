@@ -29,7 +29,10 @@ public class PlayerController : MonoBehaviour
     public bool isJolted = false;
     public bool isInvinicible = false;
     public static bool isTransition = false;
+<<<<<<< HEAD
     public static bool acceptInput = true;
+=======
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
 
     public AudioClip music, rupee, heart, damage, bombBlow, bombDrop, enemyDie, enemyHit, fanfare, die, shield, swordFull, sword;
 
@@ -82,21 +85,35 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+<<<<<<< HEAD
         if(!acceptInput)
         {
             rb.velocity = Vector3.zero;
         }
         else if (!(ita.isAttacking) && !(isJolted) && acceptInput)//I know this is a mess of state, it's a wip
+=======
+        if (!(ita.isAttacking) && !(isJolted) && !isTransition)//I know this is a mess of state, it's a wip
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
         {
             mog.manualSet(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
-        else if (ita.isAttacking)
+        else if (ita.isAttacking || isTransition)
         {
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
+<<<<<<< HEAD
     
 
+=======
+//<<<<<<< HEAD
+
+  
+//=======
+    
+
+//>>>>>>> SeanGivesUp
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
     private void OnTriggerEnter(Collider coll)
     {
         Debug.Log("Entered: " + coll.name);
@@ -127,6 +144,18 @@ public class PlayerController : MonoBehaviour
                 TakeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
                 AudioSource.PlayClipAtPoint(enemyHit, transform.position);
+<<<<<<< HEAD
+=======
+            }
+        }
+        else if(other.tag.Equals("enemyProg"))
+        {
+            EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
+            if (!(isInvinicible))
+            {
+                TakeDamage(ep.damage);
+                jolt(transform.position - coll.ClosestPoint(transform.position));
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             }
         }
         else if (other.tag.Equals("rupee"))
@@ -207,25 +236,41 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Unlocked west door");
             }
 
+<<<<<<< HEAD
             if (other.tag.Equals("northDoor") && mog.yInput > 0)
+=======
+            if (other.tag.Equals("northDoor") && mog.getyInput() > 0)
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                 cameraDest.y += yCameraDist;
                 playerDest.y += yPlayerDist;
                 
             }
+<<<<<<< HEAD
             else if(other.tag.Equals("eastDoor") && mog.xInput > 0)
+=======
+            else if(other.tag.Equals("eastDoor") && mog.getxInput() > 0)
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                    cameraDest.x += xCameraDist;
                    playerDest.x += xPlayerDist;
 
             }
+<<<<<<< HEAD
             else if(other.tag.Equals("southDoor") && mog.yInput < 0)
+=======
+            else if(other.tag.Equals("southDoor") && mog.getyInput() < 0)
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                    cameraDest.y -= yCameraDist;
                    playerDest.y -= yPlayerDist;
                 
             }
+<<<<<<< HEAD
             else if(other.tag.Equals("westDoor") && mog.xInput < 0)
+=======
+            else if(other.tag.Equals("westDoor") && mog.getxInput() < 0)
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                    cameraDest.x -= xCameraDist;
                    playerDest.x -= xPlayerDist;
@@ -238,6 +283,7 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("hit " + other.name);
 
+            
             StartCoroutine(MoveObjectOverTime(Camera.main.transform, cameraPos, cameraDest, 2));
             
             StartCoroutine(MoveObjectOverTime(transform, playerPos, playerDest, 2));
@@ -265,6 +311,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
+<<<<<<< HEAD
         
         GameObject other = collision.gameObject;
         Vector3 dir = Vector3.zero;
@@ -360,6 +407,70 @@ public class PlayerController : MonoBehaviour
         }
         
         
+=======
+        GameObject other = collision.gameObject;
+
+        if (other.CompareTag("movable"))
+        {
+            int dir = 0;
+            if (mog.getxInput() > 0)
+            {
+                dir = 1;
+            }
+            else if (mog.getyInput() < 0)
+                
+            {
+                dir = 2;
+            }
+            else if (mog.getxInput() < 0)
+            {
+                dir = 3;
+            }
+
+
+            isTransition = true;
+
+            StartCoroutine(MoveBlock(other.transform, dir));
+
+            isTransition = false;
+        }
+    }
+
+    //dir: 0 = N, 1 = E, 2 = S, 3 = W
+    public IEnumerator MoveBlock(Transform block, int dir)
+    {
+        
+
+        //isTransition = true;
+        float x = block.position.x;
+        float y = block.position.y;
+        float z = block.position.z;
+        
+        if(dir == 0)
+        {
+            y++;
+        }
+        else if(dir == 1)
+        {
+            x++;
+        }
+        else if(dir == 2)
+        {
+            y--;
+        }
+        else
+        {
+            x--;
+        }
+
+        Vector3 blockDest = new Vector3(x, y, z);
+        Debug.Log("Moving block " + dir);
+        StartCoroutine(MoveObjectOverTime(block, block.position, blockDest, 1));
+        mog.manualSet(0, 0);
+        yield return new WaitForSeconds(3f);
+        
+        //isTransition = false;
+>>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
     }
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example

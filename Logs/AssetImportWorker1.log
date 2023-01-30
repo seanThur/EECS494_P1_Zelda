@@ -8142,3 +8142,9 @@ Received Import Request.
   path: Packages/com.unity.2d.animation/Editor/Assets/SkinningModule/Icons/Light/Visibility_Hidded@2x.png
   artifactKey: Guid(f3940f64802892746b2ec336d3b0c5f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Packages/com.unity.2d.animation/Editor/Assets/SkinningModule/Icons/Light/Visibility_Hidded@2x.png using Guid(f3940f64802892746b2ec336d3b0c5f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '331a072acd6471beff5ba554239fa159') in 0.098935 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 601.642500 seconds.
+  path: Assets/Prefabs/Doors/LockedEastDoor1.prefab
+  artifactKey: Guid(917cc86778b5efb479c3c851e5b7b47e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Doors/LockedEastDoor1.prefab using Guid(917cc86778b5efb479c3c851e5b7b47e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d55640030e19d6578911772deac55f5') in 0.022992 seconds 
