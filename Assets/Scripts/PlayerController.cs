@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
+
   
     private void OnTriggerEnter(Collider coll)
     {
@@ -113,6 +114,15 @@ public class PlayerController : MonoBehaviour
             if (!(isInvinicible))
             {
                 TakeDamage(ec.contactDamage);
+                jolt(transform.position - coll.ClosestPoint(transform.position));
+            }
+        }
+        else if(other.tag.Equals("enemyProg"))
+        {
+            EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
+            if (!(isInvinicible))
+            {
+                TakeDamage(ep.damage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
             }
         }

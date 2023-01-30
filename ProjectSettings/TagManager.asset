@@ -22,6 +22,7 @@ TagManager:
   - PlayerProjectile
   - wall
   - NonWallSolid
+  - enemyProg
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

@@ -16,9 +16,24 @@ public class MoveOnGrid : MonoBehaviour
     private bool onGridy;
     private float xInput = 0.0f;
     private float yInput = 0.0f;
+
+    public Vector3 getHeadingVector()
+    {
+        return (new Vector3(xInput, yInput, 0.0f));
+    }
+
+    public void snap()
+    {
+        float gridlineConstant = 1.0f / gridDist;
+        float xPos = Mathf.Round(rb.transform.position.x*gridlineConstant)/gridlineConstant;
+        float yPos = Mathf.Round(rb.transform.position.y*gridlineConstant)/gridlineConstant;
+        rb.transform.position = new Vector3(xPos,yPos,0.0f);
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        snap();
     }
 
 
