@@ -90,13 +90,13 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
   
-=======
+//=======
     
 
->>>>>>> SeanGivesUp
+//>>>>>>> SeanGivesUp
     private void OnTriggerEnter(Collider coll)
     {
         Debug.Log("Entered: " + coll.name);
@@ -216,25 +216,25 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Unlocked west door");
             }
 
-            if (other.tag.Equals("northDoor") && mog.yInput > 0)
+            if (other.tag.Equals("northDoor") && mog.getyInput() > 0)
             {
                 cameraDest.y += yCameraDist;
                 playerDest.y += yPlayerDist;
                 
             }
-            else if(other.tag.Equals("eastDoor") && mog.xInput > 0)
+            else if(other.tag.Equals("eastDoor") && mog.getxInput() > 0)
             {
                    cameraDest.x += xCameraDist;
                    playerDest.x += xPlayerDist;
 
             }
-            else if(other.tag.Equals("southDoor") && mog.yInput < 0)
+            else if(other.tag.Equals("southDoor") && mog.getyInput() < 0)
             {
                    cameraDest.y -= yCameraDist;
                    playerDest.y -= yPlayerDist;
                 
             }
-            else if(other.tag.Equals("westDoor") && mog.xInput < 0)
+            else if(other.tag.Equals("westDoor") && mog.getxInput() < 0)
             {
                    cameraDest.x -= xCameraDist;
                    playerDest.x -= xPlayerDist;
@@ -280,15 +280,16 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("movable"))
         {
             int dir = 0;
-            if (mog.xInput > 0)
+            if (mog.getxInput() > 0)
             {
                 dir = 1;
             }
-            else if (mog.yInput < 0)
+            else if (mog.getyInput() < 0)
+                
             {
                 dir = 2;
             }
-            else if (mog.xInput < 0)
+            else if (mog.getxInput() < 0)
             {
                 dir = 3;
             }

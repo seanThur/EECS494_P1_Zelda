@@ -3,8 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - rupee
+  tags: - rupee
   - enemy
   - heart
   - door
@@ -22,15 +21,12 @@ TagManager:
   - PlayerProjectile
   - wall
   - NonWallSolid
-<<<<<<< HEAD
-  - enemyProg
-=======
   - movable
   - moveLeft
   - moveUp
   - moveRight
   - moveDown
->>>>>>> SeanGivesUp
+  - enemyProg
   layers:
   - Default
   - TransparentFX
@@ -38,7 +34,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
+  - 
   - 
   - 
   - 
@@ -67,13 +63,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Ground
-    uniqueID: 1236549987
-    locked: 0
-  - name: On Ground
-    uniqueID: 2579823163
-    locked: 0
-  - name: Locked Door
-    uniqueID: 1900330867
     locked: 0
