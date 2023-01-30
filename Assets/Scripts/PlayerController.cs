@@ -201,8 +201,6 @@ public class PlayerController : MonoBehaviour
             inventory.AddKeys(1);
             //anything else
         }
-        
-
         //doorcheck
         else
         {
@@ -236,41 +234,25 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Unlocked west door");
             }
 
-<<<<<<< HEAD
-            if (other.tag.Equals("northDoor") && mog.yInput > 0)
-=======
             if (other.tag.Equals("northDoor") && mog.getyInput() > 0)
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                 cameraDest.y += yCameraDist;
                 playerDest.y += yPlayerDist;
                 
             }
-<<<<<<< HEAD
-            else if(other.tag.Equals("eastDoor") && mog.xInput > 0)
-=======
             else if(other.tag.Equals("eastDoor") && mog.getxInput() > 0)
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                    cameraDest.x += xCameraDist;
                    playerDest.x += xPlayerDist;
 
             }
-<<<<<<< HEAD
-            else if(other.tag.Equals("southDoor") && mog.yInput < 0)
-=======
             else if(other.tag.Equals("southDoor") && mog.getyInput() < 0)
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                    cameraDest.y -= yCameraDist;
                    playerDest.y -= yPlayerDist;
                 
             }
-<<<<<<< HEAD
-            else if(other.tag.Equals("westDoor") && mog.xInput < 0)
-=======
             else if(other.tag.Equals("westDoor") && mog.getxInput() < 0)
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             {
                    cameraDest.x -= xCameraDist;
                    playerDest.x -= xPlayerDist;
@@ -283,10 +265,10 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("hit " + other.name);
 
-            
             StartCoroutine(MoveObjectOverTime(Camera.main.transform, cameraPos, cameraDest, 2));
             
             StartCoroutine(MoveObjectOverTime(transform, playerPos, playerDest, 2));
+
             
         }
     }
