@@ -6,14 +6,20 @@ using UnityEngine.UI;
 public class Displayer : MonoBehaviour
 {
     public Inventory inventory;
-    Text textComponent;
-    public Text heartsText;
+    public Health health;
+
     public Text leftHand;
-    public Text rightHand;
     public Text rupeeText;
     public Text keysText;
     public Text bombText;
-
+    public Image heartsImage;
+    public Image three;
+    public Image twoAndHalf;
+    public Image two;
+    public Image oneAndHalf;
+    public Image one;
+    public Image half;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +36,30 @@ public class Displayer : MonoBehaviour
             displayBomb(inventory.GetBombs());
         }
     }
-
-    public void displayHearts(float val)
+    public void displayHearts(float f)
     {
-        heartsText.text = "Hearts: " + val;
+        heartsImage = three;
+
+        if(f == 2.5f)
+        {
+            heartsImage = twoAndHalf;
+        }
+        else if (f == 2.0f)
+        {
+            heartsImage = two;
+        }
+        else if (f == 1.5f)
+        {
+            heartsImage = oneAndHalf;
+        }
+        else if (f == 1.0f)
+        {
+            heartsImage = one;
+        }
+        else if (f == 0.5f)
+        {
+            heartsImage = half;
+        }
     }
 
     public void displayLeft(string item)
@@ -43,21 +69,21 @@ public class Displayer : MonoBehaviour
 
     public void displayRight(string item)
     {
-        rightHand.text = "Right hand: " + item;
+        //rightHand.text = "Right hand: " + item;
     }
 
     public void displayRupees(int r)
     {
-        rupeeText.text = "Rupees: " + r;
+        rupeeText.text = r.ToString();
     }
 
     public void displayKeys(int k)
     {
-        keysText.text = "Keys: " + k;
+        keysText.text = k.ToString();
     }
 
     public void displayBomb(int b)
     {
-        bombText.text = "Bombs: " + b;
+        bombText.text = b.ToString();
     }
 }

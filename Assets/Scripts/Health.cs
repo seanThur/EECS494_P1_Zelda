@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public float hearts = 0.5f;
-    private float maxHearts = 0.5f;
+    public float hearts = 3f;
+    private float maxHearts = 3f;
     public bool dead = false;
     // Start is called before the first frame update
     void Start()

@@ -3,7 +3,25 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - enemy
+  - wall
+  - eastDoor
+  - westDoor
+  - key
+  - LwestDoor
+  - LnorthDoor
+  - northDoor
+  - southDoor
+  - LeastDoor
+  - heart
+  - movable
+  - bomb
+  - rupee
+  - PlayerProjectile
+  - enemyProg
+  - movable2
+  - NonWallSolid
   layers:
   - Default
   - TransparentFX
@@ -40,4 +58,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: OnGround
+    uniqueID: 1715437881
     locked: 0

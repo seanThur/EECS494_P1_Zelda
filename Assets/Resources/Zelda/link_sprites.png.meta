@@ -729,7 +729,7 @@ TextureImporter:
       name: link_sprites_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 287
         width: 15
         height: 16
@@ -1489,8 +1489,8 @@ TextureImporter:
         y: 192
         width: 16
         height: 27
-      alignment: 9
-      pivot: {x: 0.50000006, y: 0.67522913}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1510,8 +1510,8 @@ TextureImporter:
         y: 198
         width: 27
         height: 15
-      alignment: 9
-      pivot: {x: 0.67522895, y: 0.500001}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1531,8 +1531,8 @@ TextureImporter:
         y: 191
         width: 16
         height: 28
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2695852}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1552,8 +1552,8 @@ TextureImporter:
         y: 198
         width: 27
         height: 15
-      alignment: 9
-      pivot: {x: 0.26105133, y: 0.500001}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4107,27 +4107,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: link_sprites_161
-      rect:
-        serializedVersion: 2
-        x: 364
-        y: 32
-        width: 8
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 26405410000000000800000000000000
-      internalID: 21300322
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: link_sprites_162
       rect:
         serializedVersion: 2
@@ -4732,6 +4711,27 @@ TextureImporter:
       bones: []
       spriteID: c9405410000000000800000000000000
       internalID: 21300380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: link_sprites_161
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 32
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8df98059efa1504fb31f10248d083c7
+      internalID: 21300322
       vertices: []
       indices: 
       edges: []

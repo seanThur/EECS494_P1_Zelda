@@ -29,10 +29,8 @@ public class PlayerController : MonoBehaviour
     public bool isJolted = false;
     public bool isInvinicible = false;
     public static bool isTransition = false;
-<<<<<<< HEAD
     public static bool acceptInput = true;
-=======
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
+
 
     public AudioClip music, rupee, heart, damage, bombBlow, bombDrop, enemyDie, enemyHit, fanfare, die, shield, swordFull, sword;
 
@@ -58,6 +56,7 @@ public class PlayerController : MonoBehaviour
         health = GetComponent<Health>();
         ita = GetComponent<InputToAnimator>();
         mog = GetComponent<MoveOnGrid>();
+        
         //audioController = GetComponent<AudioController>();
         mog.movementSpeed = movementSpeed;
         
@@ -85,35 +84,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-<<<<<<< HEAD
-        if(!acceptInput)
+        if(!acceptInput || ita.isAttacking || isTransition)
         {
             rb.velocity = Vector3.zero;
         }
         else if (!(ita.isAttacking) && !(isJolted) && acceptInput)//I know this is a mess of state, it's a wip
-=======
-        if (!(ita.isAttacking) && !(isJolted) && !isTransition)//I know this is a mess of state, it's a wip
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
         {
             mog.manualSet(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
-        else if (ita.isAttacking || isTransition)
-        {
-            rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        }
     }
-<<<<<<< HEAD
-    
 
-=======
-//<<<<<<< HEAD
-
-  
-//=======
-    
-
-//>>>>>>> SeanGivesUp
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
     private void OnTriggerEnter(Collider coll)
     {
         Debug.Log("Entered: " + coll.name);
@@ -135,7 +115,7 @@ public class PlayerController : MonoBehaviour
         Vector3 playerPos = transform.position;
         Vector3 playerDest = transform.position;
 
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("enemy"))
         {
             Debug.Log("HIT");
             EnemyController ec = other.GetComponent<EnemyController>();
@@ -144,8 +124,6 @@ public class PlayerController : MonoBehaviour
                 TakeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
                 AudioSource.PlayClipAtPoint(enemyHit, transform.position);
-<<<<<<< HEAD
-=======
             }
         }
         else if(other.tag.Equals("enemyProg"))
@@ -155,7 +133,6 @@ public class PlayerController : MonoBehaviour
             {
                 TakeDamage(ep.damage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
             }
         }
         else if (other.tag.Equals("rupee"))
@@ -293,57 +270,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-<<<<<<< HEAD
         
         GameObject other = collision.gameObject;
         Vector3 dir = Vector3.zero;
         if (other.CompareTag("movable") && acceptInput)
         {
-            if(mog.xInput < 0)
+            if(mog.getxInput() < 0)
             {
                 dir = Vector3.left;
             }
-            else if(mog.xInput > 0)
+            else if(mog.getxInput() > 0)
             {
                 dir = Vector3.right;
             }
-            else if(mog.yInput > 0)
+            else if(mog.getyInput() > 0)
             {
                 dir = Vector3.up;
             }
-            else if(mog.yInput < 0)
+            else if(mog.getyInput() < 0)
             {
                 dir = Vector3.down;
             }
-
-            //RaycastHit rch;
-            //if (Physics.Raycast(new Ray(transform.position, Vector3.down), out rch))
-            //{
-            //    //Debug.DrawRay(transform.position, Vector3.up, Color.green);
-            //    dir = Vector3.up;
-            //}
-            //else if (Physics.Raycast(transform.position, Vector3.down))
-            //{
-            //    //Debug.DrawRay(transform.position, Vector3.down, Color.blue);
-            //    dir = Vector3.down;
-            //}
-            //else if (Physics.Raycast(transform.position, Vector3.left))
-            //{
-            //    //Debug.DrawRay(transform.position, Vector3.down, Color.blue);
-            //    dir = Vector3.left;
-            //}
-            //else
-            //{
-            //    //Debug.Log("raycast hit right");
-            //    dir = Vector3.right;
-            //}
-            //
-            //Debug.Log("raycast hit " + transform.position + " " + dir);
-            //Debug.DrawRay(transform.position, dir, Color.green);
         }
-        else if(other.CompareTag("moveDown"))
+        else if(other.CompareTag("movable2"))
         {
-            if(!(mog.yInput < 0))
+            if(!(mog.getyInput() < 0))
             {
                 return;
             }
@@ -352,107 +303,30 @@ public class PlayerController : MonoBehaviour
         }
 
         acceptInput = false;
-
         StartCoroutine(MoveBlock(other.transform, dir));
         acceptInput = true;
     }
     
-    //hardcoded for now since there's only two movable blocks in dungeon
-    //and it has this behavior (can move down once)
+
     public IEnumerator MoveBlock(Transform tr, Vector3 dir)
     {
-        //Debug.Log("starting moveblock");
-        
         Vector3 pos = tr.position;
         Vector3 playerPos = transform.position;
         Ray r = new Ray(transform.position, dir);
-        //Debug.DrawRay(r.origin, r.direction, Color.white);
+
         if (Physics.Raycast(r))
         {
-            Debug.Log("raycast hit2 " + transform.position + " " + dir);
-
-            //yield return new WaitForSeconds(.5f);
-
-            //if(mog.yInput < 0)
+            tr.tag = "NonWallSolid";
+            Vector3 destPos = pos + dir;
+            float time = 1f;
+            for (float t = 0; t < time; t += Time.deltaTime)
             {
-                //Debug.Log("moving");
-                tr.tag = "NonWallSolid";
-                Vector3 destPos = pos + dir;
-                float time = 1f;
-                for (float t = 0; t < time; t += Time.deltaTime)
-                {
-                    transform.position = playerPos;
-                    tr.position = Vector3.Lerp(pos, destPos, t);
-                    yield return new WaitForFixedUpdate();
-                }
-            }
-        }
-        
-        
-=======
-        GameObject other = collision.gameObject;
-
-        if (other.CompareTag("movable"))
-        {
-            int dir = 0;
-            if (mog.getxInput() > 0)
-            {
-                dir = 1;
-            }
-            else if (mog.getyInput() < 0)
-                
-            {
-                dir = 2;
-            }
-            else if (mog.getxInput() < 0)
-            {
-                dir = 3;
+                transform.position = playerPos;
+                tr.position = Vector3.Lerp(pos, destPos, t);
+                yield return new WaitForFixedUpdate();
             }
 
-
-            isTransition = true;
-
-            StartCoroutine(MoveBlock(other.transform, dir));
-
-            isTransition = false;
         }
-    }
-
-    //dir: 0 = N, 1 = E, 2 = S, 3 = W
-    public IEnumerator MoveBlock(Transform block, int dir)
-    {
-        
-
-        //isTransition = true;
-        float x = block.position.x;
-        float y = block.position.y;
-        float z = block.position.z;
-        
-        if(dir == 0)
-        {
-            y++;
-        }
-        else if(dir == 1)
-        {
-            x++;
-        }
-        else if(dir == 2)
-        {
-            y--;
-        }
-        else
-        {
-            x--;
-        }
-
-        Vector3 blockDest = new Vector3(x, y, z);
-        Debug.Log("Moving block " + dir);
-        StartCoroutine(MoveObjectOverTime(block, block.position, blockDest, 1));
-        mog.manualSet(0, 0);
-        yield return new WaitForSeconds(3f);
-        
-        //isTransition = false;
->>>>>>> 22fb3690e3761186f86fb5138787f44fbb85ef6e
     }
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
