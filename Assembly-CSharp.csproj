@@ -86,6 +86,11 @@
     <Compile Include="Assets\Scripts\Enemies\RandomConstantMovement.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Boomarang.cs" />
+    <Compile Include="Assets\Scripts\BoomarangController.cs" />
+    <Compile Include="Assets\Scripts\BombDetenator.cs" />
+    <Compile Include="Assets\Scripts\BombDropper.cs" />
+    <Compile Include="Assets\Scripts\CloudController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

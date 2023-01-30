@@ -79,6 +79,9 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Z))
         {
             GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
+            //GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
+            //GetComponent<Boomarang>().Use(ita.lastDirection);//Hardcoded for milestone
+            GetComponent<BombDropper>().Use(ita.lastDirection);//Hardcoded for milestone
         }
     }
 

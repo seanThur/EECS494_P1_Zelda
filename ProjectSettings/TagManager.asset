@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - rupee
   - enemy
   - wall
   - eastDoor
@@ -61,4 +62,13 @@ TagManager:
     locked: 0
   - name: OnGround
     uniqueID: 1715437881
+    locked: 0
+  - name: Ground
+    uniqueID: 1236549987
+    locked: 0
+  - name: On Ground
+    uniqueID: 2579823163
+    locked: 0
+  - name: Locked Door
+    uniqueID: 1900330867
     locked: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bow : Weapon
 {
     public GameObject arrow;
-    WeaponType weaponType = WeaponType.Bow;
+    //WeaponType weaponType = WeaponType.Bow;
 
     public void Use(int dir)
     {

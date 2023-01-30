@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public float contactDamage = 0.0f;
     public Animator an;
     private Health health;
+    public bool diesOnBoomerangHit = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,5 +44,21 @@ public class EnemyController : MonoBehaviour
     void joltFromPlayer()
     {
 
+    }
+
+    public void boomerangHit()
+    {
+        if (diesOnBoomerangHit)
+            Destroy(gameObject);
+
+
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        StartCoroutine(unboomerang());
+    }
+
+    IEnumerator unboomerang()
+    {
+        yield return (new WaitForSeconds(3.5f));
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 }
