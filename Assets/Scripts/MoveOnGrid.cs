@@ -5,17 +5,18 @@ using UnityEngine;
 public class MoveOnGrid : MonoBehaviour
 {
     public Rigidbody rb;
-    public static float gridDist = 0.5f;
+    public static float gridDist = .5f;
     public float movementSpeed = 1.0f;
 
     private float x;
     private float y;
-    private float xRem;
-    private float yRem;
+    public int xRem;
+    public int yRem;
     private bool onGridx;
     private bool onGridy;
     public float xInput = 0.0f;
     public float yInput = 0.0f;
+    public Vector2 playerDir;
 
     private void Start()
     {
@@ -142,16 +143,15 @@ public class MoveOnGrid : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        int rem = 0;
         //set gridMovement values
         x = rb.transform.position.x;
         y = rb.transform.position.y;
 
-        //with only 1 decimal point
-        xRem = (float)System.Math.Floor((double)(x % gridDist) * 10) / 10;
-        yRem = (float)System.Math.Floor((double)(y % gridDist) * 10) / 10;
-
-        if (xRem == 0.0f)
+        //with 2 decimal places
+        xRem = (int)Mathf.Floor(x * 100) % (int)(gridDist * 10);
+        yRem = (int)Mathf.Floor(y * 100) % (int)(gridDist * 10);
+        if (xRem == rem)
         {
             onGridy = true;
         }
@@ -160,7 +160,7 @@ public class MoveOnGrid : MonoBehaviour
             onGridy = false;
         }
 
-        if (yRem == 0.0f)
+        if (yRem == rem)
         {
             onGridx = true;
         }
@@ -171,9 +171,8 @@ public class MoveOnGrid : MonoBehaviour
 
         //calls grid movement, checks movement
         Vector2 currentInput = GetInput();
-
-        //coords.text = x.ToString() + " " + y.ToString() + "\n" + onGridx.ToString() + " " + onGridy.ToString() + "\n" + currentInput.x.ToString() + " " + currentInput.y.ToString();
-
+        playerDir = currentInput;
+        
         rb.velocity = currentInput * movementSpeed;
 
 
@@ -218,13 +217,13 @@ public class MoveOnGrid : MonoBehaviour
 
             xOutput = 0.0f;
 
-            if (y % gridDist < (gridDist / 2.0f))
+            if (rb.position.y % gridDist < (gridDist / 2.0f))
             {
-                yOutput = -0.5f;
+                yOutput = -0.1f;
             }
             else
             {
-                yOutput = 0.5f;
+                yOutput = 0.1f;
             }
         }
         else if (yInput != 0.0f && !onGridy)
@@ -236,17 +235,13 @@ public class MoveOnGrid : MonoBehaviour
 
             if (x % gridDist < (gridDist / 2.0f))
             {
-                xOutput = -0.5f;
+                xOutput = -0.1f;
             }
             else
             {
-                xOutput = 0.5f;
+                xOutput = 0.1f;
             }
         }
-
-
-        //Debug.Log("x: " + x + " " + "y: " + y + " xOutput: " + xOutput + " yOutput: " + yOutput + " onGridx: " + onGridx + " onGridy: " + onGridy
-        //    + " xRem: " + y % xGridDist + " yRem: " + x % yGridDist);
 
         return new Vector2(xOutput, yOutput);
     }

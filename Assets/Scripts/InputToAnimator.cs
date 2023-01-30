@@ -52,31 +52,34 @@ public class InputToAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-        int dir = getDir();
-        if (dir != 0)
+        if (PlayerController.acceptInput)
         {
-            lastDirection = dir;
-        }
-        //Debug.Log("dir = " + dir);
-        if (!(isAttacking))
-        {
-      
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+            int dir = getDir();
             if (dir != 0)
             {
-                animator.SetInteger("Direction", dir);
+                lastDirection = dir;
             }
-        }
-        //}
+            //Debug.Log("dir = " + dir);
+            if (!(isAttacking))
+            {
 
-        if((horizontal == 0 && vertical == 0) && !(isAttacking) && !(isHurt))
-        {
-            animator.speed = 0.0f;
-        }
-        else
-        {
-            animator.speed = 1.0f;
+                if (dir != 0)
+                {
+                    animator.SetInteger("Direction", dir);
+                }
+            }
+            //}
+
+            if ((horizontal == 0 && vertical == 0) && !(isAttacking) && !(isHurt))
+            {
+                animator.speed = 0.0f;
+            }
+            else
+            {
+                animator.speed = 1.0f;
+            }
         }
     }
 
