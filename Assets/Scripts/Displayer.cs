@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Displayer : MonoBehaviour
 {
-    public AltWeaponScroller aws;
+    //public AltWeaponScroller aws;
     public Text rupeeText;
     public Text keysText;
     public Text bombsText;
@@ -30,18 +30,18 @@ public class Displayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        heartsImage = GetComponent<Image>();
-        hearts3 = GetComponent<Image>();
-        hearts25 = GetComponent<Image>();
-        hearts2 = GetComponent<Image>();
-        hearts15 = GetComponent<Image>();
-        hearts1 = GetComponent<Image>();
-        hearts05 = GetComponent<Image>();
-        altWeaponImage = GetComponent<Image>();
-        bow = GetComponent<Image>();
-        boomerang = GetComponent<Image>();
-        bomb = GetComponent<Image>();
-        empty = GetComponent<Image>();
+        //heartsImage = GetComponent<Image>();
+        //hearts3 = GetComponent<Image>();
+        //hearts25 = GetComponent<Image>();
+        //hearts2 = GetComponent<Image>();
+        //hearts15 = GetComponent<Image>();
+        //hearts1 = GetComponent<Image>();
+        //hearts05 = GetComponent<Image>();
+        //altWeaponImage = GetComponent<Image>();
+        //bow = GetComponent<Image>();
+        //boomerang = GetComponent<Image>();
+        //bomb = GetComponent<Image>();
+        //empty = GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -57,21 +57,23 @@ public class Displayer : MonoBehaviour
             displayAltWeapon();
         }
     }
-     private void heartImageFlip(bool write)
+     private void heartImageFlip(float f, bool write)
     {
 
-        switch (PlayerController.playerInstance.health.hearts)
+        switch (f)
          {
              case 0.5f:
                  hearts05.enabled = write;
                  break;
              case 1.0f:
-                 hearts1.enabled = write;
+                Debug.Log("GOT 1 " + PlayerController.playerInstance.health.hearts);
+                hearts1.enabled = write;
                  break;
              case 1.5f:
                  hearts15.enabled = write;
                  break;
              case 2.0f:
+                Debug.Log("GOT 2 " + PlayerController.playerInstance.health.hearts);
                  hearts2.enabled = write;
                  break;
              case 2.5f:
@@ -88,9 +90,20 @@ public class Displayer : MonoBehaviour
      public void displayHearts()
      {
          float f = Mathf.Round(PlayerController.playerInstance.health.hearts * 2) / 2.0f;
-         heartImageFlip(false);
+        //Debug.Log("f" + f.ToString());
+        if (f != PlayerController.playerInstance.health.hearts || (f % .5 != 0))
+        {
+            Debug.Log(f.ToString() + " " + PlayerController.playerInstance.health.hearts);
+        }
+        if (f == heartsTrack)
+         {
+             return;
+         }
+         
+
+         heartImageFlip(heartsTrack, false);
          heartsTrack = f;
-         heartImageFlip(true);
+         heartImageFlip(heartsTrack, true);
      }
 
     private void altWeaponFlip(WeaponType w, bool write)
@@ -114,10 +127,15 @@ public class Displayer : MonoBehaviour
 
     public void displayAltWeapon()
     {
-        WeaponType alt = PlayerController.playerInstance.inventory.altWeapon;
-        altWeaponFlip(alt, false);
-        altWeaponTrack = alt;
-        altWeaponFlip(alt, true);
+        Weapon alt = PlayerController.playerInstance.altWeapon;
+        if(alt.weaponType == altWeaponTrack)
+        {
+            return;
+        }
+        Debug.Log(alt);
+        altWeaponFlip(altWeaponTrack, false);
+        altWeaponTrack = alt.weaponType;
+        altWeaponFlip(altWeaponTrack, true);
     }
 
     public void displayRupees()

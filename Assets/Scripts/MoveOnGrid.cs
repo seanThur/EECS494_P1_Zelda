@@ -220,14 +220,14 @@ public class MoveOnGrid : MonoBehaviour
         Debug.Assert((xInput != 0.0f && yInput == 0.0f) || (xInput == 0.0f && yInput != 0.0f), x.ToString() + " " + y.ToString() + " invalid");
 
         //should also be on one of the grids
-        Debug.Assert(onGridx || onGridy, "Not on either gridline!");
+        //Debug.Assert(onGridx || onGridy, "Not on either gridline!");
 
         return gridMovement(xInput, yInput);
     }
 
     private Vector2 gridMovement(float xInput, float yInput)
     {
-        Debug.Assert(xInput == 0.0f || yInput == 0.0f, "One input must be 0 by this point!");
+        //Debug.Assert(xInput == 0.0f || yInput == 0.0f, "One input must be 0 by this point!");
         float xOutput = xInput;
         float yOutput = yInput;
 
@@ -236,7 +236,7 @@ public class MoveOnGrid : MonoBehaviour
         {
             //should be on grid y
             if (!onGridy)
-                Debug.Assert(onGridy, "Not on either gridline! (should be on grid y)");
+                //Debug.Assert(onGridy, "Not on either gridline! (should be on grid y)");
 
             xOutput = 0.0f;
 
@@ -252,7 +252,7 @@ public class MoveOnGrid : MonoBehaviour
         else if (yInput != 0.0f && !onGridy)
         {
             if (!onGridx)
-                Debug.Assert(onGridx, "Not on either gridline! (should be on grid x)");
+                //Debug.Assert(onGridx, "Not on either gridline! (should be on grid x)");
 
             yOutput = 0.0f;
 

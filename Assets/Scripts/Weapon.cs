@@ -12,12 +12,13 @@ public class Weapon : MonoBehaviour
     void Equip()
     {
         equipped = true;
-        PlayerController.playerInstance.inventory.altWeapon = weaponType;
+        PlayerController.playerInstance.altWeapon = this;
     }
 
     void Unequip()
     {
         equipped = false;
+        PlayerController.playerInstance.altWeapon = null;
     }
 
     public void Use(int dir)

@@ -24,6 +24,9 @@ TagManager:
   - movable2
   - NonWallSolid
   - Enemy
+  - Bow
+  - Boomerang
+  - Bomb
   layers:
   - Default
   - TransparentFX

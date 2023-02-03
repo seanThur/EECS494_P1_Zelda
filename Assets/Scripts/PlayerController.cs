@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public bool acceptInput = true;
 
+    public Weapon altWeapon;
+
     //singleton pattern 
     private void Awake()
     {
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
         ita = GetComponent<InputToAnimator>();
         mog = GetComponent<MoveOnGrid>();
         mog.movementSpeed = movementSpeed;
+        altWeapon = GetComponent<Weapon>();
     }
 
     // Update is called once per frame
@@ -98,7 +101,7 @@ public class PlayerController : MonoBehaviour
             EnemyController ec = other.GetComponent<EnemyController>();
             if (!(isInvinicible))
             {
-                TakeDamage(ec.contactDamage);
+                health.takeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
                 
             }
@@ -153,6 +156,19 @@ public class PlayerController : MonoBehaviour
             inventory.addKeys(1);
             
         }
+        else if(other.CompareTag("Bow"))
+        {
+            Debug.Log("Acquired bow");
+            inventory.acquireBow();
+            Destroy(other);
+        }
+        else if (other.CompareTag("Boomerang"))
+        {
+            Debug.Log("pre Acquired boomerang");
+            inventory.acquireBoomerang();
+            Debug.Log("post Acquired boomerang");
+            Destroy(other);
+        }
         //doorcheck
         else
         {
@@ -191,20 +207,15 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damageMultiplier)
     {
-        ita.damaged();
         if (GameController.godMode || isInvinicible)
         {
             return;
         }
-        health.hearts -= 0.5f * damageMultiplier;
+
+        ita.damaged();
+        health.takeDamage(damageMultiplier);
         AudioController.audioInstance.playEffect(AudioController.audioInstance.linkHurt);
-
-        //if (health.hearts <= 0)
-        //{
-        //    GameController.instance.GameOver();
-        //}
-
-
+        Debug.Log("TOOK DAMAGE: " + health.hearts);
     }
 
     private void OnCollisionStay(Collision collision)

@@ -5,11 +5,89 @@ using UnityEngine.UIElements;
 
 public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it not be an object in PlayerController?
 {
-    //Queue<WeaponType> activeAltWeapons;
-    public WeaponType altWeapon;
+    private Queue<Weapon> availableAltWeapons;
+    public Bow bow;
+    public Boomarang boomerang;//bomb, 
     public int rupeeCount = 0;
     public int bombCount = 0;
     public int keyCount = 0;
+
+    private void Start()
+    {
+
+        //bomb = GetComponent<Bomb>();
+        //bow = 
+        //boomerang = GetComponent<Boomarang>();
+    }
+
+    //ACQUIRE != EQUIP
+    public void acquireBow()
+    {
+        bow = GetComponent<Bow>();
+        availableAltWeapons.Enqueue(bow);
+    }
+
+    public void acquireBoomerang()
+    {
+        boomerang = GetComponent<Boomarang>();
+        Debug.Log("Yo ");
+        availableAltWeapons.Enqueue(boomerang);
+    }
+
+    /*
+    //public void acquireBombs()
+    //{
+    //    bombs = GetComponent<Bombs>();
+    //    availableAltWeapons.Enqueue(bombs);
+    //}
+
+    public void acquireWeapon(WeaponType w)
+    {
+        if(w.Equals(WeaponType.Bow))
+        {
+            availableAltWeapons.Enqueue(bow);
+        }
+        else if (w.Equals(WeaponType.Boomerang))
+        {
+            availableAltWeapons.Enqueue(bow);
+        }
+        else if (w.Equals(WeaponType.Bomb))
+        {
+            //availableAltWeapons.Enqueue(bomb);
+        }
+        else
+        {
+            Debug.Log("Tried to acquire invalid weapon" + w);
+            return;
+        }
+
+        
+    }*/
+
+    public void toggleAltWeapon()
+    {
+        if(availableAltWeapons.Count == 0)
+        {
+            Debug.Log("No alt weapons available!");
+            return;
+        }
+
+        //move current alt weapon to back of queue
+        availableAltWeapons.Enqueue(availableAltWeapons.Dequeue());
+
+        //set new altWeapon
+        PlayerController.playerInstance.altWeapon = availableAltWeapons.Peek();
+    }
+
+    public void godMode()
+    {
+        rupeeCount = 999;
+        bombCount = 99;
+        keyCount = 99;
+    }
+    
+
+
 
     public int GetRupees()
     {
@@ -26,16 +104,16 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
         rupeeCount += num;
 
-        if(rupeeCount < 0 || rupeeCount > 999)
+        if (rupeeCount < 0 || rupeeCount > 999)
         {
             rupeeCount = 999;
         }
     }
 
-    
+
     public void SetRupees(int num)
     {
-        if(num < 0 || num > 999)
+        if (num < 0 || num > 999)
         {
             num = 999;
         }
@@ -55,7 +133,7 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
             return;
         }
         bombCount += num;
-        if(bombCount < 0 || bombCount > 99)
+        if (bombCount < 0 || bombCount > 99)
         {
             bombCount = 99;
         }
@@ -74,7 +152,7 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
     public void addKeys(int num)
     {
-        if(GameController.godMode)
+        if (GameController.godMode)
         {
             return;
         }
@@ -87,7 +165,7 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
     public void useKey()
     {
-        if(keyCount <= 0)
+        if (keyCount <= 0)
         {
             Debug.Log("Invalid key count: " + keyCount);
         }
@@ -106,17 +184,4 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
         keyCount = num;
     }
-
-    public void setAltWeapon(WeaponType w)
-    {
-        altWeapon = w;
-    }
-
-    public void godMode()
-    {
-        rupeeCount = 999;
-        bombCount = 99;
-        keyCount = 99;
-    }
-
 }

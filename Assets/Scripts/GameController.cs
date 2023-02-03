@@ -39,12 +39,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-
-        if (PlayerController.playerInstance.health.hearts == 0)
+        if(PlayerController.playerInstance.health.dead)
         {
             gameOver();
-        }   
-
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             godMode = !godMode;
