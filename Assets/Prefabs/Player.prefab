@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2108887001043775139}
   - component: {fileID: 2108887001043775136}
   - component: {fileID: 2108887001043775147}
-  - component: {fileID: 2108887001043775144}
   - component: {fileID: 2108887001043775145}
   - component: {fileID: 2108887001043775142}
   - component: {fileID: 2108887001043775146}
@@ -122,29 +121,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 2108887001043775142}
+  displayer: {fileID: 0}
   rb: {fileID: 2108887001043775141}
   mog: {fileID: 0}
   movementSpeed: 4
-  coords: {fileID: 0}
-  displayer: {fileID: 2108887001043775144}
   health: {fileID: 2108887001043775147}
   ita: {fileID: 2108887001043775145}
   bulletPrefab: {fileID: 973701247567776794, guid: c4f644626de878049a71bad6cd7dfc70, type: 3}
   isJolted: 0
   isInvinicible: 0
-  music: {fileID: 8300000, guid: 05c25d11d15d34b4984cf6911486aca2, type: 3}
-  rupee: {fileID: 8300000, guid: 58dd0e5474f5ca9448cbe1a76bb5979a, type: 3}
-  heart: {fileID: 8300000, guid: 5e621f8cc9451e149a8fd11ccf51bedd, type: 3}
-  damage: {fileID: 8300000, guid: 3932d1d39013bc747a828b68ae98e401, type: 3}
-  bombBlow: {fileID: 8300000, guid: 23b07ea00d6953a489c2eb48c54b0903, type: 3}
-  bombDrop: {fileID: 8300000, guid: 967da2b6d881ded489d0ac6d86a4bc2e, type: 3}
-  enemyDie: {fileID: 8300000, guid: 88694d1680049554ca60e673ce1d50ed, type: 3}
-  enemyHit: {fileID: 8300000, guid: 0094f2435d0fd3443af3fc95d766002e, type: 3}
-  fanfare: {fileID: 8300000, guid: 5a0c13ef594284f4f81b32d74494a745, type: 3}
-  die: {fileID: 8300000, guid: 418c8f081e366774582e5badac79ef1d, type: 3}
-  shield: {fileID: 8300000, guid: 63ea4ccd6dd672a45903dadfc9753fca, type: 3}
-  swordFull: {fileID: 8300000, guid: 83a66ffe2ad8e2b42abcb5f571143629, type: 3}
-  sword: {fileID: 8300000, guid: 4afd1477571d5cb4b882bd537eb06cf1, type: 3}
+  acceptInput: 1
 --- !u!65 &2108887001043775139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -192,31 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hearts: 3
   dead: 0
---- !u!114 &2108887001043775144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108887001043775198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6be02d7c95c59e49ac2f04fd003ebd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
-  health: {fileID: 0}
-  leftHand: {fileID: 0}
-  rupeeText: {fileID: 0}
-  keysText: {fileID: 0}
-  bombText: {fileID: 0}
-  heartsImage: {fileID: 0}
-  three: {fileID: 0}
-  twoAndHalf: {fileID: 0}
-  two: {fileID: 0}
-  oneAndHalf: {fileID: 0}
-  one: {fileID: 0}
-  half: {fileID: 0}
 --- !u!114 &2108887001043775145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0897b1a610524b49bc3ff68d761dc10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  altWeapon: 
+  rupeeCount: 0
+  bombCount: 0
+  keyCount: 0
 --- !u!65 &2108887001043775146
 BoxCollider:
   m_ObjectHideFlags: 0

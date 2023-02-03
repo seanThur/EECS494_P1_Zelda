@@ -5,34 +5,26 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    //public static PlayerController instance;
-    public Inventory inventory;
+    public static PlayerController playerInstance;
     
+    public Inventory inventory;
+    public Displayer displayer;
     public Rigidbody rb;
     public MoveOnGrid mog;
     public float movementSpeed = 4.0f;
 
-    private float xCameraDist = 16f;
-    private float yCameraDist = 11f;
-    private float xPlayerDist = 5f;
-    private float yPlayerDist = 5f;
-
-    public Displayer displayer;
     public Health health;
     public InputToAnimator ita;
-    public static PlayerController playerInstance;
+
     public GameObject bulletPrefab;
-    //public AudioController audioController;
 
     private float swordDamage = 1.0f;
     public bool isJolted = false;
     public bool isInvinicible = false;
-    public static bool isTransition = false;
-    public static bool acceptInput = true;
 
+    public bool acceptInput = true;
 
-    public AudioClip music, rupee, heart, damage, bombBlow, bombDrop, enemyDie, enemyHit, fanfare, die, shield, swordFull, sword;
-
+    //singleton pattern 
     private void Awake()
     {
         if (playerInstance == null)
@@ -44,24 +36,14 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
-    // Start is called before the first frame update
-    void Start()
+        void Start()
     {
         rb = GetComponent<Rigidbody>();
         inventory = GetComponent<Inventory>();
-        displayer = GetComponent<Displayer>();
         health = GetComponent<Health>();
         ita = GetComponent<InputToAnimator>();
         mog = GetComponent<MoveOnGrid>();
-        
-        //audioController = GetComponent<AudioController>();
         mog.movementSpeed = movementSpeed;
-        
-        displayer.displayHearts(3);
-
-        AudioSource.PlayClipAtPoint(music, Camera.main.transform.position);
     }
 
     // Update is called once per frame
@@ -71,21 +53,19 @@ public class PlayerController : MonoBehaviour
         {
             swordAttack();
         }
-        if(Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            displayer.displayAltWeapon(WeaponType.Bow);
             GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
             //GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
-            //displayer.displayAltWeapon(WeaponType.Boomerang);
+
             //GetComponent<Boomarang>().Use(ita.lastDirection);//Hardcoded for milestone
-            displayer.displayAltWeapon(WeaponType.Bomb);
             GetComponent<BombDropper>().Use(ita.lastDirection);//Hardcoded for milestone
         }
     }
 
     void FixedUpdate()
     {
-        if(!acceptInput || ita.isAttacking || isTransition)
+        if (!acceptInput || ita.isAttacking || GameController.isTransition)
         {
             rb.velocity = Vector3.zero;
         }
@@ -99,50 +79,46 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Entered: " + coll.name);
         GameObject other = coll.gameObject;
-        //Debug.Log("Num Keys: " + inventory.GetKeys());
-        if(other == null)
+
+        if (other == null)
         {
             Debug.Log("Null trigger");
 
             return;
         }
-        if(isTransition)
+        if (GameController.isTransition)
         {
             return;
         }
 
-        Vector3 cameraPos = Camera.main.transform.position;
-        Vector3 cameraDest = Camera.main.transform.position;
-        Vector3 playerPos = transform.position;
-        Vector3 playerDest = transform.position;
-
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("HIT");
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
             EnemyController ec = other.GetComponent<EnemyController>();
             if (!(isInvinicible))
             {
                 TakeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
-                AudioSource.PlayClipAtPoint(enemyHit, transform.position);
+                
             }
         }
-        else if(other.tag.Equals("enemyProg"))
+        else if (other.tag.Equals("enemyProg"))
         {
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
             EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
             if (!(isInvinicible))
             {
                 TakeDamage(ep.damage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
+                
             }
         }
         else if (other.tag.Equals("rupee"))
         {
-            
-            inventory.AddRupees(1);
-            
             Debug.Log("Collected rupee!");
-            AudioSource.PlayClipAtPoint(rupee, other.transform.position);
+            inventory.AddRupees(1);
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.rupee);
 
             Destroy(other);
 
@@ -150,107 +126,68 @@ public class PlayerController : MonoBehaviour
         else if (other.tag.Equals("heart"))
         {
             Debug.Log("Collected heart");
-            AudioSource.PlayClipAtPoint(heart, other.transform.position);
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.heartKey);
             Destroy(other);
 
-            if(!health.isAtMaxHearts())
+            if (!health.isAtMaxHearts())
             {
                 health.heal(1);
             }
-            
-            displayer.displayHearts(health.hearts);
 
-            //heart sound effect
         }
-        else if(other.tag.Equals("bomb"))
+        else if (other.tag.Equals("bomb"))
         {
             Debug.Log("Collected bomb");
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.bombDrop);
             Destroy(other);
 
             inventory.AddBombs(1);
-            //anything else
+            
         }
-        else if(other.tag.Equals("key"))
+        else if (other.tag.Equals("key"))
         {
             Debug.Log("Collected key");
-            AudioSource.PlayClipAtPoint(heart, other.transform.position);
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.heartKey);
             Destroy(other);
 
-            inventory.AddKeys(1);
-            //anything else
+            inventory.addKeys(1);
+            
         }
         //doorcheck
         else
         {
-            
-            if (other.tag.Equals("LnorthDoor") && inventory.GetKeys() > 0)
-            {
-                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
-                other.SetActive(false);
-                inventory.AddKeys(-1);
-                Debug.Log("Unlocked north door");
-            }
-            else if (other.tag.Equals("LeastDoor") && inventory.GetKeys() > 0)
-            {
-                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
-                other.SetActive(false);
-                inventory.AddKeys(-1);
-                Debug.Log("Unlocked east door");
-            }
-            else if (other.tag.Equals("LsouthDoor") && inventory.GetKeys() > 0)
-            {
-                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
-                other.SetActive(false);
-                inventory.AddKeys(-1);
-                Debug.Log("Unlocked south door");
-            }
-            else if(other.tag.Equals("LwestDoor") && inventory.GetKeys() > 0)
-            {
-                other.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
-                other.SetActive(false);
-                inventory.AddKeys(-1);
-                Debug.Log("Unlocked west door");
-            }
+            int dir = 0;
 
-            if (other.tag.Equals("northDoor") && mog.getyInput() > 0)
+            if (other.tag.Equals("LnorthDoor") || other.tag.Equals("LeastDoor") || other.tag.Equals("LsouthDoor") || other.tag.Equals("LwestDoor") 
+                && inventory.keyCount > 0)
             {
-                cameraDest.y += yCameraDist;
-                playerDest.y += yPlayerDist;
-                
+                GameController.gameInstance.unlockDoor(other);
             }
-            else if(other.tag.Equals("eastDoor") && mog.getxInput() > 0)
+            else if (other.tag.Equals("northDoor"))
             {
-                   cameraDest.x += xCameraDist;
-                   playerDest.x += xPlayerDist;
+                dir = 1;
+            }
+            else if (other.tag.Equals("eastDoor"))
+            {
+                dir = 2;
+            }
+            else if (other.tag.Equals("southDoor"))
+            {
+                dir = 3;
 
             }
-            else if(other.tag.Equals("southDoor") && mog.getyInput() < 0)
+            else if (other.tag.Equals("westDoor"))
             {
-                   cameraDest.y -= yCameraDist;
-                   playerDest.y -= yPlayerDist;
-                
-            }
-            else if(other.tag.Equals("westDoor") && mog.getxInput() < 0)
-            {
-                   cameraDest.x -= xCameraDist;
-                   playerDest.x -= xPlayerDist;
-            
-            }
-            else
-            {
-                return;
+                dir = 4;
             }
 
-            Debug.Log("hit " + other.name);
+            if(dir != 0)
+            {
+                GameController.gameInstance.transition(dir);
+            }
 
-            StartCoroutine(MoveObjectOverTime(Camera.main.transform, cameraPos, cameraDest, 2));
-            
-            StartCoroutine(MoveObjectOverTime(transform, playerPos, playerDest, 2));
-
-            
         }
     }
-
 
     public void TakeDamage(float damageMultiplier)
     {
@@ -260,42 +197,42 @@ public class PlayerController : MonoBehaviour
             return;
         }
         health.hearts -= 0.5f * damageMultiplier;
-        AudioSource.PlayClipAtPoint(damage, transform.position);
-        if (health.hearts <= 0)
-        {
-            GameController.instance.GameOver();
-        }
-        displayer.displayHearts(health.hearts);
-        
+        AudioController.audioInstance.playEffect(AudioController.audioInstance.linkHurt);
+
+        //if (health.hearts <= 0)
+        //{
+        //    GameController.instance.GameOver();
+        //}
+
+
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        
         GameObject other = collision.gameObject;
         Vector3 dir = Vector3.zero;
         if (other.CompareTag("movable") && acceptInput)
         {
-            if(mog.getxInput() < 0)
+            if (mog.getxInput() < 0)
             {
                 dir = Vector3.left;
             }
-            else if(mog.getxInput() > 0)
+            else if (mog.getxInput() > 0)
             {
                 dir = Vector3.right;
             }
-            else if(mog.getyInput() > 0)
+            else if (mog.getyInput() > 0)
             {
                 dir = Vector3.up;
             }
-            else if(mog.getyInput() < 0)
+            else if (mog.getyInput() < 0)
             {
                 dir = Vector3.down;
             }
         }
-        else if(other.CompareTag("movable2"))
+        else if (other.CompareTag("movable2"))
         {
-            if(!(mog.getyInput() < 0))
+            if (!(mog.getyInput() < 0))
             {
                 return;
             }
@@ -304,77 +241,18 @@ public class PlayerController : MonoBehaviour
         }
 
         acceptInput = false;
-        StartCoroutine(MoveBlock(other.transform, dir));
+        StartCoroutine(GameController.gameInstance.MoveBlock(other.transform, dir));
         acceptInput = true;
     }
-    
 
-    public IEnumerator MoveBlock(Transform tr, Vector3 dir)
-    {
-        Vector3 pos = tr.position;
-        Vector3 playerPos = transform.position;
-        Ray r = new Ray(transform.position, dir);
 
-        if (Physics.Raycast(r))
-        {
-            tr.tag = "NonWallSolid";
-            Vector3 destPos = pos + dir;
-            float time = 1f;
-            for (float t = 0; t < time; t += Time.deltaTime)
-            {
-                transform.position = playerPos;
-                tr.position = Vector3.Lerp(pos, destPos, t);
-                yield return new WaitForFixedUpdate();
-            }
 
-        }
-    }
-
-    //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
-    public static IEnumerator MoveObjectOverTime(Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
-    {
-        isTransition = true;
-        float initial_time = Time.time;
-        // The "progress" variable will go from 0.0f -> 1.0f over the course of "duration_sec" seconds.
-        float progress = (Time.time - initial_time) / duration_sec;
-
-        while (progress < 1.0f)
-        {
-            // Recalculate the progress variable every frame. Use it to determine
-            // new position on line from "initial_pos" to "dest_pos"
-            progress = (Time.time - initial_time) / duration_sec;
-
-            //make player disappear in between rooms
-            if(target.CompareTag("Player"))
-            {
-                if (progress > 0.1f)
-                {
-                    target.localScale = new Vector3(0, 0, 0);
-                }
-
-                //bring player back
-                if(progress > 0.8f)
-                {
-                    target.localScale = new Vector3(1, 1, 1);
-                }
-            }
-            Vector3 new_position = Vector3.Lerp(initial_pos, dest_pos, progress);
-            target.position = new_position;
-            
-            // yield until the end of the frame, allowing other code / coroutines to run
-            // and allowing time to pass.
-            yield return null;
-        }
-
-        target.position = dest_pos;
-        isTransition = false;
-    }
 
     public void jolt(Vector3 direction)
     {
         isJolted = true;
         isInvinicible = true;
-        mog.reverse(movementSpeed*5.0f,0.2f);
+        mog.reverse(movementSpeed * 5.0f, 0.2f);
         StartCoroutine(stopjolt());
         StartCoroutine(stopInvincibllity());
         //Player is pushed away from enemy and becomes invincible temporarally
@@ -402,7 +280,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 castDir = new Vector3(0.0f, 0.0f, 0.0f);
-        float len=1.0f;
+        float len = 1.0f;
         switch (ita.lastDirection)
         {
             case 1:
@@ -438,11 +316,11 @@ public class PlayerController : MonoBehaviour
         if (health.isAtMaxHearts())
         {
             fireBullet(ita.lastDirection);
-            AudioSource.PlayClipAtPoint(swordFull, transform.position);
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.swordCombined);
         }
         else
         {
-            AudioSource.PlayClipAtPoint(sword, transform.position);
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.sword);
         }
     }
 
@@ -468,5 +346,8 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+
     }
+
+
 }

@@ -52,9 +52,9 @@ public class PlayerControllerLEG : MonoBehaviour
         {
             Debug.LogWarning("WARNING: PlayerController has no displayer!");
         }
-        displayer.displayHearts(3);
-        displayer.displayLeft("Sword");
-        displayer.displayRight("Bow");
+        displayer.displayHearts();
+        //displayer.displayLeft("Sword");
+        //displayer.displayRight("Bow");
         /*
         inventory = new Inventory();//This seems cleaner to me, do you agree?
         displayer = new Displayer();
@@ -108,9 +108,8 @@ public class PlayerControllerLEG : MonoBehaviour
         health.hearts -= 0.5f * damageMultiplier;
         if (health.hearts <= 0)
         {
-            GameController.instance.GameOver();
+            GameController.gameInstance.gameOver();
         }
-        displayer.displayHearts(health.hearts);
     }
 
     private void OnTriggerEnter(Collider coll)

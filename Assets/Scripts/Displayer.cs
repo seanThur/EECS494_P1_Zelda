@@ -5,21 +5,18 @@ using UnityEngine.UI;
 
 public class Displayer : MonoBehaviour
 {
-    public Inventory inventory;
-    public Health health;
-
-    public Text leftHand;
+    public AltWeaponScroller aws;
     public Text rupeeText;
     public Text keysText;
-    public Text bombText;
-    private float heartsTrack = 3.0f;
+    public Text bombsText;
+
     public Image heartsImage;
-    public Image three;
-    public Image twoAndHalf;
-    public Image two;
-    public Image oneAndHalf;
-    public Image one;
-    public Image half;
+    public Image hearts3;
+    public Image hearts25;
+    public Image hearts2;
+    public Image hearts15;
+    public Image hearts1;
+    public Image hearts05;
 
     public Image altWeaponImage;
     public Image bow;
@@ -27,57 +24,74 @@ public class Displayer : MonoBehaviour
     public Image bomb;
     public Image empty;
 
-    public WeaponType currentAltWeapon = WeaponType.Empty;
-    
+    private WeaponType altWeaponTrack = WeaponType.Empty;
+    private float heartsTrack = 3.0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        heartsImage = three;
+        heartsImage = GetComponent<Image>();
+        hearts3 = GetComponent<Image>();
+        hearts25 = GetComponent<Image>();
+        hearts2 = GetComponent<Image>();
+        hearts15 = GetComponent<Image>();
+        hearts1 = GetComponent<Image>();
+        hearts05 = GetComponent<Image>();
+        altWeaponImage = GetComponent<Image>();
+        bow = GetComponent<Image>();
+        boomerang = GetComponent<Image>();
+        bomb = GetComponent<Image>();
+        empty = GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(inventory != null)
+        displayHearts();
+
+        if(PlayerController.playerInstance.inventory != null)
         {
-            displayRupees(inventory.GetRupees());
-            displayKeys(inventory.GetKeys());
-            displayBomb(inventory.GetBombs());
+            displayRupees();
+            displayKeys();
+            displayBombs();
+            displayAltWeapon();
         }
     }
-    private void heartImageFlip(float f, bool write)
+     private void heartImageFlip(bool write)
     {
-        switch(f)
-        {
-            case 0.5f:
-                half.enabled = write;
-                break;
-            case 1.0f:
-                one.enabled = write;
-                break;
-            case 1.5f:
-                oneAndHalf.enabled = write;
-                break;
-            case 2.0f:
-                two.enabled = write;
-                break;
-            case 2.5f:
-                twoAndHalf.enabled = write;
-                break;
-            case 3.0f:
-                Debug.Log("Name = " + gameObject.name);
-                Debug.Log("Three = "+three);
-                three.enabled = write;
-                break;
-        }
-    }
-    public void displayHearts(float f)
-    {
-        f = Mathf.Round(f * 2) / 2.0f;
-        heartImageFlip(heartsTrack,false);
-        heartsTrack = f;
-        heartImageFlip(f, true);
-    }
+
+        switch (PlayerController.playerInstance.health.hearts)
+         {
+             case 0.5f:
+                 hearts05.enabled = write;
+                 break;
+             case 1.0f:
+                 hearts1.enabled = write;
+                 break;
+             case 1.5f:
+                 hearts15.enabled = write;
+                 break;
+             case 2.0f:
+                 hearts2.enabled = write;
+                 break;
+             case 2.5f:
+                 hearts25.enabled = write;
+                 break;
+             case 3.0f:
+                //Debug.Log("Name = " + gameObject.name);
+                //Debug.Log("Three = "+ hearts3);
+                //hearts3.enabled = write;
+                 break;
+         }
+     }
+
+     public void displayHearts()
+     {
+         float f = Mathf.Round(PlayerController.playerInstance.health.hearts * 2) / 2.0f;
+         heartImageFlip(false);
+         heartsTrack = f;
+         heartImageFlip(true);
+     }
 
     private void altWeaponFlip(WeaponType w, bool write)
     {
@@ -98,35 +112,27 @@ public class Displayer : MonoBehaviour
         }
     }
 
-    public void displayRight(string s)
+    public void displayAltWeapon()
     {
-
+        WeaponType alt = PlayerController.playerInstance.inventory.altWeapon;
+        altWeaponFlip(alt, false);
+        altWeaponTrack = alt;
+        altWeaponFlip(alt, true);
     }
 
-    public void displayLeft(string s)
+    public void displayRupees()
     {
-
+        rupeeText.text = PlayerController.playerInstance.inventory.rupeeCount.ToString();
     }
 
-    public void displayAltWeapon(WeaponType w)
+    public void displayKeys()
     {
-        altWeaponFlip(currentAltWeapon, false);
-        currentAltWeapon = w;
-        altWeaponFlip(w, true);
+        keysText.text = PlayerController.playerInstance.inventory.keyCount.ToString();
     }
 
-    public void displayRupees(int r)
+    public void displayBombs()
     {
-        rupeeText.text = r.ToString();
-    }
-
-    public void displayKeys(int k)
-    {
-        keysText.text = k.ToString();
-    }
-
-    public void displayBomb(int b)
-    {
-        bombText.text = b.ToString();
+        //FIX
+        //bombsText.text = PlayerController.playerInstance.inventory.bombCount.ToString();
     }
 }

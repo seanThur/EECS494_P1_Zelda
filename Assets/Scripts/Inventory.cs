@@ -5,11 +5,16 @@ using UnityEngine.UIElements;
 
 public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it not be an object in PlayerController?
 {
-    private Weapon activeWeaponA;
-    private Weapon activeWeaponB;
+    //Queue<WeaponType> activeAltWeapons;
+    public WeaponType altWeapon;
     public int rupeeCount = 0;
     public int bombCount = 0;
     public int keyCount = 0;
+
+    public int GetRupees()
+    {
+        return rupeeCount;
+    }
 
     public void AddRupees(int num)
     {
@@ -27,11 +32,7 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
         }
     }
 
-    public int GetRupees()
-    {
-        return rupeeCount;
-    }
-
+    
     public void SetRupees(int num)
     {
         if(num < 0 || num > 999)
@@ -40,6 +41,11 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
         }
 
         rupeeCount = num;
+    }
+
+    public int GetBombs()
+    {
+        return bombCount;
     }
 
     public void AddBombs(int num)
@@ -55,10 +61,6 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
         }
     }
 
-    public int GetBombs()
-    {
-        return bombCount;
-    }
 
     public void SetBombs(int num)
     {
@@ -70,7 +72,7 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
         bombCount = num;
     }
 
-    public void AddKeys(int num)
+    public void addKeys(int num)
     {
         if(GameController.godMode)
         {
@@ -83,12 +85,19 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
         }
     }
 
-    public int GetKeys()
+    public void useKey()
     {
-        return keyCount;
+        if(keyCount <= 0)
+        {
+            Debug.Log("Invalid key count: " + keyCount);
+        }
+        else
+        {
+            keyCount--;
+        }
     }
 
-    public void SetKeys(int num)
+    public void setKeys(int num)
     {
         if (num < 0 || num > 99)
         {
@@ -98,44 +107,16 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
         keyCount = num;
     }
 
-    public Weapon GetActiveWeaponA()
+    public void setAltWeapon(WeaponType w)
     {
-        return activeWeaponA;
+        altWeapon = w;
     }
 
-    public Weapon GetActiveWeaponB()
-    {
-        return activeWeaponB;
-    }
-
-    public void SetActiveWeaponA(Weapon w)
-    {
-        activeWeaponA = w;
-    }
-
-    public void SetActiveWeaponB(Weapon w)
-    {
-        activeWeaponB = w;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        SetActiveWeaponA(new Sword());
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
-    public void GodMode()
+    public void godMode()
     {
         rupeeCount = 999;
         bombCount = 99;
         keyCount = 99;
     }
+
 }

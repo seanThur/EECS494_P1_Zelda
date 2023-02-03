@@ -5,7 +5,6 @@ using UnityEngine;
 public class BombDropper : Weapon
 {
     public GameObject bomb;
-    //WeaponType weaponType = WeaponType.Bow;
 
     public void Use(int dir)
     {

@@ -107,7 +107,7 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
                     deactivate();
                     if(carryingPlayer)
                     {
-                        GameController.instance.GameOver();
+                        GameController.gameInstance.gameOver();
                         carryingPlayer = false;
                     }
                     return;

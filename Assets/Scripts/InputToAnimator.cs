@@ -52,7 +52,7 @@ public class InputToAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerController.acceptInput)
+        if (PlayerController.playerInstance.acceptInput)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");

@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\BombDropper.cs" />
     <Compile Include="Assets\Scripts\Enemies\WallMasterController.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\AltWeaponScroller.cs" />
     <Compile Include="Assets\Scripts\Enemies\RandomConstantMovement.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
