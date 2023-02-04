@@ -7,13 +7,32 @@ public class BoomarangController : MonoBehaviour
     public float speed = 5.0f;
     public Rigidbody rb;
     private bool reversing = false;
+    static bool iExist;
+    bool iCount = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (iExist)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            iCount = true;
+            iExist = true;
+        }
         rb = GetComponent<Rigidbody>();
         rb.AddTorque(new Vector3(0, 0, 600.0f));
         StartCoroutine(limitLength());
+    }
+
+    private void OnDestroy()
+    {
+        if (iCount)
+        {
+            iExist = false;
+        }
     }
 
     // Update is called once per frame
@@ -58,7 +77,7 @@ public class BoomarangController : MonoBehaviour
 
     IEnumerator limitLength()
     {
-        yield return (new WaitForSeconds(2.0f));
+        yield return (new WaitForSeconds(1.0f));
 
         reverse();
     }

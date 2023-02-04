@@ -13,7 +13,7 @@ public class GoriyaBoomerangController : EnemyProjectile
     {
         returning = false;
         rb = gameObject.GetComponent<Rigidbody>();
-        //rb.AddTorque();//Figure somtin out, knuckle head!
+        rb.AddTorque(new Vector3(0, 0, 600.0f));
     }
 
     IEnumerator autoReturn()
@@ -45,6 +45,7 @@ public class GoriyaBoomerangController : EnemyProjectile
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if(returning && other.GetComponent<GoriyaMovement>())
@@ -66,4 +67,5 @@ public class GoriyaBoomerangController : EnemyProjectile
             other.gameObject.GetComponent<PlayerController>().TakeDamage(0.5f);
         }
     }
+
 }

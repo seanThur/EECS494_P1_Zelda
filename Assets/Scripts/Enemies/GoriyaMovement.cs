@@ -7,6 +7,7 @@ public class GoriyaMovement : RandomConstantMovement
     Animator an;
     bool stopped;
     public GameObject boomerang;
+    private int wasDir;
     private void Start()
     {
         an = GetComponent<Animator>();
@@ -23,11 +24,18 @@ public class GoriyaMovement : RandomConstantMovement
         {
             setRandomDirection();
         }
-        an.SetInteger("Dir", dir);
+        if(dir != wasDir)
+        {
+            wasDir = dir;
+            an.SetInteger("Dir", dir);
+            an.SetTrigger("Impulse");
+        }
+        
     }
 
     private void throwBoomerang()
     {
+        //Add scan to ensure 1 tile space
         stopped = true;
         GameObject inst = Instantiate(boomerang);
         inst.transform.position = transform.position;

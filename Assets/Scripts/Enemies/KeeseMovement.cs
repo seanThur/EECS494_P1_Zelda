@@ -16,6 +16,8 @@ public class KeeseMovement : MonoBehaviour
     public Vector3 heading;
     public float lockoutRandom = 0;
     private int intHeading;
+    private Vector3 ejectorSeat;
+    private int toingCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class KeeseMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         an = GetComponent<Animator>();
         randomHeading();
+        ejectorSeat = transform.position;
     }
 
     void randomHeading()
@@ -70,6 +73,20 @@ public class KeeseMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    private bool isValidTravel()
+    {
+        RaycastHit rch;
+        bool isGonnaHit = Physics.BoxCast(transform.position,new Vector3(0.8f,0.4f,0.0f),heading, out rch, Quaternion.identity, 0.4f);
+        if(isGonnaHit)
+        {
+            if(!(rch.collider.CompareTag("wall")))
+            {
+                isGonnaHit = false;
+            }
+        }
+        return (!(isGonnaHit));
+    }
     void Update()
     {
         if (!(noThinking))
@@ -97,6 +114,23 @@ public class KeeseMovement : MonoBehaviour
 
         rb.velocity = heading * speed;
         an.speed = speed / topSpeed;
+
+        if(!(isValidTravel()))
+        {
+            reverse();
+            toingCount++;
+        } else
+        {
+            if(toingCount > 0)
+            {
+                toingCount--;
+            }
+        }
+
+        if(toingCount>=10 || Mathf.Abs((ejectorSeat - transform.position).magnitude) > 16)
+        {
+            transform.position = ejectorSeat;
+        }
 
         //Vector3 viewPos = Camera.main.WorldToViewportPoint(gameObject.transform.position);
         //if (!(viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0))
@@ -132,10 +166,10 @@ public class KeeseMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("wall") && lockoutRandom <= 0)
-        {
-            reverse();
-        }
+        //if(other.CompareTag("wall") && lockoutRandom <= 0)
+        //{
+        //    reverse();
+        //}
     }
 
 }

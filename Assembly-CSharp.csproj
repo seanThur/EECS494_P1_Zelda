@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Boomarang.cs" />
     <Compile Include="Assets\Scripts\BombDetenator.cs" />
     <Compile Include="Assets\Scripts\BoomarangController.cs" />
+    <Compile Include="Assets\Scripts\LevelScript\OldManSamus\StartText.cs" />
     <Compile Include="Assets\Scripts\Enemies\KeeseMovement.cs" />
     <Compile Include="Assets\Scripts\Enemies\Aquamentis.cs" />
     <Compile Include="Assets\Scripts\Enemies\GelMovement.cs" />
@@ -73,11 +74,15 @@
     <Compile Include="Assets\Scripts\Bow.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\InputToAnimator.cs" />
+    <Compile Include="Assets\Scripts\LevelScript\OldManSamus\TextSpriteDisplay.cs" />
+    <Compile Include="Assets\Scripts\LevelScript\KeyseDropper.cs" />
     <Compile Include="Assets\Scripts\ArrowController.cs" />
     <Compile Include="Assets\Scripts\Enemies\GoriyaMovement.cs" />
+    <Compile Include="Assets\Scripts\LevelScript\KeeseRoomDoorLock.cs" />
     <Compile Include="Assets\Scripts\ExplodeTimer.cs" />
     <Compile Include="Assets\Scripts\Enemies\GoriyaBoomerangController.cs" />
     <Compile Include="Assets\Scripts\ScreenShakeEffect.cs" />
+    <Compile Include="Assets\Scripts\LevelScript\WallMasterSpawn.cs" />
     <Compile Include="Assets\Scripts\EECS494FunBallAesthetics.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Enemies\AquaBallController.cs" />
@@ -91,6 +96,7 @@
     <Compile Include="Assets\Scripts\Enemies\RandomConstantMovement.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\LevelScript\HintRoomUnlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

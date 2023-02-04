@@ -7,11 +7,31 @@ public class ArrowController : MonoBehaviour
     public float damage = 1.0f;
     public bool blowTheHellUp = false;
     private Rigidbody rb;
+    static bool iExist;
+    private bool iCount = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (iExist)
+        {
+            PlayerController.playerInstance.gameObject.GetComponent<Inventory>().AddRupees(1);//Dont judge me Im tired
+            Destroy(gameObject);
+        }
+        else
+        {
+            iCount = true;
+            iExist = true;
+        }
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnDestroy()
+    {
+        if (iCount)
+        {
+            iExist = false;
+        }
     }
 
     // Update is called once per frame
@@ -29,6 +49,10 @@ public class ArrowController : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyController>().takeDamage(damage);
             Explosion();
+        }
+        if(other.gameObject.CompareTag("wall"))
+        {
+            Destroy(gameObject);
         }
     }
 

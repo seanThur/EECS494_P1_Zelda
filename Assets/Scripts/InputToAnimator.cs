@@ -10,6 +10,7 @@ public class InputToAnimator : MonoBehaviour
     public int lastDirection = 3;
     private float horizontal;
     private float vertical;
+    public bool isUsing = false;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +73,7 @@ public class InputToAnimator : MonoBehaviour
             }
             //}
 
-            if ((horizontal == 0 && vertical == 0) && !(isAttacking) && !(isHurt))
+            if ((horizontal == 0 && vertical == 0) && !(isAttacking) && !(isHurt) && !(isUsing))
             {
                 animator.speed = 0.0f;
             }
@@ -83,6 +84,19 @@ public class InputToAnimator : MonoBehaviour
         }
     }
 
+    IEnumerator stopUse()
+    {
+        yield return (new WaitForSeconds(1.1f/6.0f));
+        isUsing = false;
+    }
+
+    public void useItem()
+    {
+        animator.SetTrigger("UseItem");
+        animator.speed = 1.0f;
+        isUsing = true;
+        StartCoroutine(stopUse());
+    }
     public bool attack()
     {
         if(isAttacking) { return (false); }

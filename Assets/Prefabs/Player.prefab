@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 2108887001043775145}
   - component: {fileID: 2108887001043775142}
   - component: {fileID: 2108887001043775146}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -245,6 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0897b1a610524b49bc3ff68d761dc10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rupeeCount: 0
+  bombCount: 0
+  keyCount: 0
 --- !u!65 &2108887001043775146
 BoxCollider:
   m_ObjectHideFlags: 0

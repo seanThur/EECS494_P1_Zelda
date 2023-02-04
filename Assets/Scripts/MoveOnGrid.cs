@@ -18,6 +18,34 @@ public class MoveOnGrid : MonoBehaviour
     private float xInput = 0.0f;
     private float yInput = 0.0f;
 
+    private float tolerance = 0.05f;
+
+    public bool checkOnGridX()
+    {
+        float gridMul = (1 / gridDist);
+        float nearest = Mathf.Round(transform.position.x * gridMul) / gridMul;
+
+        return (Mathf.Abs(transform.position.x - nearest) <= tolerance);
+    }
+
+    public bool checkOnGridY()
+    {
+        float gridMul = (1 / gridDist);
+        float nearest = Mathf.Round(transform.position.y * gridMul) / gridMul;
+
+        return (Mathf.Abs(transform.position.y - nearest) <= tolerance);
+    }
+
+    public bool checkOnGridBoth()
+    {
+        return (checkOnGridX() && checkOnGridY());
+    }
+
+    public bool checkOnGridEither()
+    {
+        return (checkOnGridX() || checkOnGridY());
+    }
+
     public float getxInput()
     {
         return (xInput);
@@ -152,6 +180,7 @@ public class MoveOnGrid : MonoBehaviour
 
         stop();
         movementSpeed = save;
+        snap();
     }
 
     public void manualSet(float inX, float inY)
@@ -160,10 +189,72 @@ public class MoveOnGrid : MonoBehaviour
         yInput = inY;
     }
 
-    
+    IEnumerator phaseOutInX(float x)
+    {
+        yield return (new WaitForSeconds(x));
 
+        GetComponent<BoxCollider>().isTrigger = true;
+    }
 
+    public void enemyJolt(Vector3 heading)
+    {
+        GetComponent<BoxCollider>().isTrigger = false;
+        heading = heading.normalized;
+        if(Mathf.Abs(heading.x) < Mathf.Abs(heading.y))
+        {
+            if(heading.y > 0)
+            {
+                moveUp(20.0f,0.25f);
+            }
+            else
+            {
+                moveDown(20.0f, 0.25f);
+            }
+        } else
+        {
+            if (heading.x > 0)
+            {
+                moveRight(20.0f, 0.25f);
+            }
+            else
+            {
+                moveLeft(20.0f, 0.25f);
+            }
+        }
+        StartCoroutine(phaseOutInX(0.25f));
+    }
+    /*
+    public bool checkUp()
+    {
+        return (Physics.Raycast(gameObject.transform.position, new Vector3(0.0f,1.0f,0.0f), gridDist));
+    }
 
+    public bool checkDown()
+    {
+        return (Physics.Raycast(gameObject.transform.position, new Vector3(0.0f, -1.0f, 0.0f), gridDist));
+    }
+
+    public bool checkLeft()
+    {
+        return (Physics.Raycast(gameObject.transform.position, new Vector3(-1.0f, 0.0f, 0.0f), gridDist));
+    }
+
+    public bool checkRight()
+    {
+        return (Physics.Raycast(gameObject.transform.position, new Vector3(1.0f, 0.0f, 0.0f), gridDist));
+    }
+
+    public bool checkDir(int dir)
+    {
+        switch(dir)
+        {
+            case 1:return (checkUp());
+            case 2: return (checkUp());
+            case 3: return (checkUp());
+            default: return (checkUp());
+        }
+    }
+    */
 
     void FixedUpdate()
     {

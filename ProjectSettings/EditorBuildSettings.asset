@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LAB_Stalfos.unity
     guid: 3a738f88669ee4d47ab7a91d136915b6
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 8267627276f877844968d5e86d846c48
   m_configObjects: {}

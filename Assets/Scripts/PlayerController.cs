@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public bool isInvinicible = false;
     public static bool isTransition = false;
     public static bool acceptInput = true;
+    private int secondary = 0;
 
 
     public AudioClip music, rupee, heart, damage, bombBlow, bombDrop, enemyDie, enemyHit, fanfare, die, shield, swordFull, sword;
@@ -78,9 +79,15 @@ public class PlayerController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
             //GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
-            //GetComponent<Boomarang>().Use(ita.lastDirection);//Hardcoded for milestone
+            GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
+                                                       // GetComponent<Boomarang>().Use(ita.lastDirection);//Hardcoded for milestone
+                                                       //GetComponent<BombDropper>().Use(ita.lastDirection);//Hardcoded for milestone
+            ita.useItem();
+            
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
             GetComponent<BombDropper>().Use(ita.lastDirection);//Hardcoded for milestone
         }
     }
@@ -416,7 +423,7 @@ public class PlayerController : MonoBehaviour
                 len = 1.15f;
                 break;
             case 3:
-                castDir.y = -1.0f;
+                castDir.y = -1.0f;//Downward
                 len = 1.25f;
                 break;
             case 4:
@@ -426,7 +433,7 @@ public class PlayerController : MonoBehaviour
         }
         RaycastHit hitData;
 
-        if (Physics.Raycast(gameObject.transform.position, castDir, out hitData, len))
+        if (Physics.Raycast(gameObject.transform.position, castDir, out hitData, len, 3))
         {
             if (hitData.collider.gameObject.CompareTag("Enemy"))
             {

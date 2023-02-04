@@ -11,11 +11,30 @@ public class BulletController : MonoBehaviour
     public GameObject downLeft;
     public GameObject upRight;
     public GameObject downRight;
+    static bool iExist;
+    private bool iCount = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(iExist)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            iExist = true;
+            iCount = true;
+        }
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnDestroy()
+    {
+        if(iCount)
+        {
+            iExist = false;
+        }
     }
 
     // Update is called once per frame
@@ -32,6 +51,10 @@ public class BulletController : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.GetComponent<EnemyController>().takeDamage(damage);
+            Explosion();
+        }
+        if(other.gameObject.CompareTag("wall"))
+        {
             Explosion();
         }
     }

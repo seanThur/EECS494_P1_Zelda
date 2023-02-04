@@ -7,38 +7,74 @@ public class RandomConstantMovement : MoveOnGrid
     public float speed = 5.0f;
     public int dir;
     // Start is called before the first frame update
+
+
     public bool checkUp()
     {
-        return (Physics.Raycast(transform.position, new Vector3(0.0f, 1.0f, 0.0f), 1.5f));
+        return (!(Physics.Raycast(transform.position, new Vector3(0.0f, 1.0f, 0.0f), 1.0f)));
     }
     public bool checkRight()
     {
-        return (Physics.Raycast(transform.position, new Vector3(1.0f, 0.0f, 0.0f), 1.5f));
+        return (!(Physics.Raycast(transform.position, new Vector3(1.0f, 0.0f, 0.0f), 1.0f)));
     }
     public bool checkDown()
     {
-        return (Physics.Raycast(transform.position, new Vector3(0.0f, -1.0f, 0.0f), 1.5f));
+        return (!(Physics.Raycast(transform.position, new Vector3(0.0f, -1.0f, 0.0f), 1.0f)));
     }
     public bool checkLeft()
     {
-        return (Physics.Raycast(transform.position, new Vector3(-1.0f, 0.0f, 0.0f), 1.5f));
+        return (!(Physics.Raycast(transform.position, new Vector3(-1.0f, 0.0f, 0.0f), 1.0f)));
     }
-    public bool checkDir()
+    public bool checkDir(int code)
     {
-        switch(dir)
+        switch(code)
         {
             case 0:
                 return (checkUp());
             case 1:
-                return (checkRight());
+                return (checkLeft());
             case 2:
                 return (checkDown());
             default:
-                return (checkLeft());
+                return (checkRight());
         }
+    }
+
+
+    public bool lookBeforeLeap()
+    {
+        if(!(checkDir(dir)))
+        {
+            setRandomSideways();
+            return (true);
+        }
+        return (false);
+    }
+
+    public void maybeGoSidewaysWellSee()
+    {
+        if(Random.Range(0,100) != 50)
+            return;
+        bool checkOne = (checkDir((dir + 1) % 4));
+        bool checkTwo = (checkDir((dir + 3) % 4));
+
+        if (checkOne && checkTwo)
+        {
+            dir = (dir + (Random.Range(0, 2) * 2) + 1) % 4;
+        }
+        else if (checkOne && !(checkTwo))
+        {
+            dir = (dir + 1) % 4;
+        }
+        else if (!(checkOne) && checkTwo)
+        {
+            dir = (dir + 3) % 4;
+        }
+        goInDirection();
     }
     private void Start()
     {
+
         gridDist = 1.0f;
         rb = GetComponent<Rigidbody>();
         setRandomDirection();
@@ -46,15 +82,56 @@ public class RandomConstantMovement : MoveOnGrid
     // Update is called once per frame
     void Update()
     {
-        if(Random.Range(0,1024) == 0)
+        //if(Random.Range(0,1024) == 0)
+        //{
+        //    setRandomDirection();
+        //}
+        if(checkOnGridBoth())
         {
-            setRandomDirection();
+            if(!(lookBeforeLeap()))
+            {
+                maybeGoSidewaysWellSee();
+            }
         }
+
     }
+
+
 
     public void setRandomDirection()
     {
         dir = Random.Range(0, 4);
+        if(!(checkDir(dir)))
+        {
+            setRandomDirection();
+            return;
+        }
+        goInDirection();
+    }
+    public void setRandomSideways()
+    {
+        int firstC = ((dir + 1) % 4);
+        int secondC = ((dir + 3) % 4);
+        bool checkOne = (checkDir(firstC));
+        bool checkTwo = (checkDir(secondC));
+
+        if (checkOne && checkTwo)
+        {
+            dir = (Random.Range(0,2) == 0) ? firstC : secondC;
+        }
+        else if (checkOne && !(checkTwo))
+        {
+            dir = firstC;
+        }
+        else if (!(checkOne) && checkTwo)
+        {
+            dir = secondC;
+        }
+        else if (!(checkOne) && !(checkTwo))
+        {
+            dir = (dir + 2) % 4;
+        }
+        Debug.Log("E_Set = "+dir);
         goInDirection();
     }
 
@@ -80,12 +157,7 @@ public class RandomConstantMovement : MoveOnGrid
     private void OnTriggerEnter(Collider other)
     {
         if (!(other.isTrigger)) {
-            rb.position -= rb.velocity * Time.deltaTime * 2;//Step out of solid
-
-            dir += Random.RandomRange(0, 2) == 0 ? 1 : 3;//Pick a perpendicular direction...
-            dir = dir % 4;
-
-            goInDirection();//...and commit to it!
+            setRandomSideways();
         }
         
     }

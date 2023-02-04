@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contactDamage: 0.5
   an: {fileID: 6900008554478092575}
-  diesOnBoomerangHit: 0
+  diesOnBoomerangHit: 1
 --- !u!95 &6900008554478092575
 Animator:
   serializedVersion: 5

@@ -24,9 +24,19 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    IEnumerator bringOutYourDead(float x)
+    {
+        yield return (new WaitForSeconds(x));
+
+        Destroy(gameObject);
+    }
+
     void die()
     {
-        Destroy(gameObject);
+        an.SetTrigger("dead");
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        StartCoroutine(bringOutYourDead(4.0f/6.0f));
     }
 
 
@@ -43,7 +53,10 @@ public class EnemyController : MonoBehaviour
 
     void joltFromPlayer()
     {
-
+        if(GetComponent<MoveOnGrid>())
+        {
+            GetComponent<MoveOnGrid>().enemyJolt(transform.position - PlayerController.playerInstance.transform.position);
+        }
     }
 
     public void boomerangHit()
