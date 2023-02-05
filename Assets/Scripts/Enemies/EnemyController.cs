@@ -103,13 +103,18 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f);
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-            GetComponent<BoxCollider>().isTrigger = true;
-            GetComponent<Animator>().speed = 1;
-            gameObject.tag = "Enemy";
+            unfreeze();
 
         }
+    }
+
+    public void unfreeze()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f);
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        GetComponent<BoxCollider>().isTrigger = true;
+        GetComponent<Animator>().speed = 1;
+        gameObject.tag = "Enemy";
     }
 
     public void freeze()

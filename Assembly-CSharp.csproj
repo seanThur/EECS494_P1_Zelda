@@ -103,6 +103,8 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\LevelScript\HintRoomUnlock.cs" />
+    <Compile Include="Assets\Scripts\Enemies\ChuckFireballer.cs" />
+    <Compile Include="Assets\Scripts\Enemies\ChuckMelter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
