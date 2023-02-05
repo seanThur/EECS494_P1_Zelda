@@ -169,7 +169,7 @@ public class GameController : MonoBehaviour
     {
         PlayerController.acceptInput = false;
         Ray r = new Ray(PlayerController.playerInstance.transform.position, dir);
-        Debug.DrawRay(r.origin, r.direction);
+        Debug.DrawRay(r.origin, r.direction * .5f);
         RaycastHit cast;
 
         yield return new WaitForSeconds(1);
