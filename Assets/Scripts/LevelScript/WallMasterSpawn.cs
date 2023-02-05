@@ -5,20 +5,49 @@ using UnityEngine;
 public class WallMasterSpawn : MonoBehaviour
 {
     public GameObject wms;
-    private GameObject[] coral;
-    private void OnTriggerEnter(Collider other)
+    private GameObject coral1;
+    private GameObject coral2;
+    private GameObject coral3;
+    private GameObject coral4;
+    bool spawned = false;
+
+    void spawnEm()
     {
-        coral[0] = Instantiate(wms);
-        coral[1] = Instantiate(wms);
-        coral[2] = Instantiate(wms);
-        coral[3] = Instantiate(wms);
+        Debug.Log("WM_ spawning");
+        coral4 = Instantiate(wms);
+        coral1 = Instantiate(wms);
+        coral2 = Instantiate(wms);
+        coral3 = Instantiate(wms);
     }
 
-    private void OnTriggerExit(Collider other)
+    void despawnEm()
     {
-        Destroy(coral[0]);
-        Destroy(coral[1]);
-        Destroy(coral[2]);
-        Destroy(coral[3]);
+        Debug.Log("WM_despawning");
+        Destroy(coral4);
+        Destroy(coral1);
+        Destroy(coral2);
+        Destroy(coral3);
     }
+
+    private void Update()
+    {
+        Vector3 pLoc = PlayerController.playerInstance.transform.position;
+        if(pLoc.x >= 66 && pLoc.x <= 79 && pLoc.y >= 33 && pLoc.y <= 43)
+        {
+            if(!(spawned))
+            {
+                spawnEm();
+                spawned = true;
+            }
+        }
+        else
+        {
+            if (spawned)
+            {
+                despawnEm();
+                spawned = false;
+            }
+        }
+    }
+
 }

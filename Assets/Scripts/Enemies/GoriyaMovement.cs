@@ -39,7 +39,7 @@ public class GoriyaMovement : RandomConstantMovement
         stopped = true;
         GameObject inst = Instantiate(boomerang);
         inst.transform.position = transform.position;
-        inst.GetComponent<GoriyaBoomerangController>().launch(getHeadingVector());
+        inst.GetComponent<GoriyaBoomerangController>().launch(getHeadingVector(), this);
         stop();
     }
     public void boomerangReset()

@@ -6,7 +6,7 @@ public class Boomarang : Weapon
 {
     public GameObject rang;
 
-    public void Use(int dir)
+    new public void Use(int dir)
     {
         GameObject temp = Instantiate(rang, transform.position, Quaternion.identity);
         BoomarangController bc = temp.GetComponent<BoomarangController>();

@@ -121,7 +121,7 @@ public class PlayerControllerLEG : MonoBehaviour
             if (inventory != null)
             {
                 inventory.AddRupees(1);
-                Debug.Log("Collected rupee!");
+               // Debug.Log("Collected rupee!");
             }
 
             Destroy(other);

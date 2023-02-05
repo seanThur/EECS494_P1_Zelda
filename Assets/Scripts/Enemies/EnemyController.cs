@@ -27,7 +27,21 @@ public class EnemyController : MonoBehaviour
     IEnumerator bringOutYourDead(float x)
     {
         yield return (new WaitForSeconds(x));
-
+        Debug.Log("BringingOut");
+        int drop = Random.Range(0,20);
+        Debug.Log("Drop_Code = " + drop);
+        if(drop <= 1)
+        {
+            Instantiate(enemyDropBox.instance.heartPickup).transform.position = transform.position;
+        }
+        else if(drop <= 3)
+        {
+            Instantiate(enemyDropBox.instance.rupeePickup).transform.position = transform.position;
+        }
+        else if(drop <= 5)
+        {
+            Instantiate(enemyDropBox.instance.bombPickup).transform.position = transform.position;
+        }
         Destroy(gameObject);
     }
 
@@ -37,6 +51,8 @@ public class EnemyController : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         StartCoroutine(bringOutYourDead(4.0f/6.0f));
+        Debug.Log("Dying");
+        health.hearts += 999;
     }
 
 

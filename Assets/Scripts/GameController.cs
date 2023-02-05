@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
             door.transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
             door.SetActive(false);
             PlayerController.playerInstance.inventory.useKey();
-            Debug.Log("Unlocked locked door");
+            //Debug.Log("Unlocked locked door");
         }
         
     }
@@ -88,7 +88,7 @@ public class GameController : MonoBehaviour
                 break;
         }
 
-        Debug.Log("starting transition " + dir + " " + " " + playerDest);
+       // Debug.Log("starting transition " + dir + " " + " " + playerDest);
         StartCoroutine(MoveObjectOverTime(dir, Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
         StartCoroutine(MoveObjectOverTime(dir, PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, 2.5f));
     }

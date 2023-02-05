@@ -8,7 +8,7 @@ public class AquaBallController : MonoBehaviour
     public float speed = 2.0f;
     public void launch(Vector3 movement)
     {
-        Debug.Log("Movement = " + movement);
+        //Debug.Log("Movement = " + movement);
         rb.velocity = movement * speed;
     }
     // Start is called before the first frame update

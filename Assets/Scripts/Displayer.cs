@@ -27,9 +27,19 @@ public class Displayer : MonoBehaviour
     private WeaponType altWeaponTrack = WeaponType.Empty;
     private float heartsTrack = 3.0f;
 
+    public static Displayer instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        if(instance)
+        {
+            Destroy(this);
+        } else
+        {
+            instance = this;
+        }
+
         //heartsImage = GetComponent<Image>();
         //hearts3 = GetComponent<Image>();
         //hearts25 = GetComponent<Image>();
@@ -54,7 +64,6 @@ public class Displayer : MonoBehaviour
             displayRupees();
             displayKeys();
             displayBombs();
-            displayAltWeapon();
         }
     }
      private void heartImageFlip(float f, bool write)
@@ -66,14 +75,14 @@ public class Displayer : MonoBehaviour
                  hearts05.enabled = write;
                  break;
              case 1.0f:
-                Debug.Log("GOT 1 " + PlayerController.playerInstance.health.hearts);
+                //Debug.Log("GOT 1 " + PlayerController.playerInstance.health.hearts);
                 hearts1.enabled = write;
                  break;
              case 1.5f:
                  hearts15.enabled = write;
                  break;
              case 2.0f:
-                Debug.Log("GOT 2 " + PlayerController.playerInstance.health.hearts);
+                //Debug.Log("GOT 2 " + PlayerController.playerInstance.health.hearts);
                  hearts2.enabled = write;
                  break;
              case 2.5f:
@@ -108,6 +117,7 @@ public class Displayer : MonoBehaviour
 
     private void altWeaponFlip(WeaponType w, bool write)
     {
+        
         switch (w)
         {
             case WeaponType.Empty:
@@ -127,12 +137,13 @@ public class Displayer : MonoBehaviour
 
     public void displayAltWeapon()
     {
-        Weapon alt = PlayerController.playerInstance.altWeapon;
+        Debug.Log("Displaying");
+        Weapon alt = PlayerController.playerInstance.gameObject.GetComponent<AltWeaponScroller>().currentWeapon;
         if(alt.weaponType == altWeaponTrack)
         {
             return;
         }
-        Debug.Log(alt);
+        Debug.Log("Weapon = "+alt);
         altWeaponFlip(altWeaponTrack, false);
         altWeaponTrack = alt.weaponType;
         altWeaponFlip(altWeaponTrack, true);
@@ -151,6 +162,6 @@ public class Displayer : MonoBehaviour
     public void displayBombs()
     {
         //FIX
-        //bombsText.text = PlayerController.playerInstance.inventory.bombCount.ToString();
+        bombsText.text = PlayerController.playerInstance.inventory.bombCount.ToString();
     }
 }
