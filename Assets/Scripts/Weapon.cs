@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType { Sword, Bow, Bomb, Boomerang, Empty };
+public enum WeaponType { Sword, Bow, Bomb, Boomerang, Snowball, Empty };
 
 public class Weapon : MonoBehaviour
 {

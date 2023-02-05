@@ -22,6 +22,7 @@ public class Displayer : MonoBehaviour
     public Image bow;
     public Image boomerang;
     public Image bomb;
+    public Image snowball;
     public Image empty;
 
     public Image[] leftRevealPanels;
@@ -165,6 +166,9 @@ public class Displayer : MonoBehaviour
                 break;
             case WeaponType.Bomb:
                 bomb.enabled = write;
+                break;
+            case WeaponType.Snowball:
+                snowball.enabled = write;
                 break;
         }
     }

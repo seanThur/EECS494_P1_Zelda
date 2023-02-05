@@ -10,6 +10,9 @@ public class AltWeaponScroller : MonoBehaviour
     private Weapon blank;
     public Weapon currentWeapon;
 
+    public bool customMode = false;
+    private SnowballThrower sbt;
+
     private void Start()
     {
         blank = new Weapon();
@@ -17,6 +20,11 @@ public class AltWeaponScroller : MonoBehaviour
         boomarang = GetComponent<Boomarang>();
         bow = GetComponent<Bow>();
         bombDropper = GetComponent<BombDropper>();
+        if(GetComponent<SnowballThrower>())
+        {
+            customMode = true;
+            sbt = GetComponent<SnowballThrower>();
+        }
         currentWeapon = boomarang;
     }
 
@@ -32,6 +40,9 @@ public class AltWeaponScroller : MonoBehaviour
                 break;
             case WeaponType.Bomb:
                 bombDropper.Use(GetComponent<InputToAnimator>().lastDirection);
+                break;
+            case WeaponType.Snowball:
+                sbt.Use(GetComponent<InputToAnimator>().lastDirection);
                 break;
         }
     }
@@ -54,6 +65,10 @@ public class AltWeaponScroller : MonoBehaviour
                 {
                     currentWeapon = bombDropper;
                 }
+                else if(hasSnowball())
+                {
+                    currentWeapon = sbt;
+                }
                 break;
             case WeaponType.Boomerang:
                 if (hasBow())
@@ -63,6 +78,10 @@ public class AltWeaponScroller : MonoBehaviour
                 else if (hasBombDropper())
                 {
                     currentWeapon = bombDropper;
+                }
+                else if (hasSnowball())
+                {
+                    currentWeapon = sbt;
                 }
                 else
                 {
@@ -74,12 +93,23 @@ public class AltWeaponScroller : MonoBehaviour
                 {
                     currentWeapon = bombDropper;
                 }
+                else if (hasSnowball())
+                {
+                    currentWeapon = sbt;
+                }
                 else
                 {
                     currentWeapon = blank;
                 }
                 break;
             case WeaponType.Bomb:
+                if (hasSnowball())
+                {
+                    currentWeapon = sbt;
+                }
+                currentWeapon = blank;
+                break;
+            case WeaponType.Snowball:
                 currentWeapon = blank;
                 break;
         }
@@ -101,5 +131,12 @@ public class AltWeaponScroller : MonoBehaviour
         return (bombDropper.equipped);
     }
 
-
+    public bool hasSnowball()
+    {
+        if(!(customMode))
+        {
+            return (false);
+        }
+        return (sbt.equipped);
+    }
 }

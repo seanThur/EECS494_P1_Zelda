@@ -6,6 +6,10 @@ public class SnowballThrower : Weapon
 {
     public GameObject snowball;
     // Start is called before the first frame update
+    private void Start()
+    {
+        weaponType = WeaponType.Snowball;
+    }
     new public void Use(int dir)
     {
         GameObject temp = Instantiate(snowball, transform.position, Quaternion.identity);
