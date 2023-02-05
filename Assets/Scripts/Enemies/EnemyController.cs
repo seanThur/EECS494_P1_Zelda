@@ -90,4 +90,34 @@ public class EnemyController : MonoBehaviour
         yield return (new WaitForSeconds(3.5f));
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
+
+    IEnumerator recursiveUnfreeze(int countDown)
+    {
+        yield return (new WaitForSeconds(0.5f));
+
+        GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r+0.05f, 1.0f,1.0f);//Not working
+
+        if(countDown > 0)
+        {
+            StartCoroutine(recursiveUnfreeze(countDown - 1));
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f);
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            GetComponent<BoxCollider>().isTrigger = true;
+            GetComponent<Animator>().speed = 1;
+            gameObject.tag = "Enemy";
+        }
+    }
+
+    public void freeze()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(0.6f, 1.0f, 1.0f);//Not working
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        GetComponent<BoxCollider>().isTrigger = false;
+        GetComponent<Animator>().speed = 0;
+        gameObject.tag = "Frozen";
+        StartCoroutine(recursiveUnfreeze(6));
+    }
 }

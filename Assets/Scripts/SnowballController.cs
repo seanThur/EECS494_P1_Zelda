@@ -20,8 +20,33 @@ public class SnowballController : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyController>().freeze();
+            Destroy(gameObject);
+        }
+        else if(other.CompareTag("wall"))
+        {
+            Destroy(gameObject);
+        }
+
+        if(!(other.isTrigger))
+        {
+            if(!(other.CompareTag("Player")) && !(other.CompareTag("Frozen")))
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     public void throwInDir(Vector3 v)
     {
+        if(!(rb))
+        {
+            rb = GetComponent<Rigidbody>();
+        }
         rb.velocity = v * speed;
     }
 }
