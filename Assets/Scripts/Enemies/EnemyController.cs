@@ -118,12 +118,6 @@ public class EnemyController : MonoBehaviour
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         GetComponent<BoxCollider>().isTrigger = false;
         GetComponent<Animator>().speed = 0;
-        float rChannel = GetComponent<SpriteRenderer>().color.r;
-        Debug.Log("R Channel = " + rChannel);
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        GetComponent<SpriteRenderer>().color = new Color(0.6f, 1, 1);//Not working
-        GetComponent<Animator>().speed = 0;
-        GetComponent<BoxCollider>().isTrigger = false;
         gameObject.tag = "Frozen";
         StartCoroutine(recursiveUnfreeze(6));
     }

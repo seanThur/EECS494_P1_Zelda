@@ -54,24 +54,7 @@ public class AltWeaponScroller : MonoBehaviour
         Debug.Log("SCROLLING: HAS " + currentWeapon.weaponType);
         switch(currentWeapon.weaponType)
         {
-            case WeaponType.Empty:
-                if (hasBoomerang())
-                {
-                    currentWeapon = boomarang;
-                }
-                else if (hasBow())
-                {
-                    currentWeapon = bow;
-                }
-                else if (hasBombDropper())
-                {
-                    currentWeapon = bombDropper;
-                }
-                else if(hasSnowball())
-                {
-                    currentWeapon = sbt;
-                }
-                break;
+            
             case WeaponType.Boomerang:
                 if (hasBow())
                 {
@@ -130,6 +113,10 @@ public class AltWeaponScroller : MonoBehaviour
                 else if (hasSnowball())
                 {
                     currentWeapon = sbt;
+                }
+                else
+                {
+                    currentWeapon = blank;
                 }
                 break;
         }
