@@ -89,8 +89,8 @@ public class GameController : MonoBehaviour
         }
 
        // Debug.Log("starting transition " + dir + " " + " " + playerDest);
-        StartCoroutine(MoveObjectOverTime(dir, Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
-        StartCoroutine(MoveObjectOverTime(dir, PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, 2.5f));
+        StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
+        StartCoroutine(MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, 2.5f));
     }
 
     public void gameOver()
@@ -105,7 +105,7 @@ public class GameController : MonoBehaviour
     }
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
-    public static IEnumerator MoveObjectOverTime(int dir, Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
+    public static IEnumerator MoveObjectOverTime(Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
     {
         isTransition = true;
 
@@ -161,25 +161,37 @@ public class GameController : MonoBehaviour
         isTransition = false;
     }*/
 
+    public IEnumerator StartMoveBlock(Collider block, Vector3 dir)
+    {
+        PlayerController.acceptInput = false;
+        Ray r = new Ray(PlayerController.playerInstance.transform.position, dir);
+        Debug.DrawRay(r.origin, r.direction);
+        RaycastHit cast;
+
+        yield return new WaitForSeconds(1);
+
+        
+        if(Physics.Raycast(r, out cast, .5f))
+        {
+            if(cast.collider.CompareTag("movable"))
+            {
+                yield return StartCoroutine(MoveBlock(block.transform, dir));
+            }
+        }
+        else
+        {
+            Debug.Log("No hit");
+        }
+
+        PlayerController.acceptInput = true;
+        yield return null;
+    }
+
     public IEnumerator MoveBlock(Transform tr, Vector3 dir)
     {
         Vector3 pos = tr.position;
         Vector3 playerPos = transform.position;
-        Ray r = new Ray(transform.position, dir);
-
-        if (Physics.Raycast(r))
-        {
-            tr.tag = "NonWallSolid";
-            Vector3 destPos = pos + dir;
-            float time = 1f;
-            for (float t = 0; t < time; t += Time.deltaTime)
-            {
-                transform.position = playerPos;
-                tr.position = Vector3.Lerp(pos, destPos, t);
-                yield return new WaitForFixedUpdate();
-            }
-
-        }
+        yield return StartCoroutine(MoveObjectOverTime(tr, tr.position, tr.position + dir, 1));
     }
 
     /*private IEnumerator showForSecs(GameObject g, float s)

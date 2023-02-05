@@ -225,10 +225,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
+        Collider c = collision.collider;
         GameObject other = collision.gameObject;
         Vector3 dir = Vector3.zero;
         if (other.CompareTag("movable") && acceptInput)
         {
+            
+
             if (mog.getxInput() < 0)
             {
                 dir = Vector3.left;
@@ -257,7 +260,7 @@ public class PlayerController : MonoBehaviour
         }
 
         acceptInput = false;
-        StartCoroutine(GameController.gameInstance.MoveBlock(other.transform, dir));
+        StartCoroutine(GameController.gameInstance.StartMoveBlock(c, dir));
         acceptInput = true;
     }
 
