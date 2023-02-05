@@ -81,9 +81,10 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
     public void godMode()
     {
-        rupeeCount = 999;
-        bombCount = 99;
-        keyCount = 99;
+        //looked it up, these are the actual limits. my b
+        rupeeCount = 255;
+        bombCount = 16;
+        keyCount = 255;
     }
     
 

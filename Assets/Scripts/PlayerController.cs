@@ -165,15 +165,15 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.CompareTag("Bow"))
         {
-            Debug.Log("Acquired bow");
+            //Debug.Log("Acquired bow");
             inventory.acquireBow();
             Destroy(other);
         }
         else if (other.CompareTag("Boomerang"))
         {
-            Debug.Log("pre Acquired boomerang");
+            //Debug.Log("pre Acquired boomerang");
             inventory.acquireBoomerang();
-            Debug.Log("post Acquired boomerang");
+            //Debug.Log("post Acquired boomerang");
             Destroy(other);
         }
         //doorcheck
