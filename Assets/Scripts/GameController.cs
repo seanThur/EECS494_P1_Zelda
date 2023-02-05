@@ -12,8 +12,8 @@ public class GameController : MonoBehaviour
     
     private float xCameraDist = 16f;
     private float yCameraDist = 11f;
-    private float xPlayerDist = 3f;
-    private float yPlayerDist = 3f;
+    private float xPlayerDist = 2f;
+    private float yPlayerDist = 2f;
 
     //singleton pattern 
     private void Awake()
@@ -108,18 +108,6 @@ public class GameController : MonoBehaviour
     public static IEnumerator MoveObjectOverTime(int dir, Transform target, Vector3 initial_pos, Vector3 dest_pos, float duration_sec)
     {
         isTransition = true;
-        float disappearTime = 0; 
-        float appearTime = 0;
-        if (dir == 2 || dir == 4)
-        {
-            disappearTime = 0.05f;
-            appearTime = 0.85f;
-        }
-        else
-        {
-            disappearTime = 0.03f;
-            appearTime = 0.93f;
-        }
 
         float initial_time = Time.time;
         // The "progress" variable will go from 0.0f -> 1.0f over the course of "duration_sec" seconds.
@@ -131,20 +119,6 @@ public class GameController : MonoBehaviour
             // new position on line from "initial_pos" to "dest_pos"
             progress = (Time.time - initial_time) / duration_sec;
 
-            //make player disappear in between rooms
-            if (target.CompareTag("Player"))
-            {
-                if (progress > disappearTime)
-                {
-                    target.localScale = new Vector3(0, 0, 0);
-                }
-
-                //bring player back
-                if (progress > appearTime)
-                {
-                    target.localScale = new Vector3(1, 1, 1);
-                }
-            }
             Vector3 new_position = Vector3.Lerp(initial_pos, dest_pos, progress);
             target.position = new_position;
 
@@ -156,8 +130,36 @@ public class GameController : MonoBehaviour
         target.position = dest_pos;
 
 
+
         isTransition = false;
     }
+
+    /*public static IEnumerator MoveObjectVelocity(int dir, Transform target, float velocity, float duration_sec)
+    {
+        isTransition = true;
+
+        float initial_time = Time.time;
+        // The "progress" variable will go from 0.0f -> 1.0f over the course of "duration_sec" seconds.
+        float progress = (Time.time - initial_time) / duration_sec;
+
+        while (progress < 1.0f)
+        {
+            // Recalculate the progress variable every frame. Use it to determine
+            // new position on line from "initial_pos" to "dest_pos"
+            progress = (Time.time - initial_time) / duration_sec;
+
+            Vector3 new_position = Vector3.Lerp(initial_pos, dest_pos, progress);
+            target.position = new_position;
+
+            // yield until the end of the frame, allowing other code / coroutines to run
+            // and allowing time to pass.
+            yield return null;
+        }
+
+        target.position = dest_pos;
+
+        isTransition = false;
+    }*/
 
     public IEnumerator MoveBlock(Transform tr, Vector3 dir)
     {

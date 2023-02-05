@@ -81,6 +81,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("collision: " + collision.gameObject.name);
+    }
     private void OnTriggerEnter(Collider coll)
     {
         //Debug.Log("Entered: " + coll.name);
