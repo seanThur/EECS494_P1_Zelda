@@ -108,22 +108,6 @@ public class EnemyController : MonoBehaviour
             GetComponent<BoxCollider>().isTrigger = true;
             GetComponent<Animator>().speed = 1;
             gameObject.tag = "Enemy";
-    IEnumerator recursiveUnfreeze(int countOff)
-    {
-        yield return (new WaitForSeconds(0.5f));
-        float rChannel = GetComponent<SpriteRenderer>().color.r;
-        GetComponent<SpriteRenderer>().color = new Color(rChannel + 0.05f, 1, 1);
-        if (countOff > 0)
-        {
-            StartCoroutine(recursiveUnfreeze(countOff - 1));
-        }
-        else
-        {
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-            GetComponent<SpriteRenderer>().color = new Color(1,1,1);
-            GetComponent<Animator>().speed = 1;
-            GetComponent<BoxCollider>().isTrigger = true;
-            gameObject.tag = "Enemy";
 
         }
     }
