@@ -28,6 +28,7 @@ TagManager:
   - Boomerang
   - Bomb
   - BombWall
+  - Frozen
   layers:
   - Default
   - TransparentFX

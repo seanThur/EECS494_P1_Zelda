@@ -26,6 +26,8 @@ public class AltWeaponScroller : MonoBehaviour
             sbt = GetComponent<SnowballThrower>();
         }
         currentWeapon = boomarang;
+        Debug.Log("Am I in a custom level? " + customMode);
+        currentWeapon = blank;
     }
 
     public void useItem()
@@ -112,7 +114,26 @@ public class AltWeaponScroller : MonoBehaviour
             case WeaponType.Snowball:
                 currentWeapon = blank;
                 break;
+            default:
+                if (hasBoomerang())
+                {
+                    currentWeapon = boomarang;
+                }
+                else if (hasBow())
+                {
+                    currentWeapon = bow;
+                }
+                else if (hasBombDropper())
+                {
+                    currentWeapon = bombDropper;
+                }
+                else if (hasSnowball())
+                {
+                    currentWeapon = sbt;
+                }
+                break;
         }
+        Debug.Log("Weapon = " + currentWeapon.weaponType);
         Displayer.instance.displayAltWeapon();
     }
 
@@ -133,6 +154,7 @@ public class AltWeaponScroller : MonoBehaviour
 
     public bool hasSnowball()
     {
+        Debug.Log("Custom Mode = "+customMode + ",  Equipped = " + sbt.equipped);
         if(!(customMode))
         {
             return (false);
