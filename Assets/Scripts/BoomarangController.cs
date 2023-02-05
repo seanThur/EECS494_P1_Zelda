@@ -68,10 +68,57 @@ public class BoomarangController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Inventory inventory = PlayerController.playerInstance.gameObject.GetComponent<Inventory>();
+        Health health = PlayerController.playerInstance.gameObject.GetComponent<Health>();
+        Debug.Log("Other Tag = " + other.gameObject.tag);
         if(other.CompareTag("Enemy"))
         {
             reverse();
             other.GetComponent<EnemyController>().boomerangHit();
+        }
+        else if (other.tag.Equals("rupee"))
+        {
+            Debug.Log("Collected rupee!");
+            inventory.AddRupees(1);
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.rupee);
+
+            Destroy(other.gameObject);
+
+        }
+        else if (other.tag.Equals("heart"))
+        {
+            Debug.Log("Collected heart");
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.heartKey);
+            Destroy(other.gameObject);
+
+            if (!health.isAtMaxHearts())
+            {
+                health.heal(1);
+            }
+
+        }
+        else if (other.tag.Equals("bomb"))
+        {
+            Debug.Log("Collected bomb");
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.bombDrop);
+            Destroy(other.gameObject);
+
+            inventory.AddBombs(1);
+
+        }
+        else if (other.tag.Equals("key"))
+        {
+            Debug.Log("Collected key");
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.heartKey);
+            Destroy(other.gameObject);
+
+            inventory.addKeys(1);
+
+        }
+        else if (other.CompareTag("Bow"))
+        {
+            GetComponent<Bow>().equipped = true;
+            Destroy(other.gameObject);
         }
     }
 

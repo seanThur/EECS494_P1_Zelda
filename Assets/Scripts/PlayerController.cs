@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             ita.useItem();
             GetComponent<AltWeaponScroller>().useItem();
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             GetComponent<AltWeaponScroller>().scrollAltWeapon();
         }
@@ -87,12 +87,12 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider coll)
     {
-        //Debug.Log("Entered: " + coll.name);
+        Debug.Log("Entered: " + coll.name);
         GameObject other = coll.gameObject;
 
         if (other == null)
         {
-            //Debug.Log("Null trigger");
+            Debug.Log("Null trigger");
 
             return;
         }
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            //Debug.Log("HIT");
+            Debug.Log("HIT");
             AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
             EnemyController ec = other.GetComponent<EnemyController>();
             if (!(isInvinicible))
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag.Equals("rupee"))
         {
-            //Debug.Log("Collected rupee!");
+            Debug.Log("Collected rupee!");
             inventory.AddRupees(1);
             AudioController.audioInstance.playEffect(AudioController.audioInstance.rupee);
 
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag.Equals("heart"))
         {
-            //Debug.Log("Collected heart");
+            Debug.Log("Collected heart");
             AudioController.audioInstance.playEffect(AudioController.audioInstance.heartKey);
             Destroy(other);
 
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag.Equals("bomb"))
         {
-            //Debug.Log("Collected bomb");
+            Debug.Log("Collected bomb");
             AudioController.audioInstance.playEffect(AudioController.audioInstance.bombDrop);
             Destroy(other);
 
@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag.Equals("key"))
         {
-            //Debug.Log("Collected key");
+            Debug.Log("Collected key");
             AudioController.audioInstance.playEffect(AudioController.audioInstance.heartKey);
             Destroy(other);
 
@@ -165,15 +165,11 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.CompareTag("Bow"))
         {
-            //Debug.Log("Acquired bow");
-            //inventory.acquireBow();
             GetComponent<Bow>().equipped = true;
             Destroy(other);
         }
         else if (other.CompareTag("Boomerang"))
         {
-            //Debug.Log("pre Acquired boomerang");
-            //inventory.acquireBoomerang();
             GetComponent<Boomarang>().equipped = true;
             //Debug.Log("post Acquired boomerang");
             Destroy(other);
@@ -224,7 +220,7 @@ public class PlayerController : MonoBehaviour
         ita.damaged();
         health.takeDamage(damageMultiplier);
         AudioController.audioInstance.playEffect(AudioController.audioInstance.linkHurt);
-        //Debug.Log("TOOK DAMAGE: " + health.hearts);
+        Debug.Log("TOOK DAMAGE: " + health.hearts);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -326,7 +322,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hitData.collider.gameObject.CompareTag("Enemy"))
             {
-                //Debug.Log("HIT ENEMY!");
+                Debug.Log("HIT ENEMY!");
                 if (hitData.collider.gameObject.GetComponent<EnemyController>())
                 {
                     hitData.collider.gameObject.GetComponent<EnemyController>().takeDamage(swordDamage);

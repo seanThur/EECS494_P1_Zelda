@@ -78,7 +78,7 @@ public class EnemyController : MonoBehaviour
     public void boomerangHit()
     {
         if (diesOnBoomerangHit)
-            Destroy(gameObject);
+            die();
 
 
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

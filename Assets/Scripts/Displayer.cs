@@ -24,12 +24,46 @@ public class Displayer : MonoBehaviour
     public Image bomb;
     public Image empty;
 
+    public Image[] leftRevealPanels;
+    public Image[] rightRevealPanels;
+
     private WeaponType altWeaponTrack = WeaponType.Empty;
     private float heartsTrack = 3.0f;
 
     public static Displayer instance;
 
     // Start is called before the first frame update
+    void initRevealPanels()
+    {
+        leftRevealPanels[0].enabled = true;
+        leftRevealPanels[1].enabled = true;
+        leftRevealPanels[2].enabled = true;
+        leftRevealPanels[3].enabled = true;
+        leftRevealPanels[4].enabled = true;
+        rightRevealPanels[0].enabled = true;
+        rightRevealPanels[1].enabled = true;
+        rightRevealPanels[2].enabled = true;
+        rightRevealPanels[3].enabled = true;
+        rightRevealPanels[4].enabled = true;
+
+    }
+
+    IEnumerator revealAndNext(int i)
+    {
+        yield return (new WaitForSeconds(0.15f));
+
+        leftRevealPanels[i].enabled = false;
+        rightRevealPanels[i].enabled = false;
+        if(i <= 3)
+        {
+            StartCoroutine(revealAndNext(i+1));
+        }
+    }
+    public void bigReveal()
+    {
+        initRevealPanels();
+        StartCoroutine(revealAndNext(0));
+    }
     void Start()
     {
         if(instance)
@@ -39,7 +73,7 @@ public class Displayer : MonoBehaviour
         {
             instance = this;
         }
-
+        bigReveal();
         //heartsImage = GetComponent<Image>();
         //hearts3 = GetComponent<Image>();
         //hearts25 = GetComponent<Image>();

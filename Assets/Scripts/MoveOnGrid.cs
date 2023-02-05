@@ -180,7 +180,10 @@ public class MoveOnGrid : MonoBehaviour
 
         stop();
         movementSpeed = save;
-        snap();
+        if (GetComponent<GelMovement>())
+        {
+            snap();
+        }
     }
 
     public void manualSet(float inX, float inY)

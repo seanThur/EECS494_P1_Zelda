@@ -107,12 +107,29 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
                     deactivate();
                     if(carryingPlayer)
                     {
-                        GameController.gameInstance.gameOver();
-                        carryingPlayer = false;
+
+                        spitOut();
                     }
                     return;
                 }
                 break;
+        }
+    }
+
+    void spitOut()
+    {
+        PlayerController.playerInstance.enabled = true;
+        carryingPlayer = false;
+        Displayer.instance.bigReveal();
+        PlayerController.playerInstance.transform.position = new Vector3(39.5f, 2.0f, 0.0f);
+        Camera.main.transform.position = new Vector3(39.5f, 7.0f, -20.0f);
+    }
+
+    private void OnDestroy()
+    {
+        if(carryingPlayer)
+        {
+            spitOut();
         }
     }
 
