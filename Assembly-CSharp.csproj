@@ -100,6 +100,8 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\LevelScript\HintRoomUnlock.cs" />
+    <Compile Include="Assets\Scripts\SnowballThrower.cs" />
+    <Compile Include="Assets\Scripts\SnowballController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
