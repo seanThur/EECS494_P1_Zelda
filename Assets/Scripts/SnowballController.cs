@@ -39,6 +39,15 @@ public class SnowballController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if(other.CompareTag("wall"))
+        {
+            Destroy(gameObject);
+        }
+        else if(other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyController>().freeze();
+            Destroy(gameObject);
+        }
     }
 
     public void throwInDir(Vector3 v)
