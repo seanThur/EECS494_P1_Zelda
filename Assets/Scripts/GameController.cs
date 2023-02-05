@@ -48,6 +48,10 @@ public class GameController : MonoBehaviour
             godMode = !godMode;
             toggleGodMode();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SceneManager.LoadScene("CustomLevel", LoadSceneMode.Single);
+        }
     }
   
     public void unlockDoor(GameObject door)
