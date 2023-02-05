@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bow : Weapon
 {
     public GameObject arrow;
-    //WeaponType weaponType = WeaponType.Bow;
 
     public void Use(int dir)
     {
@@ -13,7 +12,7 @@ public class Bow : Weapon
         {
             return;
         }
-        PlayerController.playerInstance.inventory.SetRupees(PlayerController.playerInstance.inventory.GetRupees()-1);
+        PlayerController.playerInstance.inventory.AddRupees(-1);
         GameObject temp = Instantiate(arrow, transform.position, Quaternion.identity);
         temp.GetComponent<ArrowController>().damage = 1.0f;
         temp.GetComponent<Animator>().SetInteger("dir", dir);

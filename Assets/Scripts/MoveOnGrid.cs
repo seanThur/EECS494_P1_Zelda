@@ -5,13 +5,13 @@ using UnityEngine;
 public class MoveOnGrid : MonoBehaviour
 {
     public Rigidbody rb;
-    public static float gridDist = .5f;
+    public float gridDist = .5f;
     public float movementSpeed = 1.0f;
 
     private float x;
     private float y;
-    public int xRem;
-    public int yRem;
+    private int xRem;
+    private int yRem;
     private bool onGridx;
     private bool onGridy;
 
@@ -229,6 +229,7 @@ public class MoveOnGrid : MonoBehaviour
         return (Physics.Raycast(gameObject.transform.position, new Vector3(0.0f,1.0f,0.0f), gridDist));
     }
 
+<<<<<<< HEAD
     public bool checkDown()
     {
         return (Physics.Raycast(gameObject.transform.position, new Vector3(0.0f, -1.0f, 0.0f), gridDist));
@@ -263,9 +264,20 @@ public class MoveOnGrid : MonoBehaviour
         x = rb.transform.position.x;
         y = rb.transform.position.y;
 
-        //with 2 decimal places
-        xRem = (int)Mathf.Floor(x * 100) % (int)(gridDist * 10);
-        yRem = (int)Mathf.Floor(y * 100) % (int)(gridDist * 10);
+        int x10 = Mathf.RoundToInt(x * 10);
+        int y10 = Mathf.RoundToInt(y * 10);
+        float gd10f = 10 * gridDist;
+        int gridDist10 = Mathf.RoundToInt(gd10f);
+
+        xRem = x10 % gridDist10;
+        yRem = y10 % gridDist10;
+
+        //if(rb.gameObject.name.Equals("Player"))
+        //{
+        //    Debug.Log(rb.gameObject.name + " x: " + x + "xRem: " + xRem + " x10: " + x10 + " y: " + y + " yRem: " + yRem + " y10: " + y10 + 
+        //        " gridDist: " + gridDist + " gridDist10: " + gridDist10);
+        //}
+
         if (xRem == rem)
         {
             onGridy = true;
@@ -311,7 +323,7 @@ public class MoveOnGrid : MonoBehaviour
         Debug.Assert((xInput != 0.0f && yInput == 0.0f) || (xInput == 0.0f && yInput != 0.0f), x.ToString() + " " + y.ToString() + " invalid");
 
         //should also be on one of the grids
-        Debug.Assert(onGridx || onGridy, "Not on either gridline!");
+        Debug.Assert(onGridx || onGridy, "Not on either gridline! " + xRem + " " + yRem);
 
         return gridMovement(xInput, yInput);
     }
@@ -322,38 +334,39 @@ public class MoveOnGrid : MonoBehaviour
         float xOutput = xInput;
         float yOutput = yInput;
 
+        int gridDistInt = (int)gridDist * 10;
         //if xInput but not on grid x
         if (xInput != 0.0f && !onGridx)
         {
             //should be on grid y
             if (!onGridy)
-                Debug.Assert(onGridy, "Not on either gridline! (should be on grid y)");
+                Debug.Assert(onGridy, "Not on either gridline! (should be on grid y) " + xRem + " " + yRem);
 
             xOutput = 0.0f;
 
-            if (rb.position.y % gridDist < (gridDist / 2.0f))
+            if (yRem <= 3)
             {
-                yOutput = -0.1f;
+                yOutput = -Mathf.Abs(xInput);
             }
             else
             {
-                yOutput = 0.1f;
+                yOutput = Mathf.Abs(xInput);
             }
         }
         else if (yInput != 0.0f && !onGridy)
         {
             if (!onGridx)
-                Debug.Assert(onGridx, "Not on either gridline! (should be on grid x)");
+                Debug.Assert(onGridx, "Not on either gridline! (should be on grid x) " + xRem + " " + yRem);
 
             yOutput = 0.0f;
 
-            if (x % gridDist < (gridDist / 2.0f))
+            if (xRem <= 3)
             {
-                xOutput = -0.1f;
+                xOutput = -Mathf.Abs(yInput);
             }
             else
             {
-                xOutput = 0.1f;
+                xOutput = Mathf.Abs(yInput);
             }
         }
 

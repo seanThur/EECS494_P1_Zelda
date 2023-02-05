@@ -10,16 +10,18 @@ GameObject:
   m_Component:
   - component: {fileID: 2108887001043775143}
   - component: {fileID: 2108887001043775140}
-  - component: {fileID: 2108887001043775141}
   - component: {fileID: 2108887001043775138}
-  - component: {fileID: 2108887001043775139}
-  - component: {fileID: 2108887001043775136}
+  - component: {fileID: 4876100917623695229}
   - component: {fileID: 2108887001043775147}
-  - component: {fileID: 2108887001043775144}
   - component: {fileID: 2108887001043775145}
-  - component: {fileID: 2108887001043775142}
+  - component: {fileID: 2108887001043775141}
+  - component: {fileID: 2108887001043775139}
   - component: {fileID: 2108887001043775146}
-  m_Layer: 3
+  - component: {fileID: 2108887001043775136}
+  - component: {fileID: 3328352549357222876}
+  - component: {fileID: 5673707978872734768}
+  - component: {fileID: 4839114442356469287}
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -80,7 +82,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1715144133
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 45afd34443b96473598b76e2b1778b4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -93,6 +95,77 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2108887001043775138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108887001043775198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60f1e1b1b9b8e341ac83ce9084326bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 4876100917623695229}
+  displayer: {fileID: 0}
+  rb: {fileID: 2108887001043775141}
+  mog: {fileID: 3328352549357222876}
+  movementSpeed: 4
+  health: {fileID: 2108887001043775147}
+  ita: {fileID: 2108887001043775145}
+  bulletPrefab: {fileID: 973701247567776794, guid: c4f644626de878049a71bad6cd7dfc70, type: 3}
+  isJolted: 0
+  isInvinicible: 0
+  altWeapon: {fileID: 0}
+--- !u!114 &4876100917623695229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108887001043775198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0897b1a610524b49bc3ff68d761dc10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bow: {fileID: 0}
+  boomerang: {fileID: 0}
+  rupeeCount: 0
+  bombCount: 0
+  keyCount: 0
+--- !u!114 &2108887001043775147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108887001043775198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3622b587682972a43a5ecef88a145192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearts: 3
+  dead: 0
+--- !u!114 &2108887001043775145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108887001043775198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45107c6d1e70af54881a673f8d1a0615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2108887001043775136}
+  isAttacking: 0
+  isHurt: 0
+  lastDirection: 3
+  isUsing: 0
 --- !u!54 &2108887001043775141
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -109,42 +182,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &2108887001043775138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108887001043775198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60f1e1b1b9b8e341ac83ce9084326bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 2108887001043775142}
-  rb: {fileID: 2108887001043775141}
-  mog: {fileID: 0}
-  movementSpeed: 4
-  coords: {fileID: 0}
-  displayer: {fileID: 2108887001043775144}
-  health: {fileID: 2108887001043775147}
-  ita: {fileID: 2108887001043775145}
-  bulletPrefab: {fileID: 973701247567776794, guid: c4f644626de878049a71bad6cd7dfc70, type: 3}
-  isJolted: 0
-  isInvinicible: 0
-  music: {fileID: 8300000, guid: 05c25d11d15d34b4984cf6911486aca2, type: 3}
-  rupee: {fileID: 8300000, guid: 58dd0e5474f5ca9448cbe1a76bb5979a, type: 3}
-  heart: {fileID: 8300000, guid: 5e621f8cc9451e149a8fd11ccf51bedd, type: 3}
-  damage: {fileID: 8300000, guid: 3932d1d39013bc747a828b68ae98e401, type: 3}
-  bombBlow: {fileID: 8300000, guid: 23b07ea00d6953a489c2eb48c54b0903, type: 3}
-  bombDrop: {fileID: 8300000, guid: 967da2b6d881ded489d0ac6d86a4bc2e, type: 3}
-  enemyDie: {fileID: 8300000, guid: 88694d1680049554ca60e673ce1d50ed, type: 3}
-  enemyHit: {fileID: 8300000, guid: 0094f2435d0fd3443af3fc95d766002e, type: 3}
-  fanfare: {fileID: 8300000, guid: 5a0c13ef594284f4f81b32d74494a745, type: 3}
-  die: {fileID: 8300000, guid: 418c8f081e366774582e5badac79ef1d, type: 3}
-  shield: {fileID: 8300000, guid: 63ea4ccd6dd672a45903dadfc9753fca, type: 3}
-  swordFull: {fileID: 8300000, guid: 83a66ffe2ad8e2b42abcb5f571143629, type: 3}
-  sword: {fileID: 8300000, guid: 4afd1477571d5cb4b882bd537eb06cf1, type: 3}
 --- !u!65 &2108887001043775139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -158,6 +195,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.81713486, y: 0.15681672, z: 0.2}
   m_Center: {x: -0.0019397736, y: -0.35340834, z: 0}
+--- !u!65 &2108887001043775146
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108887001043775198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9375, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &2108887001043775136
 Animator:
   serializedVersion: 5
@@ -178,7 +228,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &2108887001043775147
+--- !u!114 &3328352549357222876
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,12 +237,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108887001043775198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3622b587682972a43a5ecef88a145192, type: 3}
+  m_Script: {fileID: 11500000, guid: 07f31ff8782133e499bacc1ba0cfa9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearts: 3
-  dead: 0
---- !u!114 &2108887001043775144
+  rb: {fileID: 2108887001043775141}
+  gridDist: 0.5
+  movementSpeed: 1
+--- !u!114 &5673707978872734768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,63 +252,121 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108887001043775198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6be02d7c95c59e49ac2f04fd003ebd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ff0189f5c37e3c4d9701a3427e596e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
-  health: {fileID: 0}
-  leftHand: {fileID: 0}
-  rupeeText: {fileID: 0}
-  keysText: {fileID: 0}
-  bombText: {fileID: 0}
-  heartsImage: {fileID: 0}
-  three: {fileID: 0}
-  twoAndHalf: {fileID: 0}
-  two: {fileID: 0}
-  oneAndHalf: {fileID: 0}
-  one: {fileID: 0}
-  half: {fileID: 0}
---- !u!114 &2108887001043775145
-MonoBehaviour:
+  musicSource: {fileID: 4839114442356469287}
+  effectSource: {fileID: 4839114442356469287}
+  music: {fileID: 8300000, guid: 05c25d11d15d34b4984cf6911486aca2, type: 3}
+  rupee: {fileID: 8300000, guid: 58dd0e5474f5ca9448cbe1a76bb5979a, type: 3}
+  heartKey: {fileID: 8300000, guid: 5e621f8cc9451e149a8fd11ccf51bedd, type: 3}
+  arrowBoomerang: {fileID: 8300000, guid: d18f35045ac75b341b5fa0e6d40ef0e5, type: 3}
+  bombBlow: {fileID: 8300000, guid: 23b07ea00d6953a489c2eb48c54b0903, type: 3}
+  bombDrop: {fileID: 8300000, guid: 967da2b6d881ded489d0ac6d86a4bc2e, type: 3}
+  enemyDie: {fileID: 8300000, guid: 88694d1680049554ca60e673ce1d50ed, type: 3}
+  enemyHit: {fileID: 8300000, guid: 0094f2435d0fd3443af3fc95d766002e, type: 3}
+  fanfare: {fileID: 8300000, guid: 5a0c13ef594284f4f81b32d74494a745, type: 3}
+  linkDie: {fileID: 8300000, guid: 418c8f081e366774582e5badac79ef1d, type: 3}
+  linkHurt: {fileID: 8300000, guid: 3932d1d39013bc747a828b68ae98e401, type: 3}
+  lowHealth: {fileID: 8300000, guid: a55dd2706c325b9458c5b6e84ded3126, type: 3}
+  refillLoop: {fileID: 8300000, guid: 91ed699fe3cb09e43bc9c4f97bf6221b, type: 3}
+  shield: {fileID: 8300000, guid: 63ea4ccd6dd672a45903dadfc9753fca, type: 3}
+  swordCombined: {fileID: 8300000, guid: 83a66ffe2ad8e2b42abcb5f571143629, type: 3}
+  sword: {fileID: 8300000, guid: 4afd1477571d5cb4b882bd537eb06cf1, type: 3}
+  text: {fileID: 8300000, guid: 7321d2e71b18098468f5c5895f669c29, type: 3}
+--- !u!82 &4839114442356469287
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108887001043775198}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45107c6d1e70af54881a673f8d1a0615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2108887001043775136}
-  isAttacking: 0
-  isHurt: 0
-  lastDirection: 3
---- !u!114 &2108887001043775142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108887001043775198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0897b1a610524b49bc3ff68d761dc10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rupeeCount: 0
-  bombCount: 0
-  keyCount: 0
---- !u!65 &2108887001043775146
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108887001043775198}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9375, y: 1, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Boomarang : Weapon
 {
     public GameObject rang;
-    //WeaponType weaponType = WeaponType.Bow;
 
     public void Use(int dir)
     {

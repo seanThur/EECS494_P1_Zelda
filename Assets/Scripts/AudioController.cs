@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour
 {
-    public AudioClip music, rupee, heart, damage, bombBlow, bombDrop, enemyDie, enemyHit, fanfare, die, shield, swordFull, sword;
+    public static AudioController audioInstance;
+    [SerializeField] private AudioSource musicSource, effectSource;
+    [SerializeField] public AudioClip music, rupee, heartKey, arrowBoomerang, bombBlow, bombDrop, enemyDie, enemyHit, fanfare,
+    linkDie, linkHurt, lowHealth, refillLoop, shield, swordCombined, sword, text;
 
+    private void Awake()
+    {
+        if(audioInstance == null)
+        {
+            audioInstance = this;
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        AudioClip[] clips = GetComponents<AudioClip>();
-
-        music = clips[0];
-        rupee = clips[1];
-        heart = clips[2];
-        damage = clips[3];
-        bombBlow = clips[4];
-        bombDrop = clips[5];
-        enemyDie = clips[6];
-        enemyHit = clips[7];
-        fanfare = clips[8];
-        die = clips[9];
-        shield = clips[10];
-        swordFull = clips[11];
-        sword = clips[12];
-
-        AudioSource.PlayClipAtPoint(music, Camera.main.transform.position);
+        musicSource.loop = true;
+        musicSource.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void playEffect(AudioClip clip)
     {
-
+        effectSource.PlayOneShot(clip);
     }
+
 }
