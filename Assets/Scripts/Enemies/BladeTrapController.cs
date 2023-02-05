@@ -65,7 +65,7 @@ public class BladeTrapController : EnemyProjectile
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("HIT");
+       // Debug.Log("HIT");
         if (!(reversing))
         {
             reversing = true;

@@ -21,7 +21,7 @@ public class KeeseRoomDoorLock : MonoBehaviour
     {
         if (!(k1) && !(k2) && !(k3) && !(k4) && !(k5))
         {
-            Debug.Log("tttpttptpptptppt");
+           // Debug.Log("tttpttptpptptppt");
             GetComponent<SpriteRenderer>().sprite = unlocked;
             gameObject.tag = "eastDoor";
             Destroy(this);

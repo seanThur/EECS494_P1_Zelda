@@ -107,12 +107,29 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
                     deactivate();
                     if(carryingPlayer)
                     {
-                        GameController.gameInstance.gameOver();
-                        carryingPlayer = false;
+
+                        spitOut();
                     }
                     return;
                 }
                 break;
+        }
+    }
+
+    void spitOut()
+    {
+        PlayerController.playerInstance.enabled = true;
+        carryingPlayer = false;
+        Displayer.instance.bigReveal();
+        PlayerController.playerInstance.transform.position = new Vector3(39.5f, 2.0f, 0.0f);
+        Camera.main.transform.position = new Vector3(39.5f, 7.0f, -20.0f);
+    }
+
+    private void OnDestroy()
+    {
+        if(carryingPlayer)
+        {
+            spitOut();
         }
     }
 
@@ -171,43 +188,43 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
         {
             Vector3 playerLoc = PlayerController.playerInstance.transform.position;
             RaycastHit hitData;
-            bool wallAbove = Physics.Raycast(playerLoc, new Vector3(0.0f, 1.0f, 0.0f), out hitData, 1.0f);
+            bool wallAbove = Physics.Raycast(playerLoc, new Vector3(0.0f, 1.0f, 0.0f), out hitData, 1.0f, 3);
             if (wallAbove && hitData.collider.CompareTag("wall") == false)
                 wallAbove = false;
 
-            bool wallRight = Physics.Raycast(playerLoc, new Vector3(1.0f, 0.0f, 0.0f), out hitData, 1.0f);
+            bool wallRight = Physics.Raycast(playerLoc, new Vector3(1.0f, 0.0f, 0.0f), out hitData, 1.0f, 3);
             if (wallRight && hitData.collider.CompareTag("wall") == false)
                 wallRight = false;
 
-            bool wallBelow = Physics.Raycast(playerLoc, new Vector3(0.0f, -1.0f, 0.0f), out hitData, 1.0f);
+            bool wallBelow = Physics.Raycast(playerLoc, new Vector3(0.0f, -1.0f, 0.0f), out hitData, 1.0f, 3);
             if (wallBelow && hitData.collider.CompareTag("wall") == false)
                 wallBelow = false;
 
-            bool wallLeft = Physics.Raycast(playerLoc, new Vector3(-1.0f, 0.0f, 0.0f), out hitData, 1.0f);
+            bool wallLeft = Physics.Raycast(playerLoc, new Vector3(-1.0f, 0.0f, 0.0f), out hitData, 1.0f, 3);
             if (wallLeft && hitData.collider.CompareTag("wall") == false)
                 wallLeft = false;
 
             if (wallAbove)
             {
-                Debug.Log("  WALL_ABOVE");
+                //Debug.Log("  WALL_ABOVE");
                 playerDir = 1;
                 makePlanToSendHand();
             }
             if (wallRight)
             {
-                Debug.Log("  WALL_Right");
+                //Debug.Log("  WALL_Right");
                 playerDir = 2;
                 makePlanToSendHand();
             }
             if (wallBelow)
             {
-                Debug.Log("  WALL_BELOW");
+                //Debug.Log("  WALL_BELOW");
                 playerDir = 3;
                 makePlanToSendHand();
             }
             if (wallLeft)
             {
-                Debug.Log("  WALL_LEFT");
+                //Debug.Log("  WALL_LEFT");
                 playerDir = 4;
                 makePlanToSendHand();
             }

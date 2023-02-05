@@ -22,14 +22,59 @@ public class Displayer : MonoBehaviour
     public Image bow;
     public Image boomerang;
     public Image bomb;
+    public Image snowball;
     public Image empty;
+
+    public Image[] leftRevealPanels;
+    public Image[] rightRevealPanels;
 
     private WeaponType altWeaponTrack = WeaponType.Empty;
     private float heartsTrack = 3.0f;
 
+    public static Displayer instance;
+
     // Start is called before the first frame update
+    void initRevealPanels()
+    {
+        leftRevealPanels[0].enabled = true;
+        leftRevealPanels[1].enabled = true;
+        leftRevealPanels[2].enabled = true;
+        leftRevealPanels[3].enabled = true;
+        leftRevealPanels[4].enabled = true;
+        rightRevealPanels[0].enabled = true;
+        rightRevealPanels[1].enabled = true;
+        rightRevealPanels[2].enabled = true;
+        rightRevealPanels[3].enabled = true;
+        rightRevealPanels[4].enabled = true;
+
+    }
+
+    IEnumerator revealAndNext(int i)
+    {
+        yield return (new WaitForSeconds(0.15f));
+
+        leftRevealPanels[i].enabled = false;
+        rightRevealPanels[i].enabled = false;
+        if(i <= 3)
+        {
+            StartCoroutine(revealAndNext(i+1));
+        }
+    }
+    public void bigReveal()
+    {
+        initRevealPanels();
+        StartCoroutine(revealAndNext(0));
+    }
     void Start()
     {
+        if(instance)
+        {
+            Destroy(this);
+        } else
+        {
+            instance = this;
+        }
+        bigReveal();
         //heartsImage = GetComponent<Image>();
         //hearts3 = GetComponent<Image>();
         //hearts25 = GetComponent<Image>();
@@ -54,7 +99,6 @@ public class Displayer : MonoBehaviour
             displayRupees();
             displayKeys();
             displayBombs();
-            displayAltWeapon();
         }
     }
      private void heartImageFlip(float f, bool write)
@@ -66,14 +110,14 @@ public class Displayer : MonoBehaviour
                  hearts05.enabled = write;
                  break;
              case 1.0f:
-                Debug.Log("GOT 1 " + PlayerController.playerInstance.health.hearts);
+                //Debug.Log("GOT 1 " + PlayerController.playerInstance.health.hearts);
                 hearts1.enabled = write;
                  break;
              case 1.5f:
                  hearts15.enabled = write;
                  break;
              case 2.0f:
-                Debug.Log("GOT 2 " + PlayerController.playerInstance.health.hearts);
+                //Debug.Log("GOT 2 " + PlayerController.playerInstance.health.hearts);
                  hearts2.enabled = write;
                  break;
              case 2.5f:
@@ -108,6 +152,7 @@ public class Displayer : MonoBehaviour
 
     private void altWeaponFlip(WeaponType w, bool write)
     {
+        
         switch (w)
         {
             case WeaponType.Empty:
@@ -122,17 +167,21 @@ public class Displayer : MonoBehaviour
             case WeaponType.Bomb:
                 bomb.enabled = write;
                 break;
+            case WeaponType.Snowball:
+                snowball.enabled = write;
+                break;
         }
     }
 
     public void displayAltWeapon()
     {
-        Weapon alt = PlayerController.playerInstance.altWeapon;
+        Debug.Log("Displaying");
+        Weapon alt = PlayerController.playerInstance.gameObject.GetComponent<AltWeaponScroller>().currentWeapon;
         if(alt.weaponType == altWeaponTrack)
         {
             return;
         }
-        Debug.Log(alt);
+        Debug.Log("Weapon = "+alt);
         altWeaponFlip(altWeaponTrack, false);
         altWeaponTrack = alt.weaponType;
         altWeaponFlip(altWeaponTrack, true);
@@ -151,6 +200,6 @@ public class Displayer : MonoBehaviour
     public void displayBombs()
     {
         //FIX
-        //bombsText.text = PlayerController.playerInstance.inventory.bombCount.ToString();
+        bombsText.text = PlayerController.playerInstance.inventory.bombCount.ToString();
     }
 }

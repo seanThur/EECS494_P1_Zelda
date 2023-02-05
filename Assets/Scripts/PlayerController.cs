@@ -60,16 +60,12 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            //GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
-            GetComponent<Bow>().Use(ita.lastDirection);//Hardcoded for milestone
-                                                       // GetComponent<Boomarang>().Use(ita.lastDirection);//Hardcoded for milestone
-                                                       //GetComponent<BombDropper>().Use(ita.lastDirection);//Hardcoded for milestone
             ita.useItem();
-            
+            GetComponent<AltWeaponScroller>().useItem();
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            GetComponent<BombDropper>().Use(ita.lastDirection);//Hardcoded for milestone
+            GetComponent<AltWeaponScroller>().scrollAltWeapon();
         }
     }
 
@@ -169,14 +165,12 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.CompareTag("Bow"))
         {
-            //Debug.Log("Acquired bow");
-            inventory.acquireBow();
+            GetComponent<Bow>().equipped = true;
             Destroy(other);
         }
         else if (other.CompareTag("Boomerang"))
         {
-            //Debug.Log("pre Acquired boomerang");
-            inventory.acquireBoomerang();
+            GetComponent<Boomarang>().equipped = true;
             //Debug.Log("post Acquired boomerang");
             Destroy(other);
         }

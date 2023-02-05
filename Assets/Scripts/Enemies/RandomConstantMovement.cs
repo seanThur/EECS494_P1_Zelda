@@ -131,7 +131,7 @@ public class RandomConstantMovement : MoveOnGrid
         {
             dir = (dir + 2) % 4;
         }
-        Debug.Log("E_Set = "+dir);
+        //Debug.Log("E_Set = "+dir);
         goInDirection();
     }
 

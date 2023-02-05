@@ -9,6 +9,7 @@ public class GoriyaBoomerangController : EnemyProjectile
     public float speed;
     private bool returning;
     // Start is called before the first frame update
+    private GoriyaMovement mySpecialLittleGuy;
     void Start()
     {
         returning = false;
@@ -28,13 +29,13 @@ public class GoriyaBoomerangController : EnemyProjectile
         rb.AddForce(rb.velocity * -1.0f * Time.deltaTime);
     }
 
-    public void launch(Vector3 heading)
+    public void launch(Vector3 heading, GoriyaMovement gm)
     {
-        Debug.Log("Launching");
-        Debug.Log("Heading = " + heading.ToString());
-        Debug.Log("RB = " + rb.ToString());
+        //Debug.Log("Launching");
+        //Debug.Log("Heading = " + heading.ToString());
+        //Debug.Log("RB = " + rb.ToString());
         rb.velocity = heading * speed;
-
+        mySpecialLittleGuy = gm;
     }
     void reverse()
     {
@@ -48,10 +49,10 @@ public class GoriyaBoomerangController : EnemyProjectile
 
     private void OnTriggerEnter(Collider other)
     {
-        if(returning && other.GetComponent<GoriyaMovement>())
+        if(returning && other.GetComponent<GoriyaMovement>() && other.GetComponent<GoriyaMovement>() == mySpecialLittleGuy)
         {
-            Debug.Log("Returned to Goriya");
-            other.GetComponent<GoriyaMovement>().boomerangReset();
+            //Debug.Log("Returned to Goriya");
+            mySpecialLittleGuy.boomerangReset();
             Destroy(gameObject);
         }
         else
@@ -65,6 +66,17 @@ public class GoriyaBoomerangController : EnemyProjectile
         if(other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerController>().TakeDamage(0.5f);
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (returning && other.GetComponent<GoriyaMovement>() && other.GetComponent<GoriyaMovement>() == mySpecialLittleGuy)
+        {
+            //Debug.Log("Returned to Goriya");
+            mySpecialLittleGuy.boomerangReset();
+            Destroy(gameObject);
         }
     }
 

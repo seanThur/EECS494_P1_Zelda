@@ -15,9 +15,6 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
     private void Start()
     {
 
-        //bomb = GetComponent<Bomb>();
-        //bow = 
-        //boomerang = GetComponent<Boomarang>();
     }
 
     //ACQUIRE != EQUIP

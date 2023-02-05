@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 266590492739087740}
   - component: {fileID: 266590492739087713}
   - component: {fileID: 266590492739087714}
+  - component: {fileID: 1738941453508283172}
   m_Layer: 0
   m_Name: WallMaster
   m_TagString: Enemy
@@ -168,3 +169,18 @@ MonoBehaviour:
   rb: {fileID: 266590492739087741}
   sr: {fileID: 0}
   bc: {fileID: 0}
+--- !u!114 &1738941453508283172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266590492739087739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd603738ca5307840bd411a4590aaf42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamage: 0
+  an: {fileID: 0}
+  diesOnBoomerangHit: 0
