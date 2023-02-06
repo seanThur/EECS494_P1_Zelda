@@ -9,7 +9,8 @@ public class GameController : MonoBehaviour
     public static GameController gameInstance;
     public static bool godMode = false;
     public static bool isTransition = false;
-    
+    public bool moving = false;
+
     private float xCameraDist = 16f;
     private float yCameraDist = 11f;
     private float xPlayerDist = 2f;
@@ -39,13 +40,16 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        //debug
-        if(Input.GetKeyDown(KeyCode.Alpha9))
+        Vector2 dir = new Vector2(PlayerController.playerInstance.mog.getxInput(), PlayerController.playerInstance.mog.getyInput());
+        Ray r = new Ray(PlayerController.playerInstance.transform.position, dir);
+        Debug.DrawRay(r.origin, r.direction * .5f, Color.red);
+
+        //DEBUG
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             PlayerController.playerInstance.transform.position = new Vector3(34, 27, 0);
 
             Camera.main.transform.position += new Vector3(0, 2 * yCameraDist, 0);
-            //StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
         }
 
         if(PlayerController.playerInstance.health.dead)
@@ -181,11 +185,11 @@ public class GameController : MonoBehaviour
         isTransition = false;
     }*/
 
-    public IEnumerator StartMoveBlock(Collider block, Vector3 dir)
+    public IEnumerator StartMoveBlock(Collider block, Vector2 dir)
     {
-        PlayerController.acceptInput = false;
+        
         Ray r = new Ray(PlayerController.playerInstance.transform.position, dir);
-        Debug.DrawRay(r.origin, r.direction * .5f);
+        Debug.DrawRay(r.origin, r.direction * .5f, Color.green);
         RaycastHit cast;
 
         yield return new WaitForSeconds(1);
@@ -193,34 +197,30 @@ public class GameController : MonoBehaviour
         
         if(Physics.Raycast(r, out cast, .5f))
         {
-            if(cast.collider.CompareTag("movable"))
+            //Debug.Log("Cast hit: " + cast.collider.name);
+            //Debug.Log("dir: " + dir);
+            if(cast.transform.CompareTag("movable"))
             {
+                moving = true;
+                PlayerController.acceptInput = false;
                 yield return StartCoroutine(MoveBlock(block.transform, dir));
+                moving = false;
+                PlayerController.acceptInput = true;
             }
         }
         else
         {
-            Debug.Log("No hit");
+            //Debug.Log("No hit dir " + dir);
         }
 
-        PlayerController.acceptInput = true;
         yield return null;
     }
 
     public IEnumerator MoveBlock(Transform tr, Vector3 dir)
     {
-        Vector3 pos = tr.position;
-        Vector3 playerPos = transform.position;
+        
         yield return StartCoroutine(MoveObjectOverTime(tr, tr.position, tr.position + dir, 1));
     }
 
-    /*private IEnumerator showForSecs(GameObject g, float s)
-{
-    g.SetActive(true);
-    Debug.Log(g.name + " set active");
-    yield return new WaitForSeconds(s);
-    Debug.Log(g.name + " deactivated");
-    g.SetActive(false);
-}*/
 }
 

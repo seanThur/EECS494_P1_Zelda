@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-        void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         inventory = GetComponent<Inventory>();
@@ -83,16 +83,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collision: " + collision.gameObject.name);
+        //Debug.Log("collision: " + collision.gameObject.name);
     }
     private void OnTriggerEnter(Collider coll)
     {
-        Debug.Log("Entered: " + coll.name);
+        //Debug.Log("Entered: " + coll.name);
         GameObject other = coll.gameObject;
 
         if (other == null)
         {
-            Debug.Log("Null trigger");
+            //Debug.Log("Null trigger");
 
             return;
         }
@@ -227,26 +227,24 @@ public class PlayerController : MonoBehaviour
     {
         Collider c = collision.collider;
         GameObject other = collision.gameObject;
-        Vector3 dir = Vector3.zero;
+        Vector2 dir = Vector2.zero;
         if (other.CompareTag("movable") && acceptInput)
         {
-            
-
             if (mog.getxInput() < 0)
             {
-                dir = Vector3.left;
+                dir = Vector2.left;
             }
             else if (mog.getxInput() > 0)
             {
-                dir = Vector3.right;
+                dir = Vector2.right;
             }
             else if (mog.getyInput() > 0)
             {
-                dir = Vector3.up;
+                dir = Vector2.up;
             }
             else if (mog.getyInput() < 0)
             {
-                dir = Vector3.down;
+                dir = Vector2.down;
             }
         }
         else if (other.CompareTag("movable2"))
@@ -256,15 +254,15 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
-            dir = Vector3.down;
+            dir = Vector2.down;
         }
 
-        acceptInput = false;
-        StartCoroutine(GameController.gameInstance.StartMoveBlock(c, dir));
-        acceptInput = true;
+        if(!GameController.gameInstance.moving)
+        {
+            StartCoroutine(GameController.gameInstance.StartMoveBlock(c, dir));
+        }
+
     }
-
-
 
 
     public void jolt(Vector3 direction)
