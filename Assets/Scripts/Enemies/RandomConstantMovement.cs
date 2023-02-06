@@ -13,9 +13,14 @@ public class RandomConstantMovement : MoveOnGrid
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(0.0f, 1.0f, 0.0f), out rch, 1.0f);
         if (!(result))
+        {
+            Debug.Log("Check Up, found nothing");
             return (true);
+        }
+        Debug.Log("Check Up, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
         if (rch.collider.CompareTag("Enemy"))
         {
+            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
             return (false);
         }
         return (!(result));
@@ -25,9 +30,15 @@ public class RandomConstantMovement : MoveOnGrid
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(1.0f, 0.0f, 0.0f), out rch, 1.0f);
         if (!(result))
+        {
+            Debug.Log("Check Right, found nothing");
             return (true);
+        }
+        Debug.Log("Check Right, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
         if (rch.collider.CompareTag("Enemy"))
         {
+            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
+
             return (false);
         }
         return (!(result));
@@ -37,9 +48,15 @@ public class RandomConstantMovement : MoveOnGrid
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(0.0f, -1.0f, 0.0f), out rch, 1.0f);
         if (!(result))
+        {
+            Debug.Log("Check Down, found nothing");
             return (true);
+        }
+        Debug.Log("Check Down, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
         if (rch.collider.CompareTag("Enemy"))
         {
+            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
+
             return (false);
         }
         return (!(result));
@@ -49,9 +66,15 @@ public class RandomConstantMovement : MoveOnGrid
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(-1.0f, 0.0f, 0.0f), out rch, 1.0f);
         if (!(result))
+        {
+            Debug.Log("Check Left, found nothing");
             return (true);
+        }
+        Debug.Log("Check Left, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
         if (rch.collider.CompareTag("Enemy"))
         {
+            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
+
             return (false);
         }
         return (!(result));
@@ -63,6 +86,7 @@ public class RandomConstantMovement : MoveOnGrid
     }
     public bool checkDir(int code)
     {
+        Debug.Log("Checki8ng");
         switch (code)
         {
             case 0:
@@ -126,7 +150,17 @@ public class RandomConstantMovement : MoveOnGrid
         }
     }
 
-
+    public bool checkAntigradeInline()
+    {
+        if(dir == 0 || dir == 2)
+        {
+            return (checkOnGridY());
+        }
+        else
+        {
+            return (checkOnGridX());
+        }
+    }
 
     public void setRandomDirection()
     {

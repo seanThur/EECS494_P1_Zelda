@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     private float xPlayerDist = 2f;
     private float yPlayerDist = 2f;
 
+    public bool pushRoomLocked = false;
+
     //singleton pattern 
     private void Awake()
     {
