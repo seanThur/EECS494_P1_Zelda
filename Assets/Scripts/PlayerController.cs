@@ -192,6 +192,10 @@ public class PlayerController : MonoBehaviour
         {
             mog.setAllowY(true);
         }
+        else if(other.CompareTag("KeeseRoomLock"))
+        {
+            other.GetComponent<KeeseRoomDoorLock>().lockDoor();
+        }
         //doorcheck
         else
         {

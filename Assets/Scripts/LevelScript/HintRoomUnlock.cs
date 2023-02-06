@@ -6,6 +6,7 @@ public class HintRoomUnlock : MonoBehaviour
 {
     public GameObject wDoor;
     public GameObject lWDoor;
+
     // Start is called before the first frame update
     void Start()
     {

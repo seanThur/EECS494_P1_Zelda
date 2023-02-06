@@ -35,6 +35,7 @@ TagManager:
   - Ladder
   - ExitBowRoom
   - ChuckMelter
+  - KeeseRoomLock
   layers:
   - Default
   - TransparentFX
