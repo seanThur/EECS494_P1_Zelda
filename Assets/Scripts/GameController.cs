@@ -40,17 +40,6 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        Vector2 dir = new Vector2(PlayerController.playerInstance.mog.getxInput(), PlayerController.playerInstance.mog.getyInput());
-        Ray r = new Ray(PlayerController.playerInstance.transform.position, dir);
-        Debug.DrawRay(r.origin, r.direction * .5f, Color.red);
-
-        //DEBUG
-        //if (Input.GetKeyDown(KeyCode.Alpha9))
-        //{
-        //    PlayerController.playerInstance.transform.position = new Vector3(34, 27, 0);
-        //
-        //    //Camera.main.transform.position += new Vector3(0, 2 * yCameraDist, 0);
-        //}
 
         if(PlayerController.playerInstance.health.dead)
         {
@@ -69,12 +58,12 @@ public class GameController : MonoBehaviour
                 PlayerController.playerInstance.transform.position = startPos;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-           
-            loadBowRoom();
-            
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha8))
+        //{
+        //   
+        //    loadBowRoom();
+        //    
+        //}
 
         //for bow room exit
         if(PlayerController.playerInstance.transform.position == new Vector3(23, 60, 0))

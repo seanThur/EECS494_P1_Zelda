@@ -18,4 +18,4 @@ visual change of water to ice tells the player that they can now walk across tha
 
 f. Portfolio URLs:
 Alex: https://asaacke.github.io/
-Sean: 
+Sean: Seanthursby.weebly.com
