@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 91941304872745373}
   - component: {fileID: 91941304872745363}
   - component: {fileID: 91941304872745372}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 91941306146329084}
-  gridDist: 1
+  gridDist: 0.5
   movementSpeed: 2
   speed: 2
   dir: 0

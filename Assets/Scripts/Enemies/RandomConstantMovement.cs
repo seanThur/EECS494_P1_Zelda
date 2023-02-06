@@ -7,7 +7,7 @@ public class RandomConstantMovement : MoveOnGrid
     public float speed = 5.0f;
     public int dir;
     // Start is called before the first frame update
-
+    private bool isChuck = false;
 
     public bool checkUp()
     {
@@ -74,7 +74,7 @@ public class RandomConstantMovement : MoveOnGrid
     }
     private void Start()
     {
-
+        isChuck = GetComponent<ChuckFireballer>();
         gridDist = 1.0f;
         rb = GetComponent<Rigidbody>();
         setRandomDirection();
@@ -82,6 +82,10 @@ public class RandomConstantMovement : MoveOnGrid
     // Update is called once per frame
     void Update()
     {
+        if(isChuck)
+        {
+            gameObject.GetComponentInChildren<SphereCollider>().enabled = false;
+        }
         //if(Random.Range(0,1024) == 0)
         //{
         //    setRandomDirection();
@@ -93,7 +97,10 @@ public class RandomConstantMovement : MoveOnGrid
                 maybeGoSidewaysWellSee();
             }
         }
-
+        if (isChuck)
+        {
+            //gameObject.GetComponentInChildren<SphereCollider>().enabled = true;
+        }
     }
 
 
@@ -156,7 +163,7 @@ public class RandomConstantMovement : MoveOnGrid
     
     private void OnTriggerEnter(Collider other)
     {
-        if (!(other.isTrigger)) {
+        if ((!(other.isTrigger) && !(other.CompareTag("Enemy")))) {
             setRandomSideways();
         }
         

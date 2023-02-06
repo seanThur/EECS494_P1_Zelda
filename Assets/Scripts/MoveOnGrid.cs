@@ -22,6 +22,14 @@ public class MoveOnGrid : MonoBehaviour
 
     private bool allowY = true;
 
+    public bool isDoor(string tag)
+    {
+        if(tag == "eastDoor" || tag == "westDoor" || tag == "northDoor" || tag == "southDoor" || tag == "LeastDoor" || tag == "LwestDoor" || tag == "LnorthDoor" || tag == "LsouthDoor")
+        {
+            return (true);
+        }
+        return (false);
+    }
     public bool checkOnGridX()
     {
         float gridMul = (1 / gridDist);
