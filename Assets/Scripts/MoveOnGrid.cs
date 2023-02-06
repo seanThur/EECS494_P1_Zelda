@@ -285,7 +285,10 @@ public class MoveOnGrid : MonoBehaviour
 
     void FixedUpdate()
     {
+<<<<<<< HEAD
         int rem = 0;
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
         int xRemGrid = 0;
         int yRemGrid = 1;
         //set gridMovement values
@@ -306,7 +309,10 @@ public class MoveOnGrid : MonoBehaviour
         //        " gridDist: " + gridDist + " gridDist10: " + gridDist10);
         //}
 
+<<<<<<< HEAD
         if (xRem == rem)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
         if (xRem == xRemGrid)
         {
             onGridy = true;
@@ -316,7 +322,10 @@ public class MoveOnGrid : MonoBehaviour
             onGridy = false;
         }
 
+<<<<<<< HEAD
         if (yRem == rem)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
         if (yRem == yRemGrid)
         {
             onGridx = true;
@@ -374,7 +383,10 @@ public class MoveOnGrid : MonoBehaviour
 
             xOutput = 0.0f;
 
+<<<<<<< HEAD
             if (yRem <= 3)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
             if (yRem <= 3 && yRem > 1)
             {
                 yOutput = -Mathf.Abs(xInput);
