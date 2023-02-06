@@ -24,7 +24,7 @@ public class RandomConstantMovement : MoveOnGrid
     {
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(1.0f, 0.0f, 0.0f), out rch, 1.0f);
-        if(!(result))
+        if (!(result))
             return (true);
         if (rch.collider.CompareTag("Enemy"))
         {
@@ -61,10 +61,9 @@ public class RandomConstantMovement : MoveOnGrid
     {
         return (!(checkLeft() || checkDown() || checkUp() || checkRight()));
     }
-
     public bool checkDir(int code)
     {
-        switch(code)
+        switch (code)
         {
             case 0:
                 return (checkUp());
@@ -80,7 +79,7 @@ public class RandomConstantMovement : MoveOnGrid
 
     public bool lookBeforeLeap()
     {
-        if(!(checkDir(dir)))
+        if (!(checkDir(dir)))
         {
             setRandomSideways();
             return (true);
@@ -90,7 +89,7 @@ public class RandomConstantMovement : MoveOnGrid
 
     public void maybeGoSidewaysWellSee()
     {
-        if(Random.Range(0,100) != 50)
+        if (Random.Range(0, 100) != 50)
             return;
         bool checkOne = (checkDir((dir + 1) % 4));
         bool checkTwo = (checkDir((dir + 3) % 4));
@@ -118,9 +117,9 @@ public class RandomConstantMovement : MoveOnGrid
     // Update is called once per frame
     void Update()
     {
-        if(checkOnGridBoth())
+        if (checkOnGridBoth())
         {
-            if(!(lookBeforeLeap()))
+            if (!(lookBeforeLeap()))
             {
                 maybeGoSidewaysWellSee();
             }
@@ -132,7 +131,7 @@ public class RandomConstantMovement : MoveOnGrid
     public void setRandomDirection()
     {
         dir = Random.Range(0, 4);
-        if(!(checkDir(dir)))
+        if (!(checkDir(dir)))
         {
             setRandomDirection();
             return;
@@ -146,14 +145,14 @@ public class RandomConstantMovement : MoveOnGrid
         bool checkOne = (checkDir(firstC));
         bool checkTwo = (checkDir(secondC));
 
-        if(isLocked())
+        if (isLocked())
         {
             stop();
             return;
         }
         if (checkOne && checkTwo)
         {
-            dir = (Random.Range(0,2) == 0) ? firstC : secondC;
+            dir = (Random.Range(0, 2) == 0) ? firstC : secondC;
         }
         else if (checkOne && !(checkTwo))
         {
@@ -189,13 +188,14 @@ public class RandomConstantMovement : MoveOnGrid
                 break;
         }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
-        if ((!(other.isTrigger) && !(other.CompareTag("ChuckMelter")))) {
+        if ((!(other.isTrigger) && !(other.CompareTag("ChuckMelter"))))
+        {
             //setRandomSideways();
         }
-        
+
     }
     /*
     private void OnCollisionEnter(Collision collision)
