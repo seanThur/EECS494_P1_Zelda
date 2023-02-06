@@ -66,18 +66,22 @@ public class GameController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            if(SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("BowRoom")))
-            {
-                exitBowRoom();
-            }
-            else
-            {
-                loadBowRoom();
-            }
+           
+            loadBowRoom();
             
         }
+
+        //for bow room exit
+        if(PlayerController.playerInstance.transform.position == new Vector3(23, 60, 0))
+        {
+            Vector3 dest = new Vector3(23.5f, 62, -20);
+            StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, dest, .001f));
+        }
+
+        
     }
   
+    
     public void loadBowRoom()
     {
         SceneManager.LoadScene("BowRoom", LoadSceneMode.Additive);
@@ -88,14 +92,11 @@ public class GameController : MonoBehaviour
 
     public void exitBowRoom()
     {
-        SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        DontDestroyOnLoad(GameObject.Find("Player"));
+
         PlayerController.playerInstance.transform.position = new Vector3(23, 60, 0);
 
-        Camera.main.transform.position += new Vector3(0, 5 * yCameraDist, 0);
-        Camera.main.transform.position -= new Vector3(0, xCameraDist, 0);
-
-        //DontDestroyOnLoad(GameObject.Find("Player"));
-        
         Debug.Log("Exiting bow room");
     }
 
@@ -223,7 +224,7 @@ public class GameController : MonoBehaviour
     {
         
         Ray r = new Ray(PlayerController.playerInstance.transform.position, dir);
-        Debug.DrawRay(r.origin, r.direction * .6f, Color.green);
+        Debug.DrawRay(r.origin, r.direction * 3f, Color.green);
         RaycastHit c;
 
         int layer = 3;
@@ -232,6 +233,15 @@ public class GameController : MonoBehaviour
         
         yield return new WaitForSeconds(1);
 
+        if(block.CompareTag("movable2"))
+        {
+            moving = true;
+            PlayerController.acceptInput = false;
+            block.tag = "NonWallSolid";
+            yield return StartCoroutine(MoveBlock(block.transform, dir));
+            moving = false;
+            PlayerController.acceptInput = true;
+        }
         bool hit = Physics.Raycast(r, out c, 3f, layerMask);
         Debug.Log("hit: " + hit + " dir: " + dir);
 
