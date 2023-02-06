@@ -286,7 +286,10 @@ public class MoveOnGrid : MonoBehaviour
     void FixedUpdate()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         int rem = 0;
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
         int xRemGrid = 0;
@@ -310,7 +313,10 @@ public class MoveOnGrid : MonoBehaviour
         //}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (xRem == rem)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
         if (xRem == xRemGrid)
@@ -323,7 +329,10 @@ public class MoveOnGrid : MonoBehaviour
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (yRem == rem)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
         if (yRem == yRemGrid)
@@ -384,7 +393,10 @@ public class MoveOnGrid : MonoBehaviour
             xOutput = 0.0f;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (yRem <= 3)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
             if (yRem <= 3 && yRem > 1)

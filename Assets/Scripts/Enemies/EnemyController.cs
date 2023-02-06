@@ -25,6 +25,7 @@ public class EnemyController : MonoBehaviour
             die();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         if(GetComponent<WallMasterController>())
                 return;
         if (transform.localPosition.x < 2) {
@@ -38,6 +39,11 @@ public class EnemyController : MonoBehaviour
         }
         if(transform.localPosition.y > 8) {
             transform.localPosition = new Vector3(transform.localPosition.x,8,0.0f);
+=======
+        if(transform.localPosition.x < 0 || transform.localPosition.y < 0 || transform.localPosition.x > 15 || transform.localPosition.y > 8)
+        {
+            transform.position = startPoint;
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
         if(transform.localPosition.x < 0 || transform.localPosition.y < 0 || transform.localPosition.x > 15 || transform.localPosition.y > 8)
         {
