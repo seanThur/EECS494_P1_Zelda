@@ -28,25 +28,30 @@ public class CloudController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        Debug.Log("CtriggerEnter: " + other.name);
+        if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyController>().takeDamage(5);
         }
         else if(other.CompareTag("BombWall"))
         {
-            other.GetComponent<Health>().goCommitDie();
+            Debug.Log("CtriggerEnter bomb wall");
+            other.GetComponent<BombWall>().unlock();
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log("CtriggerStay: " + other.name);
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyController>().takeDamage(5);
         }
         else if (other.CompareTag("BombWall"))
         {
-            other.GetComponent<Health>().goCommitDie();
+            Debug.Log("CtriggerStay bomb wall");
+            other.GetComponent<BombWall>().unlock();
         }
     }
+
 }

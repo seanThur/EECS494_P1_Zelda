@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class BombWall : MonoBehaviour
 {
-    Health h;
-
-    // Start is called before the first frame update
-    void Start()
+    public void unlock()
     {
-        h = GetComponent<Health>();
+        transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
+        gameObject.SetActive(false);
+        transform.parent.transform.Find("SouthDoor").gameObject.SetActive(true);
+        transform.parent.transform.Find("SouthWall").gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(h.hearts <= 0)
-        {
-            transform.parent.transform.Find("Unlocked").gameObject.SetActive(true);
-            gameObject.SetActive(false);
-            transform.parent.transform.Find("SouthDoor").gameObject.SetActive(true);
-            transform.parent.transform.Find("LeftEntrance").gameObject.SetActive(false);
-            transform.parent.transform.Find("RightEntrance").gameObject.SetActive(false);
-        }
-    }
 }
