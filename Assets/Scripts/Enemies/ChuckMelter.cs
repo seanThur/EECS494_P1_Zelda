@@ -11,10 +11,16 @@ public class ChuckMelter : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other)
+   
+    private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Stuck Around. Tag = "+other.tag);
         if(other.CompareTag("Frozen"))
         {
             other.GetComponent<EnemyController>().unfreeze();
+            if (other.GetComponent<BoxCollider>().isTrigger == false) {
+                other.GetComponent<EnemyController>().unfreeze();
+            }
         }
         else if(other.CompareTag("PlayerProjectile"))
         {
@@ -23,6 +29,11 @@ public class ChuckMelter : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        OnTriggerEnter(other);
     }
 
     // Update is called once per frame
