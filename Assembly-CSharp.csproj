@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\LevelScript\KeyseDropper.cs" />
     <Compile Include="Assets\Scripts\Enemies\enemyDropBox.cs" />
     <Compile Include="Assets\Scripts\ArrowController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\ChuckMelter.cs" />
     <Compile Include="Assets\Scripts\Enemies\GoriyaMovement.cs" />
     <Compile Include="Assets\Scripts\LevelScript\KeeseRoomDoorLock.cs" />
     <Compile Include="Assets\Scripts\ExplodeTimer.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Scripts\SnowballController.cs" />
     <Compile Include="Assets\Scripts\LevelScript\WallMasterSpawn.cs" />
     <Compile Include="Assets\Scripts\EECS494FunBallAesthetics.cs" />
+    <Compile Include="Assets\Scripts\Enemies\ChuckFireballer.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\LevelScript\Follows.cs" />
     <Compile Include="Assets\Scripts\Enemies\AquaBallController.cs" />
@@ -103,8 +105,6 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\LevelScript\HintRoomUnlock.cs" />
-    <Compile Include="Assets\Scripts\Enemies\ChuckFireballer.cs" />
-    <Compile Include="Assets\Scripts\Enemies\ChuckMelter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -127,6 +127,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\read me.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />

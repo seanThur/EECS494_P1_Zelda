@@ -120,6 +120,7 @@ public class EnemyController : MonoBehaviour
     public void freeze()
     {
         GetComponent<SpriteRenderer>().color = new Color(0.6f, 1.0f, 1.0f);//Not working
+        GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.white);
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         GetComponent<BoxCollider>().isTrigger = false;
         GetComponent<Animator>().speed = 0;

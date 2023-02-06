@@ -65,7 +65,21 @@ public class Displayer : MonoBehaviour
         initRevealPanels();
         StartCoroutine(revealAndNext(0));
     }
-    void Start()
+
+    //singleton pattern 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    /*void Start()
     {
         if(instance)
         {
@@ -75,19 +89,8 @@ public class Displayer : MonoBehaviour
             instance = this;
         }
         bigReveal();
-        //heartsImage = GetComponent<Image>();
-        //hearts3 = GetComponent<Image>();
-        //hearts25 = GetComponent<Image>();
-        //hearts2 = GetComponent<Image>();
-        //hearts15 = GetComponent<Image>();
-        //hearts1 = GetComponent<Image>();
-        //hearts05 = GetComponent<Image>();
-        //altWeaponImage = GetComponent<Image>();
-        //bow = GetComponent<Image>();
-        //boomerang = GetComponent<Image>();
-        //bomb = GetComponent<Image>();
-        //empty = GetComponent<Image>();
-    }
+
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -110,23 +113,19 @@ public class Displayer : MonoBehaviour
                  hearts05.enabled = write;
                  break;
              case 1.0f:
-                //Debug.Log("GOT 1 " + PlayerController.playerInstance.health.hearts);
                 hearts1.enabled = write;
                  break;
              case 1.5f:
                  hearts15.enabled = write;
                  break;
              case 2.0f:
-                //Debug.Log("GOT 2 " + PlayerController.playerInstance.health.hearts);
                  hearts2.enabled = write;
                  break;
              case 2.5f:
                  hearts25.enabled = write;
                  break;
              case 3.0f:
-                //Debug.Log("Name = " + gameObject.name);
-                //Debug.Log("Three = "+ hearts3);
-                //hearts3.enabled = write;
+                hearts3.enabled = write;
                  break;
          }
      }
@@ -181,7 +180,7 @@ public class Displayer : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Weapon = "+alt);
+        Debug.Log("Weapon = "+ alt);
         altWeaponFlip(altWeaponTrack, false);
         altWeaponTrack = alt.weaponType;
         altWeaponFlip(altWeaponTrack, true);

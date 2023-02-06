@@ -39,13 +39,21 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        //debug
+        if(Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            PlayerController.playerInstance.transform.position = new Vector3(34, 27, 0);
+
+            Camera.main.transform.position += new Vector3(0, 2 * yCameraDist, 0);
+            //StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
+        }
+
         if(PlayerController.playerInstance.health.dead)
         {
             gameOver();
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            godMode = !godMode;
+        { 
             toggleGodMode();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -105,7 +113,15 @@ public class GameController : MonoBehaviour
     private void toggleGodMode()
     {
         godMode = !godMode;
-        PlayerController.playerInstance.inventory.godMode();
+        PlayerController.playerInstance.isInvinicible = godMode;
+
+        if(godMode)
+        {
+            PlayerController.playerInstance.inventory.godMode();
+            PlayerController.playerInstance.GetComponent<AltWeaponScroller>().godMode();
+        }
+        
+        
     }
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
