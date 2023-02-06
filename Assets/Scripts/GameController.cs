@@ -262,14 +262,14 @@ public class GameController : MonoBehaviour
             //PlayerController.acceptInput = true;
         }
         bool hit = Physics.Raycast(r, out c, 3f, layerMask);
-        Debug.Log("hit: " + hit + " dir: " + dir);
+        //Debug.Log("hit: " + hit + " dir: " + dir);
 
         
 
 
         if (hit)
         {
-            Debug.Log("c: " + c.transform.tag);
+            //Debug.Log("c: " + c.transform.tag);
             
             if (c.transform.CompareTag("movable"))
             {
@@ -296,7 +296,7 @@ public class GameController : MonoBehaviour
     public IEnumerator MoveBlock(Transform tr, Vector3 dir)
     {
         Vector3 dest = tr.position + dir;
-        Debug.Log("positions: " + tr.position + " | " + dest + " dir: " + dir);
+        //Debug.Log("positions: " + tr.position + " | " + dest + " dir: " + dir);
         yield return StartCoroutine(MoveObjectOverTime(tr, tr.position, dest, 1));
     }
 
