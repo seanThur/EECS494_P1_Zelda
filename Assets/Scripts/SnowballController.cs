@@ -20,19 +20,23 @@ public class SnowballController : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         GameObject other = collision.gameObject;
 
         if(other.CompareTag("Water"))
         {
-            other.GetComponent<BoxCollider>().isTrigger = true;
+            Debug.Log("snowball --> water collision");
+            other.GetComponent<Collider>().enabled = false;
+            //other.GetComponent<BoxCollider>().isTrigger = true;
         }
         else
         {
+            Debug.Log("destroying snowball");
             Destroy(gameObject);
         }
-    }
+    }*/
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Enemy"))
@@ -47,7 +51,11 @@ public class SnowballController : MonoBehaviour
 
         if(!(other.isTrigger))
         {
-            if(!(other.CompareTag("Player")) && !(other.CompareTag("Frozen")))
+            if(other.CompareTag("Water"))
+            {
+                freezeWater(other.gameObject);
+            }
+            else if(!(other.CompareTag("Player")) && !(other.CompareTag("Frozen")))
             {
                 Destroy(gameObject);
             }
@@ -65,6 +73,8 @@ public class SnowballController : MonoBehaviour
 
     public void freezeWater(GameObject water)
     {
-        water.GetComponent<Collider>().isTrigger = true;
+        GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.white);
+        water.GetComponent<Collider>().enabled = false;
+        water.tag = "Frozen";
     }
 }
