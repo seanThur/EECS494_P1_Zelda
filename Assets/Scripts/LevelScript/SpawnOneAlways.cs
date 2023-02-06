@@ -11,6 +11,7 @@ public class SpawnOneAlways : MonoBehaviour
     {
         currentGuy = Instantiate(guy);
         currentGuy.transform.position = transform.position;
+        currentGuy.transform.parent = gameObject.transform.parent.transform;
     }
 
     // Update is called once per frame
@@ -20,6 +21,7 @@ public class SpawnOneAlways : MonoBehaviour
         {
             currentGuy = Instantiate(guy);
             currentGuy.transform.position = transform.position;
+            currentGuy.transform.parent = gameObject.transform.parent.transform;
         }
     }
 }

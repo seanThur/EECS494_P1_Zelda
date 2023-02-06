@@ -8,9 +8,11 @@ public class EnemyController : MonoBehaviour
     public Animator an;
     private Health health;
     public bool diesOnBoomerangHit = false;
+    private Vector3 startPoint;
     // Start is called before the first frame update
     void Start()
     {
+        startPoint = transform.position;
         an = GetComponent<Animator>();
         health = GetComponent<Health>();
     }
@@ -21,6 +23,10 @@ public class EnemyController : MonoBehaviour
         if(health.hearts <= 0.05f)
         {
             die();
+        }
+        if(transform.localPosition.x < 0 || transform.localPosition.y < 0 || transform.localPosition.x > 15 || transform.localPosition.y > 8)
+        {
+            transform.position = startPoint;
         }
     }
 
