@@ -12,11 +12,6 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
     public int bombCount = 0;
     public int keyCount = 0;
 
-    private void Start()
-    {
-
-    }
-
     //ACQUIRE != EQUIP
     public void acquireBow()
     {
@@ -111,6 +106,10 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
     public void SetRupees(int num)
     {
+        if (GameController.godMode)
+        {
+            return;
+        }
         if (num < 0 || num > 999)
         {
             num = 999;
@@ -140,6 +139,10 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
     public void SetBombs(int num)
     {
+        if (GameController.godMode)
+        {
+            return;
+        }
         if (num < 0 || num > 99)
         {
             num = 99;
@@ -163,6 +166,10 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
     public void useKey()
     {
+        if (GameController.godMode)
+        {
+            return;
+        }
         if (keyCount <= 0)
         {
             Debug.Log("Invalid key count: " + keyCount);
@@ -175,6 +182,10 @@ public class Inventory : MonoBehaviour //Why is this a MonoBehaviour? Could it n
 
     public void setKeys(int num)
     {
+        if (GameController.godMode)
+        {
+            return;
+        }
         if (num < 0 || num > 99)
         {
             num = 99;

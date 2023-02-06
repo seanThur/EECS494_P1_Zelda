@@ -286,6 +286,8 @@ public class MoveOnGrid : MonoBehaviour
     void FixedUpdate()
     {
         int rem = 0;
+        int xRemGrid = 0;
+        int yRemGrid = 1;
         //set gridMovement values
         x = rb.transform.position.x;
         y = rb.transform.position.y;
@@ -305,6 +307,7 @@ public class MoveOnGrid : MonoBehaviour
         //}
 
         if (xRem == rem)
+        if (xRem == xRemGrid)
         {
             onGridy = true;
         }
@@ -314,6 +317,7 @@ public class MoveOnGrid : MonoBehaviour
         }
 
         if (yRem == rem)
+        if (yRem == yRemGrid)
         {
             onGridx = true;
         }
@@ -371,6 +375,7 @@ public class MoveOnGrid : MonoBehaviour
             xOutput = 0.0f;
 
             if (yRem <= 3)
+            if (yRem <= 3 && yRem > 1)
             {
                 yOutput = -Mathf.Abs(xInput);
             }

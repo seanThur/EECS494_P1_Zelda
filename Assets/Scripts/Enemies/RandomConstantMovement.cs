@@ -61,6 +61,7 @@ public class RandomConstantMovement : MoveOnGrid
     {
         return (!(checkLeft() || checkDown() || checkUp() || checkRight()));
     }
+
     public bool checkDir(int code)
     {
         switch(code)

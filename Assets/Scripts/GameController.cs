@@ -45,12 +45,12 @@ public class GameController : MonoBehaviour
         Debug.DrawRay(r.origin, r.direction * .5f, Color.red);
 
         //DEBUG
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            PlayerController.playerInstance.transform.position = new Vector3(34, 27, 0);
-
-            Camera.main.transform.position += new Vector3(0, 2 * yCameraDist, 0);
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha9))
+        //{
+        //    PlayerController.playerInstance.transform.position = new Vector3(34, 27, 0);
+        //
+        //    //Camera.main.transform.position += new Vector3(0, 2 * yCameraDist, 0);
+        //}
 
         if(PlayerController.playerInstance.health.dead)
         {
@@ -63,6 +63,11 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             SceneManager.LoadScene("CustomLevel", LoadSceneMode.Single);
+            Vector3 startPos = new Vector3(39.5f, 2, 0);
+            if(!PlayerController.playerInstance.transform.position.Equals(startPos))
+            {
+                PlayerController.playerInstance.transform.position = startPos;
+            }
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
@@ -74,6 +79,7 @@ public class GameController : MonoBehaviour
         //for bow room exit
         if(PlayerController.playerInstance.transform.position == new Vector3(23, 60, 0))
         {
+            Debug.Log("moving camera"); 
             Vector3 dest = new Vector3(23.5f, 62, -20);
             StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, dest, .001f));
         }
@@ -96,8 +102,8 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(GameObject.Find("Player"));
 
         PlayerController.playerInstance.transform.position = new Vector3(23, 60, 0);
-
         Debug.Log("Exiting bow room");
+
     }
 
     public void unlockDoor(GameObject door)
@@ -232,22 +238,38 @@ public class GameController : MonoBehaviour
         layerMask = ~layerMask;
         
         yield return new WaitForSeconds(1);
+        
 
-        if(block.CompareTag("movable2"))
+        //raycast upwards isnt working
+        if (dir == Vector2.up && PlayerController.playerInstance.mog.getyInput() > 0)
+        {
+            Debug.Log("Moving up");
+            //moving = true;
+            PlayerController.acceptInput = false;
+            block.transform.tag = "NonWallSolid";
+            yield return StartCoroutine(MoveBlock(block.transform, dir));
+            
+            //PlayerController.acceptInput = true;
+        }
+
+        else if (block.CompareTag("movable2"))
         {
             moving = true;
             PlayerController.acceptInput = false;
             block.tag = "NonWallSolid";
             yield return StartCoroutine(MoveBlock(block.transform, dir));
-            moving = false;
-            PlayerController.acceptInput = true;
+            //moving = false;
+            //PlayerController.acceptInput = true;
         }
         bool hit = Physics.Raycast(r, out c, 3f, layerMask);
-        Debug.Log("hit: " + hit + " dir: " + dir);
+        //Debug.Log("hit: " + hit + " dir: " + dir);
+
+        
+
 
         if (hit)
         {
-            Debug.Log("c: " + c.transform.tag);
+            //Debug.Log("c: " + c.transform.tag);
             
             if (c.transform.CompareTag("movable"))
             {
@@ -256,8 +278,8 @@ public class GameController : MonoBehaviour
                 PlayerController.acceptInput = false;
                 c.transform.tag = "NonWallSolid";
                 yield return StartCoroutine(MoveBlock(block.transform, dir));
-                moving = false;
-                PlayerController.acceptInput = true;
+                //moving = false;
+                //PlayerController.acceptInput = true;
                 
             }
         }
@@ -266,13 +288,15 @@ public class GameController : MonoBehaviour
             //Debug.Log("No hit dir " + dir);
         }
 
+        moving = false;
+        PlayerController.acceptInput = true;
         yield return null;
     }
 
     public IEnumerator MoveBlock(Transform tr, Vector3 dir)
     {
         Vector3 dest = tr.position + dir;
-        Debug.Log("positions: " + tr.position + " | " + dest);
+        //Debug.Log("positions: " + tr.position + " | " + dest + " dir: " + dir);
         yield return StartCoroutine(MoveObjectOverTime(tr, tr.position, dest, 1));
     }
 

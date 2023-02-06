@@ -1,0 +1,21 @@
+Design
+a. Our custom level brings fire and ice into the game. Where water was once a boundary, it is now a path, thanks to the snowball. Be careful, Chucks, 
+a new fire enemy, will melt the effects of your snowball! The bow is acquired late in the level, allowing the player to kill Chucks and providing
+a sense of progression.
+
+b. The snowball can freeze enemies and freeze bodies of water so they can be walked across. However, Chucks negate the effects of the snowball, melting
+any ice back into water, and unfreezing enemies near it.
+
+c. The snowball fundamentally changes how water is used in the level. It is turned from a boundary to a path, and this opens up new room designs. 
+Also, the player can choose to freeze enemies rather than kill them, further changing how the original dungeon is played.
+
+d. For many rooms, the player is given the choice of either going across water, or fighting enemies. If the player chooses to not use the snowball
+and avoid the water, they have to deal with enemies. However, if the player chooses to go across water, this water may be melted by a Chuck. There 
+is a risk to both choices that the player must manage.
+
+e. The player can see they have the snowball already acquired by scrolling through their B-slot weapons. Once this snowball is shot over water, the 
+visual change of water to ice tells the player that they can now walk across that water.
+
+f. Portfolio URLs:
+Alex: https://asaacke.github.io/
+Sean: 
