@@ -22,7 +22,7 @@ public class MoveOnGrid : MonoBehaviour
 
     private bool allowY = true;
 
-    public bool isDoor(string tag)
+    static public bool isDoor(string tag)
     {
         if(tag == "eastDoor" || tag == "westDoor" || tag == "northDoor" || tag == "southDoor" || tag == "LeastDoor" || tag == "LwestDoor" || tag == "LnorthDoor" || tag == "LsouthDoor")
         {
@@ -207,6 +207,7 @@ public class MoveOnGrid : MonoBehaviour
         yield return (new WaitForSeconds(x));
 
         GetComponent<BoxCollider>().isTrigger = true;
+        snap();
     }
 
     public void enemyJolt(Vector3 heading)
@@ -235,6 +236,18 @@ public class MoveOnGrid : MonoBehaviour
             }
         }
         StartCoroutine(phaseOutInX(0.25f));
+    }
+
+    //mog.moveDir(vecToDir(direction),movementSpeed*5.0f,0.2f);
+    public void moveDir(int dir, float speed, float time)
+    {
+        switch(dir)
+        {
+            case 1: moveUp(speed, time); break;
+            case 2: moveRight(speed, time); break;
+            case 3: moveDown(speed, time); break;
+            case 4: moveLeft(speed, time); break;
+        }
     }
     /*
     public bool checkUp()

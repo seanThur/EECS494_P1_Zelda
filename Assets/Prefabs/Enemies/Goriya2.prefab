@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  gridDist: 0.5
+  gridDist: 1
   movementSpeed: 1
   speed: 1
   dir: 0

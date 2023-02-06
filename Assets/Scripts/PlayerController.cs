@@ -310,12 +310,41 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private int vecToDir(Vector3 v)
+    {
+        if(Mathf.Abs(v.x) > Mathf.Abs(v.y))
+        {
+            if(v.x > 0)
+            {
+                return (2);
+            }
+            else
+            {
+                return (4);
+
+            }
+        }
+        else
+        {
+            if(v.y >0)
+            {
+                return (1);
+
+            }
+            else
+            {
+                return (3);
+
+            }
+        }
+    }
 
     public void jolt(Vector3 direction)
     {
         isJolted = true;
         isInvinicible = true;
-        mog.reverse(movementSpeed * 5.0f, 0.2f);
+
+        mog.moveDir(vecToDir(direction),movementSpeed*5.0f,0.2f);
         StartCoroutine(stopjolt());
         StartCoroutine(stopInvincibllity());
         //Player is pushed away from enemy and becomes invincible temporarally

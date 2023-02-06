@@ -57,7 +57,7 @@ public class GoriyaBoomerangController : EnemyProjectile
         }
         else
         {
-            if(!(other.isTrigger))
+            if(!(other.isTrigger) || MoveOnGrid.isDoor(other.tag))
             {
                 reverse();
             }
