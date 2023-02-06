@@ -73,8 +73,7 @@ public class SnowballController : MonoBehaviour
 
     public void freezeWater(GameObject water)
     {
-        //GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.white);
-        water.GetComponent<SpriteRenderer>().sprite = CustomLevelDrop.instance.icePNG;
+        GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.white);
         water.GetComponent<Collider>().enabled = false;
         water.tag = "Frozen";
     }
