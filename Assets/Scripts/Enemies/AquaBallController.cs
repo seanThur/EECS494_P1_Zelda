@@ -25,7 +25,7 @@ public class AquaBallController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("wall") || other.gameObject.CompareTag("NonWallSolid"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("wall") || other.gameObject.CompareTag("NonWallSolid") || MoveOnGrid.isDoor(other.tag))
         {
             Destroy(gameObject);
         }

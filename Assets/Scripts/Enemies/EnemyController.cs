@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour
         {
             die();
         }
+        if(GetComponent<WallMasterController>())
+                return;
         if (transform.localPosition.x < 2) {
             transform.localPosition = new Vector3(2, transform.localPosition.y, 0.0f);
         }
