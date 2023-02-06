@@ -304,6 +304,7 @@ public class PlayerController : MonoBehaviour
 
         if(!GameController.gameInstance.moving)
         {
+            GameController.gameInstance.moving = true;
             StartCoroutine(GameController.gameInstance.StartMoveBlock(c, dir));
         }
 

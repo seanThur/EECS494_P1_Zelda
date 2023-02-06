@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Displayer.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyController.cs" />
     <Compile Include="Assets\Scripts\BombDropper.cs" />
+    <Compile Include="Assets\Scripts\LevelScript\SpawnOneAlways.cs" />
     <Compile Include="Assets\Scripts\Enemies\WallMasterController.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\LevelScript\DropWhen3Die.cs" />
