@@ -25,7 +25,7 @@ public class ChuckMelter : MonoBehaviour
         {
             if(other.GetComponent<SnowballController>())
             {
-                Destroy(other.gameObject);
+                other.GetComponent<SnowballController>().getMeltedIdiot();
             }
         }
     }

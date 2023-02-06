@@ -77,4 +77,21 @@ public class SnowballController : MonoBehaviour
         water.GetComponent<Collider>().enabled = false;
         water.tag = "Frozen";
     }
+
+    IEnumerator meltAnimation()
+    {
+        yield return (new WaitForSeconds(0.025f));
+        float next = GetComponent<SpriteRenderer>().color.r-0.05f;
+        GetComponent<SpriteRenderer>().color = new Color(next, next, 1.0f);
+        if(next > 0)
+        {
+            StartCoroutine(meltAnimation());
+            Destroy(gameObject);
+        }
+    }
+    public void getMeltedIdiot()
+    {
+        StartCoroutine(meltAnimation());
+
+    }
 }
