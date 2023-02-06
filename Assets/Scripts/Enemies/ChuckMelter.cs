@@ -13,7 +13,6 @@ public class ChuckMelter : MonoBehaviour
    
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Stuck Around. Tag = "+other.tag);
         if(other.CompareTag("Frozen"))
         {
             other.GetComponent<EnemyController>().unfreeze();

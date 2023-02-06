@@ -35,6 +35,10 @@ public class GoriyaMovement : RandomConstantMovement
 
     private void throwBoomerang()
     {
+        if (!(GetComponent<BoxCollider>().enabled))
+        {
+            return;
+        }
         //Add scan to ensure 1 tile space
         stopped = true;
         GameObject inst = Instantiate(boomerang);
