@@ -20,11 +20,17 @@ public class GoriyaMovement : RandomConstantMovement
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0,1024) == 0 && !(stopped))
+        if (!(stopped))
         {
-            setRandomDirection();
+            if (checkOnGridBoth())
+            {
+                if (!(lookBeforeLeap()))
+                {
+                    maybeGoSidewaysWellSee();
+                }
+            }
         }
-        if(dir != wasDir)
+        if (dir != wasDir)
         {
             wasDir = dir;
             an.SetInteger("Dir", dir);

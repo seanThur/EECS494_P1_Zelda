@@ -7,7 +7,6 @@ public class RandomConstantMovement : MoveOnGrid
     public float speed = 5.0f;
     public int dir;
     // Start is called before the first frame update
-    private bool isChuck = false;
 
     public bool checkUp()
     {
@@ -24,6 +23,11 @@ public class RandomConstantMovement : MoveOnGrid
     public bool checkLeft()
     {
         return (!(Physics.Raycast(transform.position, new Vector3(-1.0f, 0.0f, 0.0f), 1.0f)));
+    }
+
+    public bool isLocked()
+    {
+        return (!(checkLeft() || checkDown() || checkUp() || checkRight()));
     }
     public bool checkDir(int code)
     {
@@ -74,7 +78,6 @@ public class RandomConstantMovement : MoveOnGrid
     }
     private void Start()
     {
-        isChuck = GetComponent<ChuckFireballer>();
         gridDist = 1.0f;
         rb = GetComponent<Rigidbody>();
         setRandomDirection();
@@ -82,24 +85,12 @@ public class RandomConstantMovement : MoveOnGrid
     // Update is called once per frame
     void Update()
     {
-        if(isChuck)
-        {
-            gameObject.GetComponentInChildren<SphereCollider>().enabled = false;
-        }
-        //if(Random.Range(0,1024) == 0)
-        //{
-        //    setRandomDirection();
-        //}
         if(checkOnGridBoth())
         {
             if(!(lookBeforeLeap()))
             {
                 maybeGoSidewaysWellSee();
             }
-        }
-        if (isChuck)
-        {
-            //gameObject.GetComponentInChildren<SphereCollider>().enabled = true;
         }
     }
 
@@ -122,6 +113,11 @@ public class RandomConstantMovement : MoveOnGrid
         bool checkOne = (checkDir(firstC));
         bool checkTwo = (checkDir(secondC));
 
+        if(isLocked())
+        {
+            stop();
+            return;
+        }
         if (checkOne && checkTwo)
         {
             dir = (Random.Range(0,2) == 0) ? firstC : secondC;

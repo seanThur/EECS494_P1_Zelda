@@ -144,7 +144,6 @@ public class AltWeaponScroller : MonoBehaviour
 
     public bool hasSnowball()
     {
-        Debug.Log("Custom Mode = "+customMode + ",  Equipped = " + sbt.equipped);
         if(!(customMode))
         {
             return (false);
