@@ -30,6 +30,7 @@ TagManager:
   - BombWall
   - Frozen
   - Water
+  - Snowball
   layers:
   - Default
   - TransparentFX

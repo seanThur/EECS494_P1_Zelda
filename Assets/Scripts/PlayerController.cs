@@ -174,6 +174,11 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("post Acquired boomerang");
             Destroy(other);
         }
+        else if (other.CompareTag("Snowball"))
+        {
+            GetComponent<SnowballThrower>().equipped = true;
+            Destroy(other);
+        }
         //doorcheck
         else
         {
