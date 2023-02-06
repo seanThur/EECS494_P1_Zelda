@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\BombWall.cs" />
     <Compile Include="Assets\Scripts\ScreenShakeEffect.cs" />
     <Compile Include="Assets\Scripts\SnowballController.cs" />
+    <Compile Include="Assets\Scripts\IceBallController.cs" />
     <Compile Include="Assets\Scripts\LevelScript\WallMasterSpawn.cs" />
     <Compile Include="Assets\Scripts\EECS494FunBallAesthetics.cs" />
     <Compile Include="Assets\Scripts\Enemies\ChuckFireballer.cs" />
@@ -105,7 +106,6 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\LevelScript\HintRoomUnlock.cs" />
-    <Compile Include="Assets\Scripts\IceBallController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

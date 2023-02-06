@@ -282,12 +282,24 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.CompareTag("movable2"))
         {
-            if (!(mog.getyInput() < 0))
+            if(mog.getxInput() > 0 || (mog.getxInput() == 0 && mog.getyInput() == 0))
             {
                 return;
             }
-
-            dir = Vector2.down;
+            
+            if (mog.getyInput() > 0)
+            {
+                dir = Vector2.up;
+            }
+            else if(mog.getyInput() < 0)
+            {
+                dir = Vector2.down;
+            }
+            else if(mog.getxInput() < 0)
+            {
+                dir = Vector2.left;
+            }
+            
         }
 
         if(!GameController.gameInstance.moving)
