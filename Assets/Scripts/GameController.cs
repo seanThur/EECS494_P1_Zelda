@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour
     {
         godMode = !godMode;
         PlayerController.playerInstance.inventory.godMode();
+        PlayerController.playerInstance.isInvinicible = godMode;
     }
 
     //from https://github.com/ayarger/494_demos/blob/master/WorkshopCoroutines/Assets/Scripts/CoroutineUtilities.cs example
