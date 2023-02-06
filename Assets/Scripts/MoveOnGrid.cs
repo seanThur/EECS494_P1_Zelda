@@ -287,7 +287,10 @@ public class MoveOnGrid : MonoBehaviour
     {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         int rem = 0;
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
@@ -314,7 +317,10 @@ public class MoveOnGrid : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (xRem == rem)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
@@ -330,7 +336,10 @@ public class MoveOnGrid : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (yRem == rem)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
@@ -394,7 +403,10 @@ public class MoveOnGrid : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (yRem <= 3)
+=======
+>>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
 >>>>>>> 5b6466be3aa1ef3dee9239bf5929df17cb89a7a9
 =======
