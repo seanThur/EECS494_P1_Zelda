@@ -121,6 +121,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 973701247567776794, guid: c4f644626de878049a71bad6cd7dfc70, type: 3}
   isJolted: 0
   isInvinicible: 0
+  iceBallPrefab: {fileID: 1923681999328115766, guid: d19df450e651cc24c8672c5d0479f66f, type: 3}
   altWeapon: {fileID: 0}
 --- !u!114 &4876100917623695229
 MonoBehaviour:
@@ -387,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 0}
+  customMode: 0
 --- !u!114 &3694372348187829390
 MonoBehaviour:
   m_ObjectHideFlags: 0

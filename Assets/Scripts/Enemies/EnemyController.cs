@@ -45,14 +45,18 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void die()
+    public void die()
     {
+        if(!(GetComponent<BoxCollider>().enabled))
+        {
+            return;
+        }
         an.SetTrigger("dead");
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         StartCoroutine(bringOutYourDead(4.0f/6.0f));
         Debug.Log("Dying");
-        health.hearts += 999;
+        health.hearts = 0;
     }
 
 
@@ -110,6 +114,10 @@ public class EnemyController : MonoBehaviour
 
     public void unfreeze()
     {
+        if(!(GetComponent<BoxCollider>().enabled))
+        {
+            return;
+        }
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f);
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         GetComponent<BoxCollider>().isTrigger = true;

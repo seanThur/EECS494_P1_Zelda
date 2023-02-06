@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public static bool isTransition = false;
     public static bool acceptInput = true;
     private int secondary = 0;
+    public GameObject iceBallPrefab;
 
 
     public Weapon altWeapon;
@@ -359,6 +360,18 @@ public class PlayerController : MonoBehaviour
                 if (hitData.collider.gameObject.GetComponent<EnemyController>())
                 {
                     hitData.collider.gameObject.GetComponent<EnemyController>().takeDamage(swordDamage);
+                }
+            }
+            else if(hitData.collider.gameObject.CompareTag("Frozen"))
+            {
+                Debug.Log("HIT FROZEN!");
+                if (hitData.collider.gameObject.GetComponent<EnemyController>())
+                {
+                    IceBallController hold = Instantiate(iceBallPrefab).GetComponent<IceBallController>();
+                    hold.launch(castDir);
+                    hold.gameObject.transform.position = hitData.collider.gameObject.transform.position;
+                    hitData.collider.gameObject.GetComponent<EnemyController>().die();
+
                 }
             }
         }
