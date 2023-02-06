@@ -20,6 +20,8 @@ public class MoveOnGrid : MonoBehaviour
 
     private float tolerance = 0.05f;
 
+    private bool allowY = true;
+
     public bool checkOnGridX()
     {
         float gridMul = (1 / gridDist);
@@ -317,7 +319,7 @@ public class MoveOnGrid : MonoBehaviour
 
 
         //prevents diagonal movement, implements grid movement
-        if (Mathf.Abs(xInput) > 0.0f)
+        if (Mathf.Abs(xInput) > 0.0f || !allowY)
         {
             yInput = 0.0f;
         }
@@ -374,5 +376,11 @@ public class MoveOnGrid : MonoBehaviour
         }
 
         return new Vector2(xOutput, yOutput);
+    }
+
+    public void setAllowY(bool b)
+    {
+        allowY = b;
+        //return allowY;
     }
 }

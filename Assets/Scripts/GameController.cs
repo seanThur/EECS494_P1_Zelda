@@ -64,8 +64,41 @@ public class GameController : MonoBehaviour
         {
             SceneManager.LoadScene("CustomLevel", LoadSceneMode.Single);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            if(SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("BowRoom")))
+            {
+                exitBowRoom();
+            }
+            else
+            {
+                loadBowRoom();
+            }
+            
+        }
     }
   
+    public void loadBowRoom()
+    {
+        SceneManager.LoadScene("BowRoom", LoadSceneMode.Additive);
+        PlayerController.playerInstance.transform.position = new Vector3(4.5f, 8, 0);
+        //DontDestroyOnLoad(GameObject.Find("Player"));
+        Debug.Log("Loading bow room");
+    }
+
+    public void exitBowRoom()
+    {
+        SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+        PlayerController.playerInstance.transform.position = new Vector3(23, 60, 0);
+
+        Camera.main.transform.position += new Vector3(0, 5 * yCameraDist, 0);
+        Camera.main.transform.position -= new Vector3(0, xCameraDist, 0);
+
+        //DontDestroyOnLoad(GameObject.Find("Player"));
+        
+        Debug.Log("Exiting bow room");
+    }
+
     public void unlockDoor(GameObject door)
     {
         if(PlayerController.playerInstance.inventory.keyCount > 0)
@@ -117,6 +150,7 @@ public class GameController : MonoBehaviour
     private void toggleGodMode()
     {
         godMode = !godMode;
+        Debug.Log("godMode: " + godMode);
         PlayerController.playerInstance.isInvinicible = godMode;
 
         if(godMode)
@@ -189,23 +223,32 @@ public class GameController : MonoBehaviour
     {
         
         Ray r = new Ray(PlayerController.playerInstance.transform.position, dir);
-        Debug.DrawRay(r.origin, r.direction * .5f, Color.green);
-        RaycastHit cast;
+        Debug.DrawRay(r.origin, r.direction * .6f, Color.green);
+        RaycastHit c;
 
+        int layer = 3;
+        int layerMask = 1 << layer;
+        layerMask = ~layerMask;
+        
         yield return new WaitForSeconds(1);
 
-        
-        if(Physics.Raycast(r, out cast, .5f))
+        bool hit = Physics.Raycast(r, out c, 3f, layerMask);
+        Debug.Log("hit: " + hit + " dir: " + dir);
+
+        if (hit)
         {
-            //Debug.Log("Cast hit: " + cast.collider.name);
-            //Debug.Log("dir: " + dir);
-            if(cast.transform.CompareTag("movable"))
+            Debug.Log("c: " + c.transform.tag);
+            
+            if (c.transform.CompareTag("movable"))
             {
+                Debug.Log("Cast hit: " + c.collider + " dir: " + dir);
                 moving = true;
                 PlayerController.acceptInput = false;
+                c.transform.tag = "NonWallSolid";
                 yield return StartCoroutine(MoveBlock(block.transform, dir));
                 moving = false;
                 PlayerController.acceptInput = true;
+                
             }
         }
         else
@@ -218,8 +261,9 @@ public class GameController : MonoBehaviour
 
     public IEnumerator MoveBlock(Transform tr, Vector3 dir)
     {
-        
-        yield return StartCoroutine(MoveObjectOverTime(tr, tr.position, tr.position + dir, 1));
+        Vector3 dest = tr.position + dir;
+        Debug.Log("positions: " + tr.position + " | " + dest);
+        yield return StartCoroutine(MoveObjectOverTime(tr, tr.position, dest, 1));
     }
 
 }

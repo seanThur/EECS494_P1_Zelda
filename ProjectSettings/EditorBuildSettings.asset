@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/BowRoom.unity
+    guid: 8eb5d09b1594117469e08c7461b08bf8
   m_configObjects: {}

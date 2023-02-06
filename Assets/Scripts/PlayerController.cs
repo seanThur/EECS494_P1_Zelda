@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController playerInstance;
@@ -179,6 +179,18 @@ public class PlayerController : MonoBehaviour
             GetComponent<SnowballThrower>().equipped = true;
             Destroy(other);
         }
+        else if(other.CompareTag("BowRoom"))
+        {
+            GameController.gameInstance.loadBowRoom();
+        }
+        else if (other.CompareTag("ExitBowRoom"))
+        {
+            GameController.gameInstance.exitBowRoom();
+        }
+        else if(other.CompareTag("Ladder"))
+        {
+            mog.setAllowY(true);
+        }
         //doorcheck
         else
         {
@@ -215,6 +227,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Ladder"))
+        {
+            mog.setAllowY(true);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            mog.setAllowY(false);
+        }
+    }
     public void TakeDamage(float damageMultiplier)
     {
         if (GameController.godMode || isInvinicible)
