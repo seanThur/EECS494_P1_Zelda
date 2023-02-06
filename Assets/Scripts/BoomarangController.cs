@@ -62,11 +62,6 @@ public class BoomarangController : MonoBehaviour
     {
         if (other.CompareTag("wall"))
         {
-            if(reversing)
-            {
-                Destroy(gameObject);
-                return;
-            }
             reverse();
         }
         if(other.CompareTag("Player") && reversing)

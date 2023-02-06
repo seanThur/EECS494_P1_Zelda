@@ -24,9 +24,17 @@ public class EnemyController : MonoBehaviour
         {
             die();
         }
-        if(transform.localPosition.x < 0 || transform.localPosition.y < 0 || transform.localPosition.x > 15 || transform.localPosition.y > 8)
-        {
-            transform.position = startPoint;
+        if (transform.localPosition.x < 2) {
+            transform.localPosition = new Vector3(2, transform.localPosition.y, 0.0f);
+        }
+        if (transform.localPosition.y < 2) {
+            transform.localPosition = new Vector3(transform.localPosition.x, 2, 0.0f);
+        }
+        if (transform.localPosition.x > 13) {
+            transform.localPosition = new Vector3(13,transform.localPosition.y, 0.0f);
+        }
+        if(transform.localPosition.y > 8) {
+            transform.localPosition = new Vector3(transform.localPosition.x,8,0.0f);
         }
     }
 

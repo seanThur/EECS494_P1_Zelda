@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d7fbc9687cba045a11a2518b97f665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSpeed: 8
+  topSpeed: 7
   acceleration: 2
   heading: {x: 0, y: 0, z: 0}
   lockoutRandom: 0

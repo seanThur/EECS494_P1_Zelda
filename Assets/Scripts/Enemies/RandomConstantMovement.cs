@@ -10,19 +10,51 @@ public class RandomConstantMovement : MoveOnGrid
 
     public bool checkUp()
     {
-        return (!(Physics.Raycast(transform.position, new Vector3(0.0f, 1.0f, 0.0f), 1.0f)));
+        RaycastHit rch;
+        bool result = Physics.Raycast(transform.position, new Vector3(0.0f, 1.0f, 0.0f), out rch, 1.0f);
+        if (!(result))
+            return (true);
+        if (rch.collider.CompareTag("Enemy"))
+        {
+            return (false);
+        }
+        return (!(result));
     }
     public bool checkRight()
     {
-        return (!(Physics.Raycast(transform.position, new Vector3(1.0f, 0.0f, 0.0f), 1.0f)));
+        RaycastHit rch;
+        bool result = Physics.Raycast(transform.position, new Vector3(1.0f, 0.0f, 0.0f), out rch, 1.0f);
+        if(!(result))
+            return (true);
+        if (rch.collider.CompareTag("Enemy"))
+        {
+            return (false);
+        }
+        return (!(result));
     }
     public bool checkDown()
     {
-        return (!(Physics.Raycast(transform.position, new Vector3(0.0f, -1.0f, 0.0f), 1.0f)));
+        RaycastHit rch;
+        bool result = Physics.Raycast(transform.position, new Vector3(0.0f, -1.0f, 0.0f), out rch, 1.0f);
+        if (!(result))
+            return (true);
+        if (rch.collider.CompareTag("Enemy"))
+        {
+            return (false);
+        }
+        return (!(result));
     }
     public bool checkLeft()
     {
-        return (!(Physics.Raycast(transform.position, new Vector3(-1.0f, 0.0f, 0.0f), 1.0f)));
+        RaycastHit rch;
+        bool result = Physics.Raycast(transform.position, new Vector3(-1.0f, 0.0f, 0.0f), out rch, 1.0f);
+        if (!(result))
+            return (true);
+        if (rch.collider.CompareTag("Enemy"))
+        {
+            return (false);
+        }
+        return (!(result));
     }
 
     public bool isLocked()
@@ -159,8 +191,8 @@ public class RandomConstantMovement : MoveOnGrid
     
     private void OnTriggerEnter(Collider other)
     {
-        if ((!(other.isTrigger) && !(other.CompareTag("Enemy")))) {
-            setRandomSideways();
+        if ((!(other.isTrigger) && !(other.CompareTag("ChuckMelter")))) {
+            //setRandomSideways();
         }
         
     }
