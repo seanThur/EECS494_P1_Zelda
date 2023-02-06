@@ -20,6 +20,19 @@ public class SnowballController : MonoBehaviour
         
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject other = collision.gameObject;
+
+        if(other.CompareTag("Water"))
+        {
+            other.GetComponent<BoxCollider>().isTrigger = true;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Enemy"))
@@ -48,5 +61,10 @@ public class SnowballController : MonoBehaviour
             rb = GetComponent<Rigidbody>();
         }
         rb.velocity = v * speed;
+    }
+
+    public void freezeWater(GameObject water)
+    {
+        water.GetComponent<Collider>().isTrigger = true;
     }
 }

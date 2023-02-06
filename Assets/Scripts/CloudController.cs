@@ -32,6 +32,10 @@ public class CloudController : MonoBehaviour
         {
             other.GetComponent<EnemyController>().takeDamage(5);
         }
+        else if(other.CompareTag("BombWall"))
+        {
+            other.GetComponent<Health>().goCommitDie();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -39,6 +43,10 @@ public class CloudController : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyController>().takeDamage(5);
+        }
+        else if (other.CompareTag("BombWall"))
+        {
+            other.GetComponent<Health>().goCommitDie();
         }
     }
 }

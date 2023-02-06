@@ -92,7 +92,10 @@ public class AltWeaponScroller : MonoBehaviour
                 {
                     currentWeapon = sbt;
                 }
-                currentWeapon = blank;
+                else
+                {
+                    currentWeapon = blank;
+                }
                 break;
             case WeaponType.Snowball:
                 currentWeapon = blank;
@@ -147,5 +150,18 @@ public class AltWeaponScroller : MonoBehaviour
             return (false);
         }
         return (sbt.equipped);
+    }
+
+    //give link all weapons (for debug)
+    public void godMode()
+    {
+        boomarang.equipped = true;
+        bow.equipped = true;
+        bombDropper.equipped = true;
+
+        if(customMode)
+        {
+            sbt.equipped = true;
+        }
     }
 }
