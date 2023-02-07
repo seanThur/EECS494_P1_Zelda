@@ -10,7 +10,10 @@ public class ChuckMelter : MonoBehaviour
         
     }
 
-   
+    private void OnDestroy()
+    {
+        PlayerController.playerInstance.gameObject.GetComponent<SnowballThrower>().feelinMelty = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Frozen"))

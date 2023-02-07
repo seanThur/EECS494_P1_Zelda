@@ -3408,3 +3408,45 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Default GameObject Tag: rupee already registered
+Refreshing native plugins compatible for Editor in 5.03 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 25 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 25 unused Assets / (22.0 KB). Loaded Objects now: 4745.
+Memory consumption went from 76.6 MB to 76.6 MB.
+Total: 10.853500 ms (FindLiveObjects: 0.340800 ms CreateObjectMapping: 0.094800 ms MarkObjects: 10.383900 ms  DeleteObjects: 0.033300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 4097.102413 seconds.
+  path: Assets/Prefabs/Enemies/Chuck.prefab
+  artifactKey: Guid(05816842144d525439b72ed724d293a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/Chuck.prefab using Guid(05816842144d525439b72ed724d293a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af821e1b0784a9dae3529d1122126637') in 0.090037 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Prefabs/Enemies/Gel.prefab
+  artifactKey: Guid(6d98b44566e90b74c8ecd95a8484e50c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/Gel.prefab using Guid(6d98b44566e90b74c8ecd95a8484e50c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90a3bd09f084862ca6954a38f6b8596a') in 0.021495 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Prefabs/Enemies/Goriya2.prefab
+  artifactKey: Guid(387d2cdd08ceb5d45b27dd6709cbae08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/Goriya2.prefab using Guid(387d2cdd08ceb5d45b27dd6709cbae08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f5308ae57ea6af0b7fa8888372e6ebe') in 0.026834 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

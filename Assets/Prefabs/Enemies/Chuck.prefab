@@ -247,6 +247,7 @@ MonoBehaviour:
   contactDamage: 1
   an: {fileID: 0}
   diesOnBoomerangHit: 0
+  chonker: 0
 --- !u!114 &91941306146329086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +263,8 @@ MonoBehaviour:
   rb: {fileID: 91941306146329084}
   gridDist: 0.5
   movementSpeed: 2
+  currentInputx: 0
+  currentInputy: 0
   speed: 2
   dir: 0
 --- !u!95 &91941306146329087
@@ -296,7 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3622b587682972a43a5ecef88a145192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearts: 1.5
+  hearts: 1
+  maxHearts: 1
+  iGotThisBud: 0
   dead: 0
 --- !u!114 &91941306146329079
 MonoBehaviour:
