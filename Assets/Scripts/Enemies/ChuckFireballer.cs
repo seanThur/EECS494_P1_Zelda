@@ -8,7 +8,7 @@ public class ChuckFireballer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(spitIn(4.0f));
+        StartCoroutine(spitIn(5.0f));
     }
 
     // Update is called once per frame

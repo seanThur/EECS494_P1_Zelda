@@ -5,7 +5,7 @@ using UnityEngine;
 public class SnowballThrower : Weapon
 {
     public GameObject snowball;
-    bool feelinMelty = false;
+    public bool feelinMelty = false;
     // Start is called before the first frame update
     private void Start()
     {
@@ -14,7 +14,9 @@ public class SnowballThrower : Weapon
     new public void Use(int dir)
     {
         if (feelinMelty)
+        {
             return;
+        }
         GameObject temp = Instantiate(snowball, transform.position, Quaternion.identity);
         SnowballController bc = temp.GetComponent<SnowballController>();
         switch (dir)
@@ -40,9 +42,22 @@ public class SnowballThrower : Weapon
         {
             feelinMelty = true;
         }
-        else
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("ChuckMelter"))
+        {
+            feelinMelty = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ChuckMelter"))
         {
             feelinMelty = false;
         }
     }
 }
+

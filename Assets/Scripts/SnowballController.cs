@@ -10,6 +10,11 @@ public class SnowballController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(PlayerController.playerInstance.GetComponent<SnowballThrower>().feelinMelty)
+        {
+            Destroy(gameObject);
+            return;
+        }
         rb = GetComponent<Rigidbody>();
         
     }
