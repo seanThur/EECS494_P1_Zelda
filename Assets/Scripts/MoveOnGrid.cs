@@ -25,6 +25,9 @@ public class MoveOnGrid : MonoBehaviour
     public float currentInputx;
     public float currentInputy;
 
+    private bool brakeomaticOn = false;
+    private int brakeomaticDir = 0;
+
     static public bool isDoor(string tag)
     {
         if(tag == "eastDoor" || tag == "westDoor" || tag == "northDoor" || tag == "southDoor" || tag == "LeastDoor" || tag == "LwestDoor" || tag == "LnorthDoor" || tag == "LsouthDoor")
@@ -33,6 +36,8 @@ public class MoveOnGrid : MonoBehaviour
         }
         return (false);
     }
+
+    
     public bool checkOnGridX()
     {
         float gridMul = (1 / gridDist);
@@ -190,7 +195,7 @@ public class MoveOnGrid : MonoBehaviour
     {
         float save = movementSpeed;
         yield return (new WaitForSeconds(aBit));
-
+        brakeomaticOn = false;
         stop();
         movementSpeed = save;
         if (GetComponent<GelMovement>())
@@ -252,7 +257,9 @@ public class MoveOnGrid : MonoBehaviour
     //mog.moveDir(vecToDir(direction),movementSpeed*5.0f,0.2f);
     public void moveDir(int dir, float speed, float time)
     {
-        switch(dir)
+        brakeomaticOn = true;
+        brakeomaticDir = dir;
+        switch (dir)
         {
             case 1: moveUp(speed, time); break;
             case 2: moveRight(speed, time); break;
@@ -296,6 +303,34 @@ public class MoveOnGrid : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(brakeomaticOn)
+        {
+            bool hit = false;
+            RaycastHit rch;
+            switch(brakeomaticDir)
+            {
+                case 1: hit = Physics.Raycast(transform.position,Vector3.up,out rch,0.55f); break;
+                case 2: hit = Physics.Raycast(transform.position,Vector3.right,out rch,0.55f); break;
+                case 3: hit = Physics.Raycast(transform.position,Vector3.down,out rch,0.55f); break;
+                default: hit = Physics.Raycast(transform.position,Vector3.left,out rch,0.55f); break;
+            }
+            if(hit)
+            {
+                if(rch.collider.CompareTag("wall") || isDoor(rch.collider.tag))
+                {
+                    Debug.Log("BRAKE O MATIC FIRED!");
+                    stop();
+                    float temp = gridDist;
+                    gridDist = 1;
+                    snap();
+                    gridDist = temp;
+                    brakeomaticOn = false;
+                }
+            }
+        }
+
+
+
         int xRemGrid = 0;
         int yRemGrid = 0;
         //set gridMovement values

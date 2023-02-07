@@ -49,7 +49,7 @@ public class SnowballController : MonoBehaviour
             other.GetComponent<EnemyController>().freeze();
             Destroy(gameObject);
         }
-        else if(other.CompareTag("wall"))
+        else if(other.CompareTag("wall") || MoveOnGrid.isDoor(other.tag))
         {
             Destroy(gameObject);
         }

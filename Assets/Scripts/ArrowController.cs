@@ -54,7 +54,7 @@ public class ArrowController : MonoBehaviour
             }
             Explosion();
         }
-        if(other.gameObject.CompareTag("wall"))
+        if(other.gameObject.CompareTag("wall") || MoveOnGrid.isDoor(other.tag))
         {
             Destroy(gameObject);
         }

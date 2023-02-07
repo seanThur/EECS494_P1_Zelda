@@ -60,7 +60,7 @@ public class BoomarangController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("wall"))
+        if (other.CompareTag("wall") || MoveOnGrid.isDoor(other.tag))
         {
             if(reversing)
             {

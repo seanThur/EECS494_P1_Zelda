@@ -168,17 +168,23 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<Bow>().equipped = true;
             Destroy(other);
+            GetComponent<AltWeaponScroller>().currentWeapon = GetComponent<Bow>();
+            Displayer.instance.displayAltWeapon();
         }
         else if (other.CompareTag("Boomerang"))
         {
             GetComponent<Boomarang>().equipped = true;
             //Debug.Log("post Acquired boomerang");
             Destroy(other);
+            GetComponent<AltWeaponScroller>().currentWeapon = GetComponent<Boomarang>();
+            Displayer.instance.displayAltWeapon();
         }
         else if (other.CompareTag("Snowball"))
         {
             GetComponent<SnowballThrower>().equipped = true;
             Destroy(other);
+            GetComponent<AltWeaponScroller>().currentWeapon = GetComponent<SnowballThrower>();
+            Displayer.instance.displayAltWeapon();
         }
         else if(other.CompareTag("Ladder"))
         {
