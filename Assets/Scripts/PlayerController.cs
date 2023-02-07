@@ -180,14 +180,6 @@ public class PlayerController : MonoBehaviour
             GetComponent<SnowballThrower>().equipped = true;
             Destroy(other);
         }
-        else if(other.CompareTag("BowRoom"))
-        {
-            GameController.gameInstance.loadBowRoom();
-        }
-        else if (other.CompareTag("ExitBowRoom"))
-        {
-            GameController.gameInstance.exitBowRoom();
-        }
         else if(other.CompareTag("Ladder"))
         {
             mog.setAllowY(true);
@@ -239,7 +231,7 @@ public class PlayerController : MonoBehaviour
             mog.setAllowY(true);
         }
 
-        if (other.CompareTag("Enemy"))
+        else if (other.CompareTag("Enemy"))
         {
             Debug.Log("HIT");
             AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
@@ -261,6 +253,14 @@ public class PlayerController : MonoBehaviour
                 jolt(transform.position - other.ClosestPoint(transform.position));
 
             }
+        }
+        else if (other.CompareTag("BowRoom"))
+        {
+            GameController.gameInstance.enterBowRoom();
+        }
+        else if (other.CompareTag("ExitBowRoom"))
+        {
+            GameController.gameInstance.exitBowRoom();
         }
     }
 

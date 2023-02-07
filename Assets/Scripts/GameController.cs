@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     private float yPlayerDist = 2f;
 
     public bool pushRoomLocked = false;
+    public bool bowRoom = false;
 
     //singleton pattern 
     private void Awake()
@@ -62,39 +63,31 @@ public class GameController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-           
-            loadBowRoom();
-            
+            enterBowRoom();
         }
 
-        //for bow room exit
-        if(PlayerController.playerInstance.transform.position == new Vector3(23, 60, 0))
-        {
-            Debug.Log("moving camera"); 
-            Vector3 dest = new Vector3(23.5f, 62, -20);
-            StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, dest, .001f));
-        }
 
         
     }
   
     
-    public void loadBowRoom()
+    public void enterBowRoom()
     {
-        SceneManager.LoadScene("BowRoom", LoadSceneMode.Additive);
         PlayerController.playerInstance.transform.position = new Vector3(4.5f, 8, 0);
-        //DontDestroyOnLoad(GameObject.Find("Player"));
-        Debug.Log("Loading bow room");
+        Vector3 cameraDest = new Vector3(7.5f, 7, -20);
+        StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, .001f));
+        Debug.Log("entered bow room");
+        bowRoom = true;
     }
 
     public void exitBowRoom()
     {
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
-        DontDestroyOnLoad(GameObject.Find("Player"));
-
         PlayerController.playerInstance.transform.position = new Vector3(23, 60, 0);
+        Vector3 cameraDest = new Vector3(23.5f, 62, -20);
+        StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, .001f));
         Debug.Log("Exiting bow room");
-
+        //PlayerController.playerInstance.mog.setAllowY(true);
+        bowRoom = false;
     }
 
     public void unlockDoor(GameObject door)
@@ -201,7 +194,7 @@ public class GameController : MonoBehaviour
         int layerMask = 1 << layer;
         layerMask = ~layerMask;
         
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.6f);
         
 
         //raycast upwards isnt working
