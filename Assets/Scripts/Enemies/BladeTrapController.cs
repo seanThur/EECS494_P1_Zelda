@@ -65,8 +65,14 @@ public class BladeTrapController : EnemyProjectile
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.isTrigger || other.CompareTag("Water"))
-            return;
+        if(!(other.GetComponent<BladeTrapController>()))
+        {
+            if (other.isTrigger || other.CompareTag("Water"))
+            {
+                return;
+            }
+        }
+        
        // Debug.Log("HIT");
         if (!(reversing))
         {

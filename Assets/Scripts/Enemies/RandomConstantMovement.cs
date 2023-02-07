@@ -6,6 +6,7 @@ public class RandomConstantMovement : MoveOnGrid
 {
     public float speed = 5.0f;
     public int dir;
+    private bool defibrilator = false;
     // Start is called before the first frame update
     public bool checkLogic(bool result, RaycastHit rch)
     {
@@ -13,7 +14,11 @@ public class RandomConstantMovement : MoveOnGrid
         {
             return (true);
         }
-        if (rch.collider.CompareTag("Enemy") || rch.collider.CompareTag("Player"))
+        if(rch.collider.CompareTag("Water"))
+        {
+            return (false);
+        }
+        if (rch.collider.isTrigger)
         {
             return (true);
         }
@@ -105,6 +110,15 @@ public class RandomConstantMovement : MoveOnGrid
     // Update is called once per frame
     void Update()
     {
+        if(defibrilator && GetComponent<BoxCollider>().isTrigger)
+        {
+            goInDirection();
+            defibrilator = false;
+        }
+        if(GetComponent<BoxCollider>().isTrigger == false)
+        {
+            defibrilator = true;
+        }
         if (checkOnGridBoth())
         {
             if (!(lookBeforeLeap()))

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 830189743014004198}
   - component: {fileID: 830189743014004197}
   - component: {fileID: 830189743014004196}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RedFireBall
   m_TagString: enemyProg
   m_Icon: {fileID: 0}

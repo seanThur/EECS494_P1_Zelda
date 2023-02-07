@@ -207,7 +207,10 @@ public class MoveOnGrid : MonoBehaviour
         yield return (new WaitForSeconds(x));
 
         GetComponent<BoxCollider>().isTrigger = true;
+        float temp = gridDist;
+        gridDist = 1;
         snap();
+        gridDist = temp;
     }
 
     public void enemyJolt(Vector3 heading)

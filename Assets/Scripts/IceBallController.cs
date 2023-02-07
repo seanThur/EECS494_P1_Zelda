@@ -33,7 +33,7 @@ public class IceBallController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!(other.isTrigger) || other.gameObject.GetComponent<ChuckMelter>())
+        if(!(other.isTrigger) && other.CompareTag("Water") == false)// || other.gameObject.GetComponent<ChuckMelter>())
         {
             shatter();
         }

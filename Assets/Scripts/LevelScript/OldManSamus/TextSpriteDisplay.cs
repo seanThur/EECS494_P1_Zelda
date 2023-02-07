@@ -33,14 +33,14 @@ public class TextSpriteDisplay : MonoBehaviour
 
     public IEnumerator initSetup()
     {
-        yield return (new WaitForSeconds(1.0f));
+        yield return (new WaitForSeconds(1.5f));
 
         next++;
     }
 
     IEnumerator setUpNext()
     {
-        yield return (new WaitForSeconds(0.333f));
+        yield return (new WaitForSeconds(0.20f));
 
         next++;
     }

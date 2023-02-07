@@ -8,6 +8,7 @@ public class GoriyaMovement : RandomConstantMovement
     bool stopped;
     public GameObject boomerang;
     private int wasDir;
+    public bool disrupted = false;
     private void Start()
     {
         an = GetComponent<Animator>();
@@ -29,6 +30,10 @@ public class GoriyaMovement : RandomConstantMovement
                     maybeGoSidewaysWellSee();
                 }
             }
+        }
+        else if(GetComponent<BoxCollider>().isTrigger == false)
+        {
+            disrupted = true;
         }
         if (dir != wasDir  && GetComponent<BoxCollider>().enabled)
         {
@@ -62,6 +67,7 @@ public class GoriyaMovement : RandomConstantMovement
     IEnumerator boomerangIn(float x)
     {
         yield return (new WaitForSeconds(x));
+        disrupted = false;
         throwBoomerang();
     }
 }

@@ -26,7 +26,7 @@ public class GoriyaBoomerangController : EnemyProjectile
     // Update is called once per frame
     void Update()
     {
-        if(!(mySpecialLittleGuy))
+        if(!(mySpecialLittleGuy) || mySpecialLittleGuy.disrupted)
         {
             Destroy(gameObject);
         }
