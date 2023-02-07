@@ -4,27 +4,41 @@ using UnityEngine;
 
 public class HintRoomUnlock : MonoBehaviour
 {
-    public GameObject wDoor;
+    //ik this is not good practice but it should get the job done
+    public static HintRoomUnlock instance;
+    
     public GameObject lWDoor;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject gel1;
+    public GameObject gel2;
+    public GameObject gel3;
+    private bool unlocked = false;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
+        if(instance == null)
         {
-            lWDoor.SetActive(false);
-            wDoor.SetActive(true);
+            instance = this;
         }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    private void Update()
+    {
+        if(!unlocked && !gel1 && !gel2 && !gel3)
+        {
+            gameObject.tag = "movable";
+        }
+    }
+    public void unlock()
+    {
+        lWDoor.transform.Find("Unlocked").gameObject.SetActive(true);
+        lWDoor.transform.Find("Locked").gameObject.SetActive(false);
+        gameObject.tag = "NonWallSolid";
+
+        unlocked = true;
     }
 }

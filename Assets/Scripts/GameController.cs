@@ -60,12 +60,12 @@ public class GameController : MonoBehaviour
                 PlayerController.playerInstance.transform.position = startPos;
             }
         }
-        //if (Input.GetKeyDown(KeyCode.Alpha8))
-        //{
-        //   
-        //    loadBowRoom();
-        //    
-        //}
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+           
+            loadBowRoom();
+            
+        }
 
         //for bow room exit
         if(PlayerController.playerInstance.transform.position == new Vector3(23, 60, 0))
@@ -190,33 +190,6 @@ public class GameController : MonoBehaviour
         isTransition = false;
     }
 
-    /*public static IEnumerator MoveObjectVelocity(int dir, Transform target, float velocity, float duration_sec)
-    {
-        isTransition = true;
-
-        float initial_time = Time.time;
-        // The "progress" variable will go from 0.0f -> 1.0f over the course of "duration_sec" seconds.
-        float progress = (Time.time - initial_time) / duration_sec;
-
-        while (progress < 1.0f)
-        {
-            // Recalculate the progress variable every frame. Use it to determine
-            // new position on line from "initial_pos" to "dest_pos"
-            progress = (Time.time - initial_time) / duration_sec;
-
-            Vector3 new_position = Vector3.Lerp(initial_pos, dest_pos, progress);
-            target.position = new_position;
-
-            // yield until the end of the frame, allowing other code / coroutines to run
-            // and allowing time to pass.
-            yield return null;
-        }
-
-        target.position = dest_pos;
-
-        isTransition = false;
-    }*/
-
     public IEnumerator StartMoveBlock(Collider block, Vector2 dir)
     {
         
@@ -239,6 +212,7 @@ public class GameController : MonoBehaviour
             PlayerController.acceptInput = false;
             block.transform.tag = "NonWallSolid";
             yield return StartCoroutine(MoveBlock(block.transform, dir));
+            HintRoomUnlock.instance.unlock();
             
             //PlayerController.acceptInput = true;
         }
@@ -269,9 +243,10 @@ public class GameController : MonoBehaviour
                 PlayerController.acceptInput = false;
                 c.transform.tag = "NonWallSolid";
                 yield return StartCoroutine(MoveBlock(block.transform, dir));
+                HintRoomUnlock.instance.unlock();
                 //moving = false;
                 //PlayerController.acceptInput = true;
-                
+
             }
         }
         else
