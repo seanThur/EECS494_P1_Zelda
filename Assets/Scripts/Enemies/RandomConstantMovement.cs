@@ -164,6 +164,11 @@ public class RandomConstantMovement : MoveOnGrid
 
     public void setRandomDirection()
     {
+        if(isLocked())
+        {
+            dir = 0;
+            return;
+        }
         dir = Random.Range(0, 4);
         if (!(checkDir(dir)))
         {
