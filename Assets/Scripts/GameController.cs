@@ -128,9 +128,17 @@ public class GameController : MonoBehaviour
                 break;
         }
 
-       // Debug.Log("starting transition " + dir + " " + " " + playerDest);
-        StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
-        StartCoroutine(MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, 2.5f));
+        // Debug.Log("starting transition " + dir + " " + " " + playerDest);
+        StartCoroutine(Transition(cameraDest, playerDest));
+        //StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
+        //StartCoroutine(MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, 2.5f));
+    }
+
+    public IEnumerator Transition(Vector3 cameraDest, Vector3 playerDest)
+    {
+        yield return MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2);
+        yield return MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, .5f);
+        yield return null;
     }
 
     public void gameOver()
