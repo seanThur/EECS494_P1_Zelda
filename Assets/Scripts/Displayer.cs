@@ -18,6 +18,11 @@ public class Displayer : MonoBehaviour
     public Image hearts1;
     public Image hearts05;
 
+    public bool hasBonus;
+    public Image bonusEmpty;
+    public Image bonusHalf;
+    public Image bonusFull;
+
     public Image altWeaponImage;
     public Image bow;
     public Image boomerang;

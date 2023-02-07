@@ -18,6 +18,10 @@ public class WallMasterSpawn : MonoBehaviour
         coral1 = Instantiate(wms);
         coral2 = Instantiate(wms);
         coral3 = Instantiate(wms);
+        coral1.transform.parent = gameObject.transform.parent;
+        coral2.transform.parent = gameObject.transform.parent;
+        coral3.transform.parent = gameObject.transform.parent;
+        coral4.transform.parent = gameObject.transform.parent;
     }
 
     void despawnEm()
