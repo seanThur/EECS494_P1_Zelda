@@ -27,7 +27,8 @@ public class AltWeaponScroller : MonoBehaviour
         }
         currentWeapon = boomarang;
         Debug.Log("Am I in a custom level? " + customMode);
-        currentWeapon = blank;
+        currentWeapon = bombDropper;
+        Displayer.instance.displayAltWeapon();
     }
 
     public void useItem()
