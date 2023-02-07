@@ -85121,6 +85121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iceSprite: {fileID: 21300000, guid: 430855dd0fae19042a3530166a224056, type: 3}
+  icyShroud: {fileID: 1822828652899157102, guid: f8953f6800910894c8e9cdc6d090c3b7, type: 3}
 --- !u!1 &1882623770 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4180864337984881877, guid: 41a7ad656d7227b41997b749893d1c7f, type: 3}

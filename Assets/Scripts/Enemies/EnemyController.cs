@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public bool diesOnBoomerangHit = false;
     private Vector3 startPoint;
     public bool chonker = false;
+    private GameObject myIceShroud;
 
     // Start is called before the first frame update
     void Start()
@@ -127,8 +128,10 @@ public class EnemyController : MonoBehaviour
         yield return (new WaitForSeconds(0.5f));
 
         GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r+0.05f, 1.0f,1.0f);//Not working
-
-        if(countDown > 0)
+        Color temp = myIceShroud.GetComponent<SpriteRenderer>().color;
+        temp.a -= 0.15f;
+        myIceShroud.GetComponent<SpriteRenderer>().color = temp;
+        if (countDown > 0)
         {
             StartCoroutine(recursiveUnfreeze(countDown - 1));
         }
@@ -145,6 +148,7 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
+        Destroy(myIceShroud);
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f);
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         GetComponent<BoxCollider>().isTrigger = true;
@@ -155,6 +159,9 @@ public class EnemyController : MonoBehaviour
     public void freeze()
     {
         GetComponent<SpriteRenderer>().color = new Color(0.6f, 1.0f, 1.0f);//Not working
+        myIceShroud = Instantiate(CustomDropper.instance.icyShroud);
+        myIceShroud.transform.parent = gameObject.transform;
+        myIceShroud.transform.position = gameObject.transform.position;
         GetComponent<SpriteRenderer>().material.SetColor("_Color", Color.white);
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         GetComponent<BoxCollider>().isTrigger = false;

@@ -7,6 +7,7 @@ public class CustomDropper : MonoBehaviour
 {
     public Sprite iceSprite;
     public static CustomDropper instance;
+    public GameObject icyShroud;
     // Start is called before the first frame update
     void Start()
     {

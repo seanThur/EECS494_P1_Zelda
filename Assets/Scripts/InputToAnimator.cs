@@ -17,6 +17,7 @@ public class InputToAnimator : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        mog = GetComponent<MoveOnGrid>();
     }
 
     public int getDir()
