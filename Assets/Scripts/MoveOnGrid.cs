@@ -342,7 +342,7 @@ public class MoveOnGrid : MonoBehaviour
 
 
         //prevents diagonal movement, implements grid movement
-        if (Mathf.Abs(xInput) > 0.0f || !allowY)
+        if (Mathf.Abs(xInput) > 0.0f || (GameController.gameInstance.bowRoom && !allowY))
         {
             yInput = 0.0f;
         }
