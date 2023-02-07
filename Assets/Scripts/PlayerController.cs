@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("isJolted: " + isJolted);
         if (Input.GetKeyDown(KeyCode.X))
         {
             swordAttack();
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider coll)
     {
-        //Debug.Log("Entered: " + coll.name);
+        Debug.Log("TriggerEnter: " + coll.name);
         GameObject other = coll.gameObject;
 
         if (other == null)

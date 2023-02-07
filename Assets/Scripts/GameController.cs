@@ -61,10 +61,10 @@ public class GameController : MonoBehaviour
                 PlayerController.playerInstance.transform.position = startPos;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            enterBowRoom();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha8))
+        //{
+        //    enterBowRoom();
+        //}
 
 
         
@@ -128,18 +128,20 @@ public class GameController : MonoBehaviour
                 break;
         }
 
-        // Debug.Log("starting transition " + dir + " " + " " + playerDest);
-        StartCoroutine(Transition(cameraDest, playerDest));
-        //StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
-        //StartCoroutine(MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, 2.5f));
+        Debug.Log(PlayerController.playerInstance.transform.position + " " + playerDest);
+        //StartCoroutine(Transition(cameraDest, playerDest));
+
+        StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2.5f));
+        StartCoroutine(MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, 2.5f));
     }
 
-    public IEnumerator Transition(Vector3 cameraDest, Vector3 playerDest)
-    {
-        yield return MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2);
-        yield return MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position, playerDest, .5f);
-        yield return null;
-    }
+    //public IEnumerator Transition(Vector3 cameraDest, Vector3 playerDest)
+    //{
+    //    yield return StartCoroutine(MoveObjectOverTime(Camera.main.transform, Camera.main.transform.position, cameraDest, 2));
+    //    yield return StartCoroutine(MoveObjectOverTime(PlayerController.playerInstance.transform, PlayerController.playerInstance.transform.position,
+    //        playerDest, .5f));
+    //    yield return null;
+    //}
 
     public void gameOver()
     {
