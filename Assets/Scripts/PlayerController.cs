@@ -104,11 +104,11 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("HIT");
-            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
-            EnemyController ec = other.GetComponent<EnemyController>();
             if (!(isInvinicible))
             {
+                Debug.Log("HIT");
+                AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
+                EnemyController ec = other.GetComponent<EnemyController>();
                 health.takeDamage(ec.contactDamage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
                 
@@ -116,10 +116,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag.Equals("enemyProg"))
         {
-            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
-            EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
             if (!(isInvinicible))
             {
+                AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
+                EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
                 TakeDamage(ep.damage);
                 jolt(transform.position - coll.ClosestPoint(transform.position));
                 
@@ -241,11 +241,12 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("HIT");
-            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
-            EnemyController ec = other.GetComponent<EnemyController>();
+            
             if (!(isInvinicible))
             {
+                Debug.Log("HIT");
+                AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
+                EnemyController ec = other.GetComponent<EnemyController>();
                 health.takeDamage(ec.contactDamage);
                 jolt(transform.position - other.ClosestPoint(transform.position));
 
@@ -253,10 +254,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag.Equals("enemyProg"))
         {
-            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
-            EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
+            
             if (!(isInvinicible))
             {
+                AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
+                EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
                 TakeDamage(ep.damage);
                 jolt(transform.position - other.ClosestPoint(transform.position));
 

@@ -144,7 +144,7 @@ public class DumbStalfos : MoveOnGrid
     {
         if(dir == 0)
         {
-            if (checkUp())
+            if (!(checkUp()))
             {
                 dir = 2;
                 goInDirection();
@@ -152,7 +152,7 @@ public class DumbStalfos : MoveOnGrid
         }
         else
         {
-            if(checkDown())
+            if(!(checkDown()))
             {
                 dir = 0;
                 goInDirection();
