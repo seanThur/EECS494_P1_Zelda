@@ -122,9 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd603738ca5307840bd411a4590aaf42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contactDamage: 0
+  contactDamage: 0.5
   an: {fileID: 0}
   diesOnBoomerangHit: 1
+  chonker: 0
 --- !u!54 &2072199594402651240
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,8 +153,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 0.19999999}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0025084, y: 0.88629466, z: 0.19999999}
+  m_Center: {x: -0.004841796, y: -0.014527203, z: 0}
 --- !u!114 &2072199594402651242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hearts: 0.5
+  maxHearts: 3
+  iGotThisBud: 0
   dead: 0
 --- !u!114 &2072199594402651243
 MonoBehaviour:
@@ -183,5 +186,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   gridDist: 0.5
   movementSpeed: 5
+  currentInputx: 0
+  currentInputy: 0
   speed: 5
   dir: 0

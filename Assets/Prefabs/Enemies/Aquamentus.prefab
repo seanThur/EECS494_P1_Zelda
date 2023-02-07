@@ -122,9 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd603738ca5307840bd411a4590aaf42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contactDamage: 0
+  contactDamage: 0.5
   an: {fileID: 8337284285934518816}
   diesOnBoomerangHit: 0
+  chonker: 0
 --- !u!114 &8337284285934518821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +141,8 @@ MonoBehaviour:
   rb: {fileID: 8337284285934518822}
   gridDist: 0.5
   movementSpeed: 0.5
+  currentInputx: 0
+  currentInputy: 0
   fireball: {fileID: 830189743014004195, guid: 53d7ed8ee7c88f04984d4252148a2f0c, type: 3}
 --- !u!54 &8337284285934518822
 Rigidbody:
@@ -183,4 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hearts: 5
+  maxHearts: 3
+  iGotThisBud: 0
   dead: 0

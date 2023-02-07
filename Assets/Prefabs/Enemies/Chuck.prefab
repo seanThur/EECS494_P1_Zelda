@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd603738ca5307840bd411a4590aaf42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contactDamage: 1
+  contactDamage: 0.5
   an: {fileID: 0}
   diesOnBoomerangHit: 0
   chonker: 0
