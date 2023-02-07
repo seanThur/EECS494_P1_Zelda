@@ -30,7 +30,7 @@ public class GoriyaMovement : RandomConstantMovement
                 }
             }
         }
-        if (dir != wasDir)
+        if (dir != wasDir  && GetComponent<BoxCollider>().enabled)
         {
             wasDir = dir;
             an.SetInteger("Dir", dir);

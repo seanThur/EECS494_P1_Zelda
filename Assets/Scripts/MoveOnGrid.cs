@@ -214,6 +214,7 @@ public class MoveOnGrid : MonoBehaviour
     {
         GetComponent<BoxCollider>().isTrigger = false;
         heading = heading.normalized;
+        snap();
         if(Mathf.Abs(heading.x) < Mathf.Abs(heading.y))
         {
             if(heading.y > 0)

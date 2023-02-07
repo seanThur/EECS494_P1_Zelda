@@ -26,6 +26,10 @@ public class GoriyaBoomerangController : EnemyProjectile
     // Update is called once per frame
     void Update()
     {
+        if(!(mySpecialLittleGuy))
+        {
+            Destroy(gameObject);
+        }
         rb.AddForce(rb.velocity * -1.0f * Time.deltaTime);
     }
 
@@ -57,7 +61,7 @@ public class GoriyaBoomerangController : EnemyProjectile
         }
         else
         {
-            if(!(other.isTrigger) || MoveOnGrid.isDoor(other.tag))
+            if((!(other.isTrigger) && !(other.CompareTag("Water"))) || MoveOnGrid.isDoor(other.tag))
             {
                 reverse();
             }

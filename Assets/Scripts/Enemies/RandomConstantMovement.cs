@@ -7,77 +7,41 @@ public class RandomConstantMovement : MoveOnGrid
     public float speed = 5.0f;
     public int dir;
     // Start is called before the first frame update
-
+    public bool checkLogic(bool result, RaycastHit rch)
+    {
+        if (!(result))
+        {
+            return (true);
+        }
+        if (rch.collider.CompareTag("Enemy") || rch.collider.CompareTag("Player"))
+        {
+            return (true);
+        }
+        return (!(result));
+    }
     public bool checkUp()
     {
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(0.0f, 1.0f, 0.0f), out rch, 1.0f);
-        if (!(result))
-        {
-            Debug.Log("Check Up, found nothing");
-            return (true);
-        }
-        Debug.Log("Check Up, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
-        if (rch.collider.CompareTag("Enemy"))
-        {
-            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
-            return (false);
-        }
-        return (!(result));
+        return (checkLogic(result, rch));
     }
     public bool checkRight()
     {
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(1.0f, 0.0f, 0.0f), out rch, 1.0f);
-        if (!(result))
-        {
-            Debug.Log("Check Right, found nothing");
-            return (true);
-        }
-        Debug.Log("Check Right, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
-        if (rch.collider.CompareTag("Enemy"))
-        {
-            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
-
-            return (false);
-        }
-        return (!(result));
+        return (checkLogic(result, rch));
     }
     public bool checkDown()
     {
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(0.0f, -1.0f, 0.0f), out rch, 1.0f);
-        if (!(result))
-        {
-            Debug.Log("Check Down, found nothing");
-            return (true);
-        }
-        Debug.Log("Check Down, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
-        if (rch.collider.CompareTag("Enemy"))
-        {
-            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
-
-            return (false);
-        }
-        return (!(result));
+        return (checkLogic(result, rch));
     }
     public bool checkLeft()
     {
         RaycastHit rch;
         bool result = Physics.Raycast(transform.position, new Vector3(-1.0f, 0.0f, 0.0f), out rch, 1.0f);
-        if (!(result))
-        {
-            Debug.Log("Check Left, found nothing");
-            return (true);
-        }
-        Debug.Log("Check Left, found: " + rch.collider.gameObject.name + "  (I am " + gameObject.name + ")");
-        if (rch.collider.CompareTag("Enemy"))
-        {
-            Debug.Log("Enemy Exception. I am: " + gameObject.name + ", who saw a: " + rch.collider.gameObject.name);
-
-            return (false);
-        }
-        return (!(result));
+        return (checkLogic(result, rch));
     }
 
     public bool isLocked()
