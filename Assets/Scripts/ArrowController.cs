@@ -48,6 +48,10 @@ public class ArrowController : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.GetComponent<EnemyController>().takeDamage(damage);
+            if (other.gameObject.GetComponent<MoveOnGrid>())
+            {
+                other.gameObject.GetComponent<MoveOnGrid>().enemyJolt(rb.velocity);
+            }
             Explosion();
         }
         if(other.gameObject.CompareTag("wall"))

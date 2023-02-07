@@ -89,6 +89,8 @@ public class KeeseMovement : MonoBehaviour
     }
     void Update()
     {
+        if (!(GetComponent<BoxCollider>().enabled))
+            return;
         if (!(noThinking))
         {
             if (paused)

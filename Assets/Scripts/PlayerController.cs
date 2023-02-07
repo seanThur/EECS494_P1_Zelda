@@ -238,6 +238,30 @@ public class PlayerController : MonoBehaviour
         {
             mog.setAllowY(true);
         }
+
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("HIT");
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
+            EnemyController ec = other.GetComponent<EnemyController>();
+            if (!(isInvinicible))
+            {
+                health.takeDamage(ec.contactDamage);
+                jolt(transform.position - other.ClosestPoint(transform.position));
+
+            }
+        }
+        else if (other.tag.Equals("enemyProg"))
+        {
+            AudioController.audioInstance.playEffect(AudioController.audioInstance.enemyHit);
+            EnemyProjectile ep = other.GetComponent<EnemyProjectile>();
+            if (!(isInvinicible))
+            {
+                TakeDamage(ep.damage);
+                jolt(transform.position - other.ClosestPoint(transform.position));
+
+            }
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -406,6 +430,9 @@ public class PlayerController : MonoBehaviour
                 if (hitData.collider.gameObject.GetComponent<EnemyController>())
                 {
                     hitData.collider.gameObject.GetComponent<EnemyController>().takeDamage(swordDamage);
+                    if(hitData.collider.gameObject.GetComponent<MoveOnGrid>()) {
+                        hitData.collider.gameObject.GetComponent<MoveOnGrid>().enemyJolt(castDir);
+                    }
                 }
             }
             else if(hitData.collider.gameObject.CompareTag("Frozen"))
