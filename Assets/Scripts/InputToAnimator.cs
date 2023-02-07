@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputToAnimator : MonoBehaviour
 {
     public Animator animator;
+    public MoveOnGrid mog;
     public bool isAttacking = false;
     public bool isHurt = false;
     public int lastDirection = 3;
@@ -55,14 +56,15 @@ public class InputToAnimator : MonoBehaviour
     {
         if (PlayerController.acceptInput)
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            vertical = Input.GetAxisRaw("Vertical");
-            int dir = getDir();
+            //horizontal = Input.GetAxisRaw("Horizontal");
+            //vertical = Input.GetAxisRaw("Vertical");
+            int dir = getDir(mog.currentInputx, mog.currentInputy);
+
             if (dir != 0)
             {
                 lastDirection = dir;
             }
-            //Debug.Log("dir = " + dir);
+
             if (!(isAttacking))
             {
 
@@ -71,9 +73,9 @@ public class InputToAnimator : MonoBehaviour
                     animator.SetInteger("Direction", dir);
                 }
             }
-            //}
 
-            if ((horizontal == 0 && vertical == 0) && !(isAttacking) && !(isHurt) && !(isUsing))
+            //if ((horizontal == 0 && vertical == 0) && !(isAttacking) && !(isHurt) && !(isUsing))
+            if(dir == 0 && !isAttacking && !isHurt && !isUsing)
             {
                 animator.speed = 0.0f;
             }

@@ -22,6 +22,9 @@ public class MoveOnGrid : MonoBehaviour
 
     private bool allowY = true;
 
+    public float currentInputx;
+    public float currentInputy;
+
     static public bool isDoor(string tag)
     {
         if(tag == "eastDoor" || tag == "westDoor" || tag == "northDoor" || tag == "southDoor" || tag == "LeastDoor" || tag == "LwestDoor" || tag == "LnorthDoor" || tag == "LsouthDoor")
@@ -333,7 +336,8 @@ public class MoveOnGrid : MonoBehaviour
 
         //calls grid movement, checks movement
         Vector2 currentInput = GetInput();
-        
+        currentInputx = currentInput.x;
+        currentInputy = currentInput.y;
         rb.velocity = currentInput * movementSpeed;
 
 
