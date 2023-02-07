@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WallMasterController : MonoBehaviour//MoveOnGrid
 {
-    Vector3 forewardTarget;
-    Vector3 mainTarget;
-    Vector3 graveTarget;
-    int state;
+    public Vector3 forewardTarget;
+    public Vector3 mainTarget;
+    public Vector3 graveTarget;
+    public int state;
     public float movementSpeed = 1.0f;
 /*
     static bool initialized;
@@ -16,16 +16,19 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
     static int goGuy;
 */
     static bool planMade;
-    int playerDir = 0;
+    public bool showPlanMode;
+
+    public int playerDir = 0;
     public Rigidbody rb;
     public SpriteRenderer sr;
     public BoxCollider bc;
 
-    bool carryingPlayer;
+    public bool carryingPlayer;
 
     // Start is called before the first frame update
     private void Start()
     {
+        planMade = false;
         carryingPlayer = false;
         state = 0;
         rb = GetComponent<Rigidbody>();
@@ -71,7 +74,8 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
 
     private void Update()
     {
-        if(!(planMade))
+        showPlanMode = planMade;
+        if(!(planMade) && state == 0)
         {
             checkPlayerIsNextToWall();
         }
@@ -132,7 +136,10 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
             spitOut();
         }
     }
-
+    Vector3 roundOff(Vector3 v)
+    {
+        return (new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z)));
+    }
     public void beTheGoGuy()
     {
         if (state != 0)
@@ -145,33 +152,46 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
                 mainTarget = PlayerController.playerInstance.transform.position;
                 forewardTarget = mainTarget + (Vector3.right * 3);
                 graveTarget = mainTarget + (Vector3.up * 2);
+                mainTarget = roundOff(mainTarget);
+                forewardTarget = roundOff(forewardTarget);
+                graveTarget = roundOff(graveTarget);
                 transform.position = forewardTarget + (Vector3.up * 2);
                 break;
             case 2://wall is to the right of the player
                 mainTarget = PlayerController.playerInstance.transform.position;
                 forewardTarget = mainTarget + (Vector3.down * 3);
                 graveTarget = mainTarget + (Vector3.right * 2);
+                mainTarget = roundOff(mainTarget);
+                forewardTarget = roundOff(forewardTarget);
+                graveTarget = roundOff(graveTarget);
                 transform.position = forewardTarget + (Vector3.right * 2);
                 break;
             case 3://wall is below player
                 mainTarget = PlayerController.playerInstance.transform.position;
                 forewardTarget = mainTarget + (Vector3.left * 3);
                 graveTarget = mainTarget + (Vector3.down * 2);
+                mainTarget = roundOff(mainTarget);
+                forewardTarget = roundOff(forewardTarget);
+                graveTarget = roundOff(graveTarget);
                 transform.position = forewardTarget + (Vector3.down * 2);
                 break;
             case 4://wall is to the left of the player
                 mainTarget = PlayerController.playerInstance.transform.position;
                 forewardTarget = mainTarget + (Vector3.up * 3);
                 graveTarget = mainTarget + (Vector3.left * 2);
+                mainTarget = roundOff(mainTarget);
+                forewardTarget = roundOff(forewardTarget);
+                graveTarget = roundOff(graveTarget);
                 transform.position = forewardTarget + (Vector3.left * 2);
                 break;
         }
+       
         setTarget(forewardTarget);
     }
 
     IEnumerator unmakeOutdatedPlan()
     {
-        yield return (new WaitForSeconds(1.0f));
+        yield return (new WaitForSeconds(2.0f));
 
         planMade = false;
     }

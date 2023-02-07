@@ -36,7 +36,7 @@ public class WallMasterSpawn : MonoBehaviour
     private void Update()
     {
         Vector3 pLoc = PlayerController.playerInstance.transform.position;
-        if(pLoc.x >= 64.5f && pLoc.x <= 79 && pLoc.y >= 33 && pLoc.y <= 43)
+        if(pLoc.x >= 65.7f && pLoc.x <= 79 && pLoc.y >= 33 && pLoc.y <= 43)
         {
             if(!(spawned))
             {
