@@ -62376,7 +62376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
-  equipped: 1
+  equipped: 0
   snowball: {fileID: 6478074129423262591, guid: adf49c7011c976c4a86175497235a084, type: 3}
 --- !u!1001 &1373371719
 PrefabInstance:
@@ -84518,7 +84518,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.9433962, g: 0.14833269, b: 0.14833269, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.48477846, b: 0.5283019, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -84879,6 +84879,7 @@ GameObject:
   - component: {fileID: 1881967097}
   - component: {fileID: 1881967096}
   - component: {fileID: 1881967098}
+  - component: {fileID: 1881967099}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -84930,6 +84931,19 @@ MonoBehaviour:
   heartPickup: {fileID: 857966394430768291, guid: 6d56d77adc281d447864dc0a7c0e3476, type: 3}
   rupeePickup: {fileID: 4914256178186148665, guid: 63dae6b9b4a629a4ea7f7b4ef68a9577, type: 3}
   bombPickup: {fileID: 6064755062772715668, guid: fd46026b1eb2beb4499f2ed7a5c27e58, type: 3}
+--- !u!114 &1881967099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881967095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb879efabe346e44f92e1af9d72c554e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iceSprite: {fileID: 21300000, guid: 430855dd0fae19042a3530166a224056, type: 3}
 --- !u!1 &1882623770 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4180864337984881877, guid: 41a7ad656d7227b41997b749893d1c7f, type: 3}
