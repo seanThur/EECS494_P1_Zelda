@@ -133,6 +133,27 @@ public class Displayer : MonoBehaviour
                 hearts3.enabled = write;
                  break;
          }
+        if(hasBonus)
+        {
+            if(f <= 3.1f)
+            {
+                bonusEmpty.enabled = true;
+                bonusHalf.enabled = false;
+                bonusFull.enabled = false;
+            }
+            else if (f <= 3.6f)
+            {
+                bonusEmpty.enabled = false;
+                bonusHalf.enabled = true;
+                bonusFull.enabled = false;
+            }
+            else
+            {
+                bonusEmpty.enabled = false;
+                bonusHalf.enabled = false;
+                bonusFull.enabled = true;
+            }
+        }
      }
 
      public void displayHearts()

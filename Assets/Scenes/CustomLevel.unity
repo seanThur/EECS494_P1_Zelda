@@ -57923,7 +57923,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262375491}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -57936,8 +57936,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -81419274, guid: e7c5992207ed75146bf22237bf576a27, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 656699016, guid: e7c5992207ed75146bf22237bf576a27, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -62426,6 +62426,10 @@ PrefabInstance:
     - target: {fileID: 2108887001043775147, guid: aa18ec4c89b97f145aab30ad1f4c0be7, type: 3}
       propertyPath: maxHearts
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108887001043775147, guid: aa18ec4c89b97f145aab30ad1f4c0be7, type: 3}
+      propertyPath: iGotThisBud
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2108887001043775198, guid: aa18ec4c89b97f145aab30ad1f4c0be7, type: 3}
       propertyPath: m_Name
@@ -67913,7 +67917,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484773672}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -67926,8 +67930,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -81419274, guid: e7c5992207ed75146bf22237bf576a27, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 1742855853, guid: e7c5992207ed75146bf22237bf576a27, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
