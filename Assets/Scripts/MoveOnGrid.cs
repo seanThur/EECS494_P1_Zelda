@@ -307,6 +307,8 @@ public class MoveOnGrid : MonoBehaviour
         {
             bool hit = false;
             RaycastHit rch;
+            float len = 0.5f + (2 * Time.deltaTime * rb.velocity.magnitude);
+            Debug.Log("Len BOM: " + len);
             switch(brakeomaticDir)
             {
                 case 1: hit = Physics.Raycast(transform.position,Vector3.up,out rch,0.55f); break;
