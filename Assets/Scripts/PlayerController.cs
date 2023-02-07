@@ -432,7 +432,7 @@ public class PlayerController : MonoBehaviour
                 if (hitData.collider.gameObject.GetComponent<EnemyController>())
                 {
                     hitData.collider.gameObject.GetComponent<EnemyController>().takeDamage(swordDamage);
-                    if(hitData.collider.gameObject.GetComponent<MoveOnGrid>()) {
+                    if(hitData.collider.gameObject.GetComponent<MoveOnGrid>() && !(hitData.collider.gameObject.GetComponent<EnemyController>().chonker)) {
                         hitData.collider.gameObject.GetComponent<MoveOnGrid>().enemyJolt(castDir);
                     }
                 }

@@ -215,6 +215,10 @@ public class MoveOnGrid : MonoBehaviour
 
     public void enemyJolt(Vector3 heading)
     {
+        if(GetComponent<EnemyController>().chonker)
+        {
+            return;
+        }
         GetComponent<BoxCollider>().isTrigger = false;
         heading = heading.normalized;
         snap();

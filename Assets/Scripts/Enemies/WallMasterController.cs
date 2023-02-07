@@ -131,6 +131,10 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
 
     private void OnDestroy()
     {
+        if(state != 0)
+        {
+            planMade = false;
+        }
         if(carryingPlayer)
         {
             spitOut();
@@ -138,7 +142,7 @@ public class WallMasterController : MonoBehaviour//MoveOnGrid
     }
     Vector3 roundOff(Vector3 v)
     {
-        return (new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z)));
+        return (new Vector3(Mathf.Round(v.x), Mathf.Round(v.y), Mathf.Round(v.z)));
     }
     public void beTheGoGuy()
     {

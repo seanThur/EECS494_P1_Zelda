@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     private Health health;
     public bool diesOnBoomerangHit = false;
     private Vector3 startPoint;
+    public bool chonker = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,7 +87,10 @@ public class EnemyController : MonoBehaviour
         {
             die();
         }
-        joltFromPlayer();
+        if (!(chonker))
+        {
+            joltFromPlayer();
+        }
     }
 
     void joltFromPlayer()
@@ -98,10 +103,15 @@ public class EnemyController : MonoBehaviour
 
     public void boomerangHit()
     {
+        if(chonker)
+        {
+            return;
+        }
         if (diesOnBoomerangHit)
+        {
             die();
-
-
+        }
+            
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         StartCoroutine(unboomerang());
     }
